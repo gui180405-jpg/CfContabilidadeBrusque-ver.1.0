@@ -1,0 +1,28 @@
+CORREÇÃO FINAL DO PAINEL DE BLOG
+
+O painel /admin foi trocado de Decap CMS para Sveltia CMS.
+
+Por que:
+O Decap estava preso no fluxo OAuth custom na Vercel.
+Sveltia usa o mesmo config.yml, mas permite login por token do GitHub,
+sem depender de /api/auth e /api/callback.
+
+Arquivos principais alterados:
+- public/admin/index.html
+- public/admin/config.yml
+- vercel.json
+
+Como aplicar:
+1. Suba este projeto para o GitHub.
+2. Faça Redeploy na Vercel.
+3. Abra:
+   https://cf-contabilidade-brusque-ver-1-0.vercel.app/admin/?v=sveltia
+
+Como entrar:
+1. Clique em "Sign in with Token" / "Entrar com token".
+2. O painel vai abrir um link do GitHub para gerar o token com permissões necessárias.
+3. Gere o token, copie e cole no painel.
+4. Depois disso o painel fica logado no navegador.
+
+Observação:
+O site público continua igual. Essa troca afeta só o painel /admin.
