@@ -7,9 +7,12 @@ backend:
 
 site_url: https://cf-contabilidade-brusque-ver-1-0.vercel.app
 display_url: https://cf-contabilidade-brusque-ver-1-0.vercel.app
+logo_url: /logo-cf-azul.png
 
 media_folder: public/blog
 public_folder: /blog
+
+locale: pt
 
 collections:
   - name: posts
@@ -17,18 +20,22 @@ collections:
     label_singular: Post
     folder: src/content/posts
     create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     extension: md
     format: frontmatter
-    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     summary: "{{title}} — {{category}}"
+    editor:
+      preview: true
     fields:
       - label: Título
         name: title
         widget: string
+        required: true
 
       - label: Categoria
         name: category
         widget: select
+        required: true
         options:
           - Notícias
           - Impostos
@@ -42,6 +49,7 @@ collections:
       - label: Tipo de conteúdo
         name: type
         widget: select
+        required: true
         options:
           - Artigo
           - Notícia
@@ -53,47 +61,53 @@ collections:
       - label: Data
         name: date
         widget: datetime
-        date_format: YYYY-MM-DD
-        time_format: false
+        required: true
         format: YYYY-MM-DD
+        date_format: DD/MM/YYYY
+        time_format: false
 
       - label: Tempo de leitura
         name: readTime
         widget: string
-        default: 3 min de leitura
+        required: false
+        default: 4 min de leitura
 
       - label: Resumo
         name: excerpt
         widget: text
+        required: true
+        hint: Texto curto que aparece no card do blog.
 
       - label: Imagem
         name: image
         widget: image
         required: false
+        hint: Opcional. Se não enviar imagem, o site usa um card padrão.
 
-      - label: Link externo ou interno
+      - label: Link externo
         name: link
         widget: string
         required: false
         default: "#"
-        hint: "Use # para conteúdo em breve, ou cole uma URL completa para notícia externa."
+        hint: Use # para conteúdo em breve, ou cole uma URL externa.
 
       - label: Post em destaque
         name: featured
         widget: boolean
-        default: false
         required: false
+        default: false
 
       - label: Publicado
         name: published
         widget: boolean
+        required: false
         default: true
 
       - label: Rascunho / Em breve
         name: draft
         widget: boolean
-        default: false
         required: false
+        default: false
 
       - label: Conteúdo completo
         name: body
