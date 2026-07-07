@@ -8,26 +8,23 @@ import ServicesPage from './pages/ServicesPage';
 import DiagnosticPage from './pages/DiagnosticPage';
 import ContactPage from './pages/ContactPage';
 import BlogPage from './pages/BlogPage';
+import BlogPostPage from './pages/BlogPostPage';
 import NotFoundPage from './pages/NotFoundPage';
 
 /*
 ============================================================
 APP PRINCIPAL — VERSÃO SITE INSTITUCIONAL
 ============================================================
-Agora o projeto não é mais uma página única descendo sem parar.
-Ele funciona como um site com páginas reais:
+Rotas internas do site:
+/
+/sobre
+/servicos
+/diagnostico
+/blog
+/blog/:slug
+/contato
 
-/             Página inicial
-/sobre        Sobre a CF
-/servicos     Serviços contábeis
-/diagnostico  Diagnóstico contábil
-/blog         Blog institucional
-/contato      Contato e localização
-
-Importante:
-- Não usamos react-router-dom para evitar dependência extra.
-- Usamos a API nativa do navegador: window.history.pushState.
-- A Vercel já tem rewrite para index.html no vercel.json, então links diretos funcionam.
+Sem react-router-dom, para manter o projeto simples e leve.
 ============================================================
 */
 
@@ -46,14 +43,21 @@ function normalizePath(pathname) {
   return pathname;
 }
 
+function getBlogPostSlug(pathname) {
+  const match = normalizePath(pathname).match(/^\/blog\/([^/]+)$/);
+  return match ? match[1] : null;
+}
+
 export default function App() {
   const [currentPath, setCurrentPath] = useState(() => normalizePath(window.location.pathname));
 
   const navigate = useCallback((to) => {
     const nextPath = normalizePath(to);
+
     if (nextPath !== normalizePath(window.location.pathname)) {
       window.history.pushState({}, '', nextPath);
     }
+
     setCurrentPath(nextPath);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, []);
@@ -63,19 +67,27 @@ export default function App() {
   }, [navigate]);
 
   useEffect(() => {
-    const handlePopState = () => setCurrentPath(normalizePath(window.location.pathname));
+    const handlePopState = () => {
+      setCurrentPath(normalizePath(window.location.pathname));
+    };
+
     window.addEventListener('popstate', handlePopState);
     return () => window.removeEventListener('popstate', handlePopState);
   }, []);
 
-  const Page = routes[currentPath];
+  const blogPostSlug = getBlogPostSlug(currentPath);
+  const Page = blogPostSlug ? BlogPostPage : routes[currentPath];
 
   return (
     <>
       <Header currentPath={currentPath} navigate={navigate} onStartQuiz={goToDiagnostic} />
       <main>
         {Page ? (
-          <Page navigate={navigate} onStartQuiz={goToDiagnostic} />
+          <Page
+            navigate={navigate}
+            onStartQuiz={goToDiagnostic}
+            slug={blogPostSlug}
+          />
         ) : (
           <NotFoundPage navigate={navigate} />
         )}
