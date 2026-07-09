@@ -1,11 +1,15 @@
+import { useCallback, useState } from 'react';
 import { motion } from 'framer-motion';
 import {
   ArrowRight,
+  BellRing,
   CheckCheck,
   MessageCircle,
   Phone,
   ShieldCheck,
   Sparkles,
+  Volume2,
+  VolumeX,
 } from 'lucide-react';
 import PrimaryButton from '../components/common/PrimaryButton';
 import LocationSection from '../components/landing/LocationSection';
@@ -35,13 +39,67 @@ const chatMessages = [
   },
 ];
 
+function playNotificationSound() {
+  try {
+    const AudioContext = window.AudioContext || window.webkitAudioContext;
+
+    if (!AudioContext) return;
+
+    const audioContext = new AudioContext();
+    const now = audioContext.currentTime;
+
+    const oscillator = audioContext.createOscillator();
+    const gain = audioContext.createGain();
+
+    oscillator.type = 'sine';
+    oscillator.frequency.setValueAtTime(880, now);
+    oscillator.frequency.exponentialRampToValueAtTime(660, now + 0.12);
+
+    gain.gain.setValueAtTime(0.0001, now);
+    gain.gain.exponentialRampToValueAtTime(0.045, now + 0.015);
+    gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.16);
+
+    oscillator.connect(gain);
+    gain.connect(audioContext.destination);
+
+    oscillator.start(now);
+    oscillator.stop(now + 0.18);
+
+    setTimeout(() => {
+      audioContext.close?.();
+    }, 320);
+  } catch {
+    // Som é apenas um detalhe visual/interativo. Se o navegador bloquear, o site continua normal.
+  }
+}
+
 function PhoneChatMockup({ whatsappUrl }) {
+  const [soundEnabled, setSoundEnabled] = useState(false);
+  const [animationRun, setAnimationRun] = useState(0);
+
+  const handleSoundToggle = useCallback(() => {
+    const nextValue = !soundEnabled;
+
+    setSoundEnabled(nextValue);
+
+    if (nextValue) {
+      playNotificationSound();
+      setAnimationRun((current) => current + 1);
+    }
+  }, [soundEnabled]);
+
+  const handleMessageComplete = useCallback(() => {
+    if (soundEnabled) {
+      playNotificationSound();
+    }
+  }, [soundEnabled]);
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 90, rotate: -2, scale: 0.94 }}
       animate={{ opacity: 1, y: 0, rotate: 0, scale: 1 }}
       transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
-      className="relative mx-auto w-full max-w-[360px]"
+      className="relative mx-auto w-full max-w-[370px]"
     >
       <div className="absolute -inset-10 rounded-full bg-sky-500/18 blur-3xl" />
       <div className="absolute -right-8 top-12 h-28 w-28 rounded-full bg-emerald-400/18 blur-2xl" />
@@ -55,10 +113,26 @@ function PhoneChatMockup({ whatsappUrl }) {
         <div className="absolute left-1/2 top-0 z-20 h-6 w-28 -translate-x-1/2 rounded-b-2xl bg-slate-950" />
 
         <div className="overflow-hidden rounded-[1.75rem] bg-[#e8f5ec]">
-          <div className="bg-[#075e54] px-4 pb-4 pt-7 text-white">
-            <div className="flex items-center gap-3">
-              <div className="flex h-11 w-11 items-center justify-center rounded-full bg-white/14">
-                <MessageCircle className="h-6 w-6" />
+          <div className="relative bg-[#075e54] px-4 pb-4 pt-7 text-white">
+            <div className="absolute right-4 top-4">
+              <button
+                type="button"
+                onClick={handleSoundToggle}
+                aria-label={soundEnabled ? 'Desativar som das mensagens' : 'Ativar som das mensagens'}
+                className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-white/10 text-emerald-50 backdrop-blur transition hover:bg-white/18"
+              >
+                {soundEnabled ? <Volume2 className="h-4 w-4" /> : <VolumeX className="h-4 w-4" />}
+              </button>
+            </div>
+
+            <div className="flex items-center gap-3 pr-12">
+              <div className="relative flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-lg shadow-black/10">
+                <img
+                  src="/cf-chat-logo.webp"
+                  alt="Logo CF Contabilidade"
+                  className="h-10 w-10 rounded-full object-cover"
+                />
+                <span className="absolute -bottom-0.5 -right-0.5 h-3.5 w-3.5 rounded-full border-2 border-[#075e54] bg-emerald-400" />
               </div>
 
               <div className="min-w-0 flex-1">
@@ -74,8 +148,16 @@ function PhoneChatMockup({ whatsappUrl }) {
             </div>
           </div>
 
-          <div className="relative min-h-[410px] px-4 py-5">
+          <div className="relative min-h-[430px] px-4 py-5">
             <div className="absolute inset-0 opacity-[0.18] cf-subtle-grid" />
+
+            <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+              <img
+                src="/cf-chat-logo.webp"
+                alt=""
+                className="h-44 w-44 rounded-full object-cover opacity-[0.055] grayscale"
+              />
+            </div>
 
             <div className="relative space-y-3">
               {chatMessages.map((message) => {
@@ -83,7 +165,7 @@ function PhoneChatMockup({ whatsappUrl }) {
 
                 return (
                   <motion.div
-                    key={message.text}
+                    key={`${animationRun}-${message.text}`}
                     initial={{
                       opacity: 0,
                       y: 18,
@@ -99,6 +181,7 @@ function PhoneChatMockup({ whatsappUrl }) {
                       duration: 0.42,
                       ease: [0.22, 1, 0.36, 1],
                     }}
+                    onAnimationComplete={handleMessageComplete}
                     className={`flex ${isCf ? 'justify-start' : 'justify-end'}`}
                   >
                     <div
@@ -108,6 +191,17 @@ function PhoneChatMockup({ whatsappUrl }) {
                           : 'rounded-tr-md bg-[#dcf8c6] text-slate-850'
                       }`}
                     >
+                      {isCf && (
+                        <div className="mb-1 flex items-center gap-2 text-[11px] font-extrabold uppercase tracking-[0.12em] text-sky-800">
+                          <img
+                            src="/cf-chat-logo.webp"
+                            alt=""
+                            className="h-4 w-4 rounded-full object-cover"
+                          />
+                          CF
+                        </div>
+                      )}
+
                       {message.text}
 
                       <div className="mt-1 flex items-center justify-end gap-1 text-[10px] text-slate-500">
@@ -162,6 +256,16 @@ function PhoneChatMockup({ whatsappUrl }) {
             </p>
           </div>
         </div>
+      </motion.div>
+
+      <motion.div
+        initial={{ opacity: 0, x: -16, y: -8 }}
+        animate={{ opacity: 1, x: 0, y: 0 }}
+        transition={{ delay: 2.8, duration: 0.45 }}
+        className="absolute -left-4 top-24 hidden rounded-2xl border border-white/70 bg-white/88 px-4 py-3 text-sm font-bold text-slate-700 shadow-xl shadow-slate-900/10 backdrop-blur md:flex md:items-center md:gap-2"
+      >
+        <BellRing className="h-4 w-4 text-emerald-600" />
+        {soundEnabled ? 'Som ativado' : 'Som opcional'}
       </motion.div>
     </motion.div>
   );
