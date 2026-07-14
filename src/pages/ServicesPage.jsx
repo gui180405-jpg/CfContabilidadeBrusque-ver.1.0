@@ -9,8 +9,8 @@ export default function ServicesPage({ onStartQuiz }) {
     <>
       <ServicesPageHero
         eyebrow="Serviços contábeis"
-        title="Serviços contábeis para empresas que precisam de rotina, clareza e segurança."
-        description="Da abertura do CNPJ ao acompanhamento mensal, a CF organiza obrigações fiscais, contábeis, trabalhistas e societárias para que sua empresa tenha mais previsibilidade."
+        title="Serviços contábeis organizados para dar clareza à rotina da sua empresa."
+        description="A CF acompanha as principais áreas da rotina empresarial para que obrigações, documentos, prazos e informações não fiquem espalhados ou tratados apenas na urgência."
         image={site.officeImage}
         onStartQuiz={onStartQuiz}
       />
