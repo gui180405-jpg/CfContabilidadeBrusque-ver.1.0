@@ -1,83 +1,105 @@
 import { motion } from 'framer-motion';
-import { BadgeDollarSign, BriefcaseBusiness, Building2, ShieldCheck } from 'lucide-react';
+import {
+  ArrowRight,
+  BadgeDollarSign,
+  BriefcaseBusiness,
+  Building2,
+  CheckCircle2,
+  FileCheck2,
+  ShieldCheck,
+} from 'lucide-react';
 import PrimaryButton from './PrimaryButton';
 
 /*
 ============================================================
 HERO ESPECÍFICO DA PÁGINA DE SERVIÇOS
 ============================================================
-Objetivo:
-- deixar a página de Serviços mais institucional;
-- usar a foto da recepção como fundo;
-- aplicar camada azul/escura;
-- dar profundidade e aparência profissional.
+Versão clara e institucional:
+- remove o fundo escuro pesado;
+- tira a foto de fundo competindo com o texto;
+- usa imagem em card lateral;
+- mantém sensação profissional, limpa e confiável.
 ============================================================
 */
 
 const highlights = [
+  'Abertura e regularização',
+  'Rotina fiscal e tributária',
+  'Departamento pessoal',
+  'Contabilidade mensal',
+];
+
+const serviceCards = [
   {
     icon: Building2,
-    title: 'Abertura e regularização',
-    text: 'CNPJ, alterações e estruturação inicial com mais segurança.',
+    title: 'Empresas em abertura',
+    text: 'Apoio para começar com estrutura e documentação organizada.',
   },
   {
     icon: BadgeDollarSign,
-    title: 'Fiscal e tributário',
-    text: 'Rotina de impostos, notas, prazos e acompanhamento.',
+    title: 'Impostos e obrigações',
+    text: 'Acompanhamento de prazos, notas, guias e entregas fiscais.',
   },
   {
     icon: BriefcaseBusiness,
-    title: 'Trabalhista',
+    title: 'Rotina trabalhista',
     text: 'Folha, admissões, obrigações e suporte para a operação.',
   },
   {
     icon: ShieldCheck,
-    title: 'Contábil com previsibilidade',
-    text: 'Mais organização para decisões com clareza e menos improviso.',
+    title: 'Gestão com segurança',
+    text: 'Informações contábeis mais claras para decisões melhores.',
   },
 ];
 
 export default function ServicesPageHero({ eyebrow, title, description, image, onStartQuiz }) {
   return (
-    <section className="relative overflow-hidden bg-slate-950 px-5 pb-20 pt-32 md:px-8 md:pb-24 md:pt-36">
-      <div className="absolute inset-0">
-        <img
-          src={image}
-          alt="Ambiente institucional da CF Contabilidade Brusque"
-          className="h-full w-full object-cover object-center opacity-24 md:opacity-28"
-        />
-        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(2,6,23,0.95)_0%,rgba(2,6,23,0.90)_38%,rgba(7,20,41,0.84)_68%,rgba(8,47,73,0.78)_100%)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_78%_22%,rgba(56,189,248,0.18),transparent_34%)]" />
-        <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-slate-950 to-transparent" />
-        <div className="absolute inset-0 cf-subtle-grid opacity-[0.06]" />
-      </div>
+    <section className="relative overflow-hidden bg-[#dfeaf2] px-5 pb-16 pt-32 md:px-8 md:pb-20 md:pt-36">
+      <div className="absolute inset-0 cf-subtle-grid opacity-45" />
+      <div className="absolute -left-28 top-12 h-80 w-80 rounded-full bg-sky-500/14 blur-3xl" />
+      <div className="absolute right-0 top-20 h-96 w-96 rounded-full bg-sky-200/22 blur-3xl" />
+      <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#dfeaf2] to-transparent" />
 
-      <div className="relative z-10 mx-auto max-w-7xl">
+      <div className="relative z-10 mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-[0.98fr_1.02fr]">
         <motion.div
           initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
-          className="max-w-3xl"
         >
-          <div className="inline-flex items-center gap-2 rounded-full border border-sky-300/25 bg-white/5 px-4 py-2 text-sm font-semibold text-sky-200 shadow-xl shadow-black/10 backdrop-blur-md">
-            <span className="h-2 w-2 rounded-full bg-sky-400 shadow-[0_0_14px_rgba(56,189,248,0.85)]" />
+          <div className="inline-flex items-center gap-2 rounded-full border border-sky-900/10 bg-white/76 px-4 py-2 text-sm font-bold text-sky-900 shadow-sm backdrop-blur">
+            <span className="h-2 w-2 rounded-full bg-sky-700 shadow-[0_0_14px_rgba(3,105,161,0.55)]" />
             {eyebrow}
           </div>
 
-          <h1 className="mt-6 text-4xl font-extrabold leading-[1.02] tracking-tight text-white md:text-5xl lg:text-6xl">
+          <h1 className="mt-6 max-w-4xl text-4xl font-extrabold leading-[1.04] tracking-tight text-slate-950 md:text-5xl lg:text-6xl">
             {title}
           </h1>
 
-          <p className="mt-6 max-w-2xl text-lg leading-relaxed text-slate-300 md:text-xl">
+          <p className="mt-6 max-w-3xl text-lg leading-relaxed text-slate-700 md:text-xl">
             {description}
           </p>
 
+          <div className="mt-7 grid max-w-2xl gap-3 sm:grid-cols-2">
+            {highlights.map((item) => (
+              <div
+                key={item}
+                className="flex items-center gap-2 rounded-2xl border border-white/80 bg-white/72 px-4 py-3 text-sm font-bold text-slate-700 shadow-lg shadow-slate-900/5 backdrop-blur"
+              >
+                <CheckCircle2 className="h-4 w-4 shrink-0 text-sky-800" />
+                {item}
+              </div>
+            ))}
+          </div>
+
           <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center">
-            <PrimaryButton onClick={onStartQuiz}>Analisar minha situação contábil</PrimaryButton>
+            <PrimaryButton onClick={onStartQuiz}>
+              Analisar minha situação contábil
+              <ArrowRight className="ml-2 h-5 w-5" />
+            </PrimaryButton>
 
             <a
               href="#servicos"
-              className="inline-flex items-center justify-center rounded-xl border border-white/15 bg-white/5 px-6 py-3.5 text-sm font-semibold text-white/90 shadow-xl shadow-black/10 backdrop-blur-md transition duration-300 hover:-translate-y-0.5 hover:border-sky-300/35 hover:bg-white/10 md:text-base"
+              className="inline-flex items-center justify-center rounded-xl border border-slate-200 bg-white/82 px-6 py-3.5 text-sm font-bold text-slate-800 shadow-lg shadow-slate-900/5 backdrop-blur transition duration-300 hover:-translate-y-0.5 hover:border-sky-200 hover:text-sky-800 md:text-base"
             >
               Ver serviços detalhados
             </a>
@@ -85,30 +107,65 @@ export default function ServicesPageHero({ eyebrow, title, description, image, o
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, y: 22 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, y: 34, scale: 0.985 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ duration: 0.75, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
-          className="mt-12 grid gap-4 lg:grid-cols-2 xl:max-w-5xl"
+          className="relative"
         >
-          {highlights.map((item, index) => {
-            const Icon = item.icon;
-            return (
-              <motion.article
-                key={item.title}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.55, delay: 0.1 + index * 0.06 }}
-                whileHover={{ y: -4, scale: 1.01 }}
-                className="rounded-2xl border border-white/10 bg-white/[0.06] p-5 shadow-xl shadow-black/10 backdrop-blur-md transition duration-300 hover:border-sky-300/25 hover:bg-white/[0.08]"
-              >
-                <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-sky-500/14 text-sky-300 ring-1 ring-sky-300/15">
-                  <Icon className="h-5 w-5" />
-                </div>
-                <h3 className="text-lg font-bold text-white">{item.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-slate-300">{item.text}</p>
-              </motion.article>
-            );
-          })}
+          <div className="absolute -inset-5 rounded-[2.5rem] bg-sky-900/8 blur-2xl" />
+
+          <div className="relative overflow-hidden rounded-[2rem] border border-white/80 bg-white/78 p-3 shadow-2xl shadow-slate-900/12 backdrop-blur">
+            <div className="relative overflow-hidden rounded-[1.55rem]">
+              <img
+                src={image}
+                alt="Estrutura da CF Contabilidade Brusque"
+                className="h-[360px] w-full object-cover object-center md:h-[500px]"
+              />
+
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/48 via-slate-950/4 to-white/12" />
+
+              <div className="absolute left-5 top-5 inline-flex items-center gap-2 rounded-full border border-white/20 bg-slate-950/52 px-4 py-2 text-sm font-bold text-white shadow-xl shadow-black/20 backdrop-blur-md">
+                <FileCheck2 className="h-4 w-4 text-sky-200" />
+                Rotina acompanhada
+              </div>
+
+              <div className="absolute inset-x-5 bottom-5 rounded-2xl border border-white/18 bg-white/88 p-5 shadow-2xl shadow-slate-900/14 backdrop-blur-md">
+                <p className="text-sm font-bold uppercase tracking-[0.18em] text-sky-800">
+                  Da obrigação ao acompanhamento
+                </p>
+                <p className="mt-1 text-base font-semibold leading-relaxed text-slate-800">
+                  Serviços pensados para organizar a operação contábil da empresa com mais clareza.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-5 grid gap-4 sm:grid-cols-2">
+            {serviceCards.map((item, index) => {
+              const Icon = item.icon;
+
+              return (
+                <motion.article
+                  key={item.title}
+                  initial={{ opacity: 0, y: 18 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.55, delay: 0.18 + index * 0.06 }}
+                  whileHover={{ y: -4, scale: 1.01 }}
+                  className="rounded-2xl border border-white/80 bg-white/82 p-5 shadow-xl shadow-slate-900/7 backdrop-blur transition duration-300 hover:border-sky-200"
+                >
+                  <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-sky-50 text-sky-800">
+                    <Icon className="h-5 w-5" />
+                  </div>
+                  <h3 className="text-base font-extrabold text-slate-950">
+                    {item.title}
+                  </h3>
+                  <p className="mt-2 text-sm leading-relaxed text-slate-600">
+                    {item.text}
+                  </p>
+                </motion.article>
+              );
+            })}
+          </div>
         </motion.div>
       </div>
     </section>
