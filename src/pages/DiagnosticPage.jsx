@@ -32,7 +32,7 @@ function DiagnosticSupportSection() {
     <section className="relative overflow-hidden bg-[#dfeaf2] px-5 py-12 md:px-8 md:py-16">
       <div className="absolute inset-0 cf-subtle-grid opacity-35" />
       <div className="absolute left-0 top-10 h-80 w-80 rounded-full bg-sky-400/12 blur-3xl" />
-      <div className="absolute right-0 bottom-0 h-96 w-96 rounded-full bg-white/55 blur-3xl" />
+      <div className="absolute bottom-0 right-0 h-96 w-96 rounded-full bg-white/55 blur-3xl" />
 
       <div className="relative z-10 mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.92fr_1.08fr] lg:items-center">
         <motion.div
@@ -99,12 +99,12 @@ function DiagnosticSupportSection() {
           whileInView={{ opacity: 1, y: 0, scale: 1, rotate: 0 }}
           viewport={{ once: true, margin: '-100px' }}
           transition={{ duration: 0.95, ease: [0.16, 1, 0.3, 1] }}
-          className="group relative"
+          className="group relative -mt-4 lg:-mt-8"
         >
           <div className="absolute -inset-5 rounded-[2.5rem] bg-sky-900/8 blur-2xl transition duration-700 group-hover:bg-sky-900/14" />
           <div className="absolute -right-8 -top-8 h-40 w-40 rounded-full bg-sky-300/18 blur-3xl" />
 
-          <div className="relative overflow-hidden rounded-[2rem] border border-white/80 bg-white/80 p-3 shadow-2xl shadow-slate-900/12 backdrop-blur transition duration-700 group-hover:-translate-y-1 group-hover:scale-[1.018] group-hover:shadow-slate-900/18">
+          <div className="relative overflow-visible rounded-[2rem] border border-white/80 bg-white/80 p-3 shadow-2xl shadow-slate-900/12 backdrop-blur transition duration-700 group-hover:-translate-y-1 group-hover:scale-[1.018] group-hover:shadow-slate-900/18">
             <div className="relative overflow-hidden rounded-[1.55rem]">
               <motion.img
                 src="/cf-diagnostico-consultivo.webp"
@@ -116,31 +116,31 @@ function DiagnosticSupportSection() {
                 transition={{ duration: 1.3, ease: [0.16, 1, 0.3, 1] }}
               />
 
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/54 via-slate-950/4 to-white/8" />
-
-              <motion.div
-                initial={{ opacity: 0, y: 22 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-100px' }}
-                transition={{ delay: 0.35, duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
-                className="absolute inset-x-5 bottom-5 rounded-2xl border border-white/18 bg-slate-950/70 p-5 text-white shadow-2xl shadow-black/20 backdrop-blur-md"
-              >
-                <div className="flex items-start gap-3">
-                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-sky-300/16 text-sky-200">
-                    <Eye className="h-5 w-5" />
-                  </div>
-
-                  <div>
-                    <p className="text-sm font-bold uppercase tracking-[0.18em] text-sky-200">
-                      Análise com contexto
-                    </p>
-                    <p className="mt-1 text-base font-semibold leading-relaxed text-white/92">
-                      Antes da orientação, vem o entendimento da realidade da empresa.
-                    </p>
-                  </div>
-                </div>
-              </motion.div>
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/22 via-transparent to-white/8" />
             </div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 18 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-100px' }}
+              transition={{ delay: 0.35, duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+              className="relative -mt-10 mx-4 rounded-2xl border border-white/70 bg-slate-950/78 p-5 text-white shadow-2xl shadow-black/20 backdrop-blur-md md:mx-6"
+            >
+              <div className="flex items-start gap-3">
+                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-sky-300/16 text-sky-200">
+                  <Eye className="h-5 w-5" />
+                </div>
+
+                <div>
+                  <p className="text-sm font-bold uppercase tracking-[0.18em] text-sky-200">
+                    Análise com contexto
+                  </p>
+                  <p className="mt-1 text-base font-semibold leading-relaxed text-white/92">
+                    Antes da orientação, vem o entendimento da realidade da empresa.
+                  </p>
+                </div>
+              </div>
+            </motion.div>
           </div>
 
           <motion.div
