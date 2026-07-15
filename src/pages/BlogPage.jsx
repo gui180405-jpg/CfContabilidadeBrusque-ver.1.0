@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
 import {
   ArrowRight,
+  BriefcaseBusiness,
   CalendarDays,
   Clock3,
   FileText,
@@ -11,19 +12,35 @@ import {
   Tag,
 } from 'lucide-react';
 import PrimaryButton from '../components/common/PrimaryButton';
-import { blogCategories, blogPosts } from '../content/blogPosts';
+import {
+  blogJourneys,
+  blogPosts,
+  getJourneyBySlug,
+  getJourneyForCategory,
+  postMatchesJourney,
+} from '../content/blogPosts';
 
 /*
 ============================================================
-PÁGINA: BLOG / NOTÍCIAS — CF CONTABILIDADE
+PÁGINA: BLOG / NOTÍCIAS
 ============================================================
-Lista os posts criados em Markdown pelo painel /admin.
-
-Regra:
-- Se o campo link for externo, abre fora.
-- Se o campo link estiver vazio ou "#", abre a página interna /blog/:slug.
+Blog organizado por jornada:
+- mais educativo;
+- menos poluído;
+- permite conteúdos por segmento sem nichar a CF.
 ============================================================
 */
+
+const visibleJourneyCards = blogJourneys.filter((journey) => journey.name !== 'Todos');
+
+function getInitialJourney() {
+  const params = new URLSearchParams(window.location.search);
+  const journeyParam = params.get('jornada');
+
+  if (!journeyParam) return 'Todos';
+
+  return getJourneyBySlug(journeyParam)?.name || getJourneyForCategory(journeyParam);
+}
 
 function isExternalLink(link) {
   return typeof link === 'string' && /^https?:\/\//i.test(link);
@@ -61,6 +78,8 @@ function navigateToPost(event, post, navigate) {
 }
 
 function BlogImageFallback({ category }) {
+  const journey = getJourneyForCategory(category);
+
   return (
     <div className="relative flex h-full min-h-[220px] w-full items-center justify-center overflow-hidden rounded-[1.35rem] bg-gradient-to-br from-[#173d5a] via-[#1d5578] to-[#2f7da6] p-8">
       <div className="absolute inset-0 cf-subtle-grid opacity-10" />
@@ -69,7 +88,7 @@ function BlogImageFallback({ category }) {
           <Newspaper className="h-8 w-8" />
         </div>
         <p className="text-sm font-bold uppercase tracking-[0.22em] text-sky-200">
-          {category}
+          {journey}
         </p>
       </div>
     </div>
@@ -121,6 +140,8 @@ function PostButton({ post, navigate }) {
 function FeaturedPost({ post, navigate }) {
   if (!post) return null;
 
+  const journey = getJourneyForCategory(post.category);
+
   return (
     <motion.article
       initial={{ opacity: 0, y: 22 }}
@@ -148,12 +169,12 @@ function FeaturedPost({ post, navigate }) {
         <div>
           <div className="inline-flex items-center gap-2 rounded-full border border-sky-300/25 bg-white/8 px-4 py-2 text-sm font-bold text-sky-200 backdrop-blur">
             <Sparkles className="h-4 w-4" />
-            Destaque
+            Conteúdo em destaque
           </div>
 
           <div className="mt-5 flex flex-wrap gap-2">
             <span className="rounded-full bg-sky-400/12 px-3 py-1 text-xs font-bold uppercase tracking-[0.16em] text-sky-200 ring-1 ring-sky-300/20">
-              {post.category}
+              {journey}
             </span>
             <span className="rounded-full bg-white/8 px-3 py-1 text-xs font-bold uppercase tracking-[0.16em] text-slate-200 ring-1 ring-white/10">
               {post.type}
@@ -211,7 +232,62 @@ function FeaturedPost({ post, navigate }) {
   );
 }
 
+function JourneyFilters({ selectedJourney, onSelectJourney }) {
+  return (
+    <div className="mt-14 rounded-[1.7rem] border border-white/70 bg-white/72 p-5 shadow-xl shadow-slate-900/8 backdrop-blur md:p-6">
+      <div className="mb-5 flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
+        <div>
+          <div className="flex items-center gap-2 text-sm font-bold uppercase tracking-[0.18em] text-slate-500">
+            <Search className="h-4 w-4" />
+            Conteúdos por jornada
+          </div>
+
+          <h2 className="mt-2 text-2xl font-extrabold text-slate-950 md:text-3xl">
+            Encontre conteúdos pelo momento da sua empresa.
+          </h2>
+        </div>
+
+        <button
+          type="button"
+          onClick={() => onSelectJourney('Todos')}
+          className="text-sm font-bold text-sky-800 hover:text-sky-600"
+        >
+          Ver todos
+        </button>
+      </div>
+
+      <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-4">
+        {visibleJourneyCards.map((journey) => {
+          const active = selectedJourney === journey.name;
+
+          return (
+            <button
+              key={journey.name}
+              type="button"
+              onClick={() => onSelectJourney(journey.name)}
+              className={`rounded-2xl border p-4 text-left transition duration-300 hover:-translate-y-0.5 ${
+                active
+                  ? 'border-sky-200 bg-sky-50 shadow-lg shadow-sky-900/8'
+                  : 'border-slate-200/70 bg-[#f7fbfe] hover:border-sky-200 hover:bg-sky-50/70'
+              }`}
+            >
+              <p className="font-extrabold text-slate-950">
+                {journey.name}
+              </p>
+              <p className="mt-2 text-sm leading-relaxed text-slate-600">
+                {journey.description}
+              </p>
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
 function BlogCard({ post, index, navigate }) {
+  const journey = getJourneyForCategory(post.category);
+
   return (
     <motion.article
       initial={{ opacity: 0, y: 18 }}
@@ -233,9 +309,9 @@ function BlogCard({ post, index, navigate }) {
 
         <div className="absolute left-4 top-4 flex flex-wrap gap-2">
           <span className="rounded-full bg-white/92 px-3 py-1 text-xs font-bold text-sky-800 shadow-lg backdrop-blur">
-            {post.category}
+            {journey}
           </span>
-          <span className="rounded-full bg-[#12304a]/82 px-3 py-1 text-xs font-bold text-white shadow-lg backdrop-blur">
+          <span className="rounded-full bg-slate-950/78 px-3 py-1 text-xs font-bold text-white shadow-lg backdrop-blur">
             {post.type}
           </span>
         </div>
@@ -259,7 +335,16 @@ function BlogCard({ post, index, navigate }) {
 }
 
 export default function BlogPage({ navigate, onStartQuiz }) {
-  const [selectedCategory, setSelectedCategory] = useState('Todos');
+  const [selectedJourney, setSelectedJourney] = useState(getInitialJourney);
+
+  function handleSelectJourney(journeyName) {
+    setSelectedJourney(journeyName);
+
+    const journey = blogJourneys.find((item) => item.name === journeyName);
+    const nextUrl = !journey || journey.name === 'Todos' ? '/blog' : `/blog?jornada=${journey.slug}`;
+
+    window.history.replaceState({}, '', nextUrl);
+  }
 
   const visiblePosts = useMemo(() => {
     return blogPosts.filter((post) => post.published !== false && !post.draft);
@@ -272,12 +357,8 @@ export default function BlogPage({ navigate, onStartQuiz }) {
   const filteredPosts = useMemo(() => {
     const postsWithoutFeatured = visiblePosts.filter((post) => post.slug !== featuredPost?.slug);
 
-    if (selectedCategory === 'Todos') {
-      return postsWithoutFeatured;
-    }
-
-    return postsWithoutFeatured.filter((post) => post.category === selectedCategory);
-  }, [featuredPost, selectedCategory, visiblePosts]);
+    return postsWithoutFeatured.filter((post) => postMatchesJourney(post, selectedJourney));
+  }, [featuredPost, selectedJourney, visiblePosts]);
 
   return (
     <main className="min-h-screen bg-[#eef1f4]">
@@ -296,30 +377,30 @@ export default function BlogPage({ navigate, onStartQuiz }) {
           >
             <div className="inline-flex items-center gap-2 rounded-full border border-sky-300/25 bg-white/8 px-4 py-2 text-sm font-bold text-sky-200 backdrop-blur">
               <Newspaper className="h-4 w-4" />
-              Blog e notícias
+              Blog e jornadas empresariais
             </div>
 
             <h1 className="mt-6 text-4xl font-extrabold leading-[1.04] tracking-tight text-white md:text-5xl lg:text-6xl">
-              Conteúdos para empresas que querem decidir com mais clareza.
+              Conteúdos organizados pelo momento da sua empresa.
             </h1>
 
             <p className="mt-6 max-w-3xl text-lg leading-relaxed text-slate-300 md:text-xl">
-              Orientações sobre contabilidade, impostos, abertura de empresa, rotina fiscal,
-              trabalhista e gestão para negócios que buscam mais organização.
+              Orientações sobre abertura, impostos, rotina contábil, trabalhista,
+              gestão, regularização e segmentos empresariais — sem transformar a CF em uma contabilidade de um nicho só.
             </p>
 
             <div className="mt-8 flex flex-wrap gap-3 text-sm text-slate-300">
               <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/7 px-4 py-2 backdrop-blur">
                 <FileText className="h-4 w-4 text-sky-300" />
-                Artigos
+                Artigos práticos
               </span>
               <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/7 px-4 py-2 backdrop-blur">
-                <Newspaper className="h-4 w-4 text-sky-300" />
-                Notícias
+                <BriefcaseBusiness className="h-4 w-4 text-sky-300" />
+                Guias por momento
               </span>
               <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/7 px-4 py-2 backdrop-blur">
                 <Tag className="h-4 w-4 text-sky-300" />
-                Alertas fiscais
+                Segmentos como conteúdo educativo
               </span>
             </div>
           </motion.div>
@@ -333,33 +414,10 @@ export default function BlogPage({ navigate, onStartQuiz }) {
         <div className="relative mx-auto max-w-7xl">
           <FeaturedPost post={featuredPost} navigate={navigate} />
 
-          <div className="mt-14 rounded-[1.5rem] border border-white/70 bg-white/70 p-4 shadow-xl shadow-slate-900/8 backdrop-blur">
-            <div className="mb-4 flex items-center gap-2 px-2 text-sm font-bold uppercase tracking-[0.18em] text-slate-500">
-              <Search className="h-4 w-4" />
-              Filtrar por assunto
-            </div>
-
-            <div className="flex flex-wrap gap-2">
-              {blogCategories.map((category) => {
-                const active = selectedCategory === category;
-
-                return (
-                  <button
-                    key={category}
-                    type="button"
-                    onClick={() => setSelectedCategory(category)}
-                    className={`rounded-full px-4 py-2 text-sm font-bold transition duration-300 ${
-                      active
-                        ? 'bg-sky-800 text-white shadow-lg shadow-sky-900/18'
-                        : 'bg-white/80 text-slate-700 hover:bg-sky-50 hover:text-sky-800'
-                    }`}
-                  >
-                    {category}
-                  </button>
-                );
-              })}
-            </div>
-          </div>
+          <JourneyFilters
+            selectedJourney={selectedJourney}
+            onSelectJourney={handleSelectJourney}
+          />
 
           <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {filteredPosts.length > 0 ? (
@@ -369,10 +427,10 @@ export default function BlogPage({ navigate, onStartQuiz }) {
             ) : (
               <div className="col-span-full rounded-2xl border border-white/70 bg-white/75 p-8 text-center shadow-xl shadow-slate-900/8 backdrop-blur">
                 <p className="text-lg font-bold text-slate-900">
-                  Ainda não existem conteúdos nessa categoria.
+                  Ainda não existem conteúdos nessa jornada.
                 </p>
                 <p className="mt-2 text-slate-600">
-                  Depois, pelo painel /admin, você poderá criar posts para cada assunto.
+                  Pelo painel /admin, você pode criar posts e escolher essa jornada.
                 </p>
               </div>
             )}

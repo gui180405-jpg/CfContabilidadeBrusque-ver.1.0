@@ -1,12 +1,9 @@
 import { motion } from 'framer-motion';
 import {
   ArrowRight,
-  BadgeDollarSign,
-  BriefcaseBusiness,
-  Building2,
   CheckCircle2,
   ClipboardCheck,
-  FileText,
+  FileSearch,
   Landmark,
   ShieldCheck,
 } from 'lucide-react';
@@ -16,51 +13,36 @@ import PrimaryButton from './PrimaryButton';
 ============================================================
 HERO — PÁGINA DE SERVIÇOS
 ============================================================
-Versão sem imagem:
-- remove a foto do escritório do topo;
-- organiza os serviços em blocos claros;
-- reduz ruído visual;
-- passa estrutura, método e confiança.
+Sem imagem ruim.
+Com método, clareza e leitura mais comercial.
 ============================================================
 */
 
 const trustPoints = [
-  'Rotina acompanhada de perto',
-  'Prazos e obrigações organizados',
-  'Orientação clara para o empresário',
+  'menos improviso na rotina',
+  'mais clareza sobre obrigações',
+  'decisões com mais segurança',
 ];
 
-const serviceAreas = [
+const methodSteps = [
   {
-    icon: Building2,
-    title: 'Abertura e regularização',
+    icon: FileSearch,
+    title: 'Entender o momento',
     description:
-      'Apoio para abrir, ajustar ou regularizar a empresa com documentação e enquadramento mais organizados.',
+      'Antes de falar em guia ou documento, é preciso entender como a empresa está hoje.',
   },
   {
-    icon: BadgeDollarSign,
-    title: 'Fiscal e tributário',
+    icon: ClipboardCheck,
+    title: 'Organizar a rotina',
     description:
-      'Acompanhamento de notas, guias, apurações, impostos e obrigações fiscais da rotina mensal.',
+      'Depois, a CF estrutura prazos, informações e áreas que precisam de acompanhamento.',
   },
   {
-    icon: BriefcaseBusiness,
-    title: 'Trabalhista',
+    icon: ShieldCheck,
+    title: 'Acompanhar com segurança',
     description:
-      'Suporte para folha de pagamento, admissões, desligamentos e obrigações relacionadas à equipe.',
+      'Com a rotina mais clara, o empresário deixa de depender apenas da urgência.',
   },
-  {
-    icon: FileText,
-    title: 'Contábil e societário',
-    description:
-      'Organização das informações contábeis, alterações contratuais e acompanhamento da vida da empresa.',
-  },
-];
-
-const processSteps = [
-  'Entendemos o momento da empresa',
-  'Organizamos as informações principais',
-  'Indicamos o caminho contábil mais seguro',
 ];
 
 export default function ServicesPageHero({ eyebrow, title, description, onStartQuiz }) {
@@ -113,76 +95,42 @@ export default function ServicesPageHero({ eyebrow, title, description, onStartQ
               href="#servicos"
               className="inline-flex items-center justify-center rounded-xl border border-slate-200 bg-white/82 px-6 py-3.5 text-sm font-bold text-slate-800 shadow-lg shadow-slate-900/5 backdrop-blur transition duration-300 hover:-translate-y-0.5 hover:border-sky-200 hover:text-sky-800 md:text-base"
             >
-              Ver serviços
+              Ver áreas atendidas
             </a>
           </div>
         </motion.div>
 
-        <div className="mt-14 grid gap-5 lg:grid-cols-[0.82fr_1.18fr] lg:items-stretch">
-          <motion.div
-            initial={{ opacity: 0, y: 22 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.65, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
-            className="rounded-[2rem] border border-white/80 bg-white/74 p-6 shadow-xl shadow-slate-900/7 backdrop-blur md:p-7"
-          >
-            <div className="flex h-13 w-13 items-center justify-center rounded-2xl bg-sky-50 text-sky-800">
-              <Landmark className="h-6 w-6" />
-            </div>
+        <div className="mt-14 grid gap-5 lg:grid-cols-3">
+          {methodSteps.map((step, index) => {
+            const Icon = step.icon;
 
-            <h2 className="mt-5 text-2xl font-extrabold leading-tight text-slate-950 md:text-3xl">
-              Uma rotina contábil não precisa parecer confusa.
-            </h2>
-
-            <p className="mt-4 leading-relaxed text-slate-600">
-              Quando cada área tem acompanhamento, prazos definidos e informações bem organizadas,
-              a empresa ganha previsibilidade para agir antes que os problemas apareçam.
-            </p>
-
-            <div className="mt-6 space-y-3">
-              {processSteps.map((step, index) => (
-                <div
-                  key={step}
-                  className="flex items-center gap-3 rounded-2xl border border-slate-200/70 bg-[#f7fbfe] p-4"
-                >
-                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-sky-800 text-sm font-extrabold text-white">
-                    {index + 1}
-                  </span>
-                  <span className="font-bold text-slate-700">
-                    {step}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </motion.div>
-
-          <div className="grid gap-4 md:grid-cols-2">
-            {serviceAreas.map((area, index) => {
-              const Icon = area.icon;
-
-              return (
-                <motion.article
-                  key={area.title}
-                  initial={{ opacity: 0, y: 18 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.55, delay: 0.18 + index * 0.07 }}
-                  whileHover={{ y: -4 }}
-                  className="rounded-[1.6rem] border border-white/80 bg-white/82 p-6 shadow-xl shadow-slate-900/7 backdrop-blur transition duration-300 hover:border-sky-200 hover:shadow-2xl hover:shadow-slate-900/10"
-                >
-                  <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-sky-50 text-sky-800">
+            return (
+              <motion.article
+                key={step.title}
+                initial={{ opacity: 0, y: 18 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.55, delay: 0.12 + index * 0.07 }}
+                className="rounded-[1.6rem] border border-white/80 bg-white/78 p-6 shadow-xl shadow-slate-900/7 backdrop-blur"
+              >
+                <div className="mb-5 flex items-center justify-between">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-sky-50 text-sky-800">
                     <Icon className="h-6 w-6" />
                   </div>
+                  <span className="text-sm font-extrabold text-sky-900/35">
+                    0{index + 1}
+                  </span>
+                </div>
 
-                  <h3 className="text-xl font-extrabold text-slate-950">
-                    {area.title}
-                  </h3>
+                <h2 className="text-xl font-extrabold text-slate-950">
+                  {step.title}
+                </h2>
 
-                  <p className="mt-3 leading-relaxed text-slate-600">
-                    {area.description}
-                  </p>
-                </motion.article>
-              );
-            })}
-          </div>
+                <p className="mt-3 leading-relaxed text-slate-600">
+                  {step.description}
+                </p>
+              </motion.article>
+            );
+          })}
         </div>
 
         <motion.div
@@ -192,8 +140,8 @@ export default function ServicesPageHero({ eyebrow, title, description, onStartQ
           className="mt-6 rounded-[1.5rem] border border-sky-900/10 bg-gradient-to-r from-[#173d5a] to-[#226281] p-6 text-white shadow-2xl shadow-slate-900/12 md:p-7"
         >
           <div className="grid gap-4 md:grid-cols-[auto_1fr_auto] md:items-center">
-            <div className="flex h-13 w-13 items-center justify-center rounded-2xl bg-white/12 text-sky-100">
-              <ClipboardCheck className="h-6 w-6" />
+            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/12 text-sky-100">
+              <Landmark className="h-6 w-6" />
             </div>
 
             <div>

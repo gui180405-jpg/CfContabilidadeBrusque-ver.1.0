@@ -8,8 +8,8 @@ export default function ServicesPage({ onStartQuiz }) {
     <>
       <ServicesPageHero
         eyebrow="Serviços contábeis"
-        title="Serviços contábeis organizados para dar clareza à rotina da sua empresa."
-        description="A CF acompanha as principais áreas da rotina empresarial para que obrigações, documentos, prazos e informações não fiquem espalhados ou tratados apenas na urgência."
+        title="Organização contábil para empresas que precisam sair da correria."
+        description="A CF acompanha abertura, fiscal, contábil, trabalhista e regularização para que a empresa tenha mais clareza sobre prazos, impostos, documentos e decisões."
         onStartQuiz={onStartQuiz}
       />
 

@@ -30,19 +30,20 @@ collections:
         widget: string
         required: true
 
-      - label: Categoria
+      - label: Jornada do conteúdo
         name: category
         widget: select
         required: true
+        hint: Escolha o momento ou tipo de dúvida que este conteúdo ajuda a resolver.
         options:
-          - Notícias
-          - Impostos
-          - Simples Nacional
-          - Trabalhista
-          - Abertura de empresa
+          - Começando a empresa
+          - Rotina contábil
+          - Impostos e enquadramento
+          - Trabalhista e equipe
           - Gestão financeira
-          - Regularização
-          - Obrigações mensais
+          - Regularização e pendências
+          - Guias por segmento
+          - Notícias e prazos
 
       - label: Tipo de conteúdo
         name: type
@@ -87,7 +88,7 @@ collections:
         widget: string
         required: false
         default: "#"
-        hint: Use # para conteúdo em breve, ou cole uma URL externa.
+        hint: Use # para abrir a página interna do artigo. Use uma URL completa apenas quando for link externo.
 
       - label: Post em destaque
         name: featured

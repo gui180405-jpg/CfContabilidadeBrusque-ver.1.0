@@ -13,18 +13,13 @@ import NotFoundPage from './pages/NotFoundPage';
 
 /*
 ============================================================
-APP PRINCIPAL — VERSÃO SITE INSTITUCIONAL
+APP PRINCIPAL — SITE INSTITUCIONAL COM JORNADAS
 ============================================================
-Rotas internas do site:
-/
-/sobre
-/servicos
-/diagnostico
-/blog
-/blog/:slug
-/contato
-
-Sem react-router-dom, para manter o projeto simples e leve.
+Agora o navegador entende:
+- rotas internas normais;
+- links com hash, como /servicos#abertura;
+- filtros por query, como /blog?jornada=impostos-e-enquadramento;
+- páginas internas de artigo, como /blog/titulo-do-post.
 ============================================================
 */
 
@@ -43,23 +38,53 @@ function normalizePath(pathname) {
   return pathname;
 }
 
-function getBlogPostSlug(pathname) {
-  const match = normalizePath(pathname).match(/^\/blog\/([^/]+)$/);
-  return match ? match[1] : null;
+function getPathFromUrl(value) {
+  try {
+    const url = new URL(value, window.location.origin);
+    return normalizePath(url.pathname);
+  } catch {
+    return normalizePath(value);
+  }
+}
+
+function getFullTarget(value) {
+  try {
+    const url = new URL(value, window.location.origin);
+    const pathname = normalizePath(url.pathname);
+    return `${pathname}${url.search}${url.hash}`;
+  } catch {
+    return normalizePath(value);
+  }
 }
 
 export default function App() {
   const [currentPath, setCurrentPath] = useState(() => normalizePath(window.location.pathname));
 
   const navigate = useCallback((to) => {
-    const nextPath = normalizePath(to);
+    const nextPath = getPathFromUrl(to);
+    const nextTarget = getFullTarget(to);
+    const currentTarget = `${normalizePath(window.location.pathname)}${window.location.search}${window.location.hash}`;
 
-    if (nextPath !== normalizePath(window.location.pathname)) {
-      window.history.pushState({}, '', nextPath);
+    if (nextTarget !== currentTarget) {
+      window.history.pushState({}, '', nextTarget);
     }
 
     setCurrentPath(nextPath);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    window.setTimeout(() => {
+      const hash = window.location.hash?.replace('#', '');
+
+      if (hash) {
+        const targetElement = document.getElementById(hash);
+
+        if (targetElement) {
+          targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          return;
+        }
+      }
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, 80);
   }, []);
 
   const goToDiagnostic = useCallback(() => {
@@ -67,27 +92,20 @@ export default function App() {
   }, [navigate]);
 
   useEffect(() => {
-    const handlePopState = () => {
-      setCurrentPath(normalizePath(window.location.pathname));
-    };
-
+    const handlePopState = () => setCurrentPath(normalizePath(window.location.pathname));
     window.addEventListener('popstate', handlePopState);
     return () => window.removeEventListener('popstate', handlePopState);
   }, []);
 
-  const blogPostSlug = getBlogPostSlug(currentPath);
-  const Page = blogPostSlug ? BlogPostPage : routes[currentPath];
+  const isBlogPost = currentPath.startsWith('/blog/');
+  const Page = isBlogPost ? BlogPostPage : routes[currentPath];
 
   return (
     <>
       <Header currentPath={currentPath} navigate={navigate} onStartQuiz={goToDiagnostic} />
       <main>
         {Page ? (
-          <Page
-            navigate={navigate}
-            onStartQuiz={goToDiagnostic}
-            slug={blogPostSlug}
-          />
+          <Page navigate={navigate} onStartQuiz={goToDiagnostic} />
         ) : (
           <NotFoundPage navigate={navigate} />
         )}
