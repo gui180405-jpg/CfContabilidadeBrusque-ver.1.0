@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import {
   ArrowRight,
@@ -7,8 +7,8 @@ import {
   Building2,
   CheckCircle2,
   ClipboardCheck,
+  FileSearch,
   FileText,
-  RefreshCcw,
   ShieldAlert,
 } from 'lucide-react';
 import SectionHeader from '../common/SectionHeader';
@@ -16,23 +16,26 @@ import Reveal from '../common/Reveal';
 
 /*
 ============================================================
-SERVIÇOS — TRILHA COM PRÓXIMA ETAPA
+SERVIÇOS — JORNADA DE ACOMPANHAMENTO CONTÁBIL
 ============================================================
-Função:
-- transformar a seção em uma jornada guiada;
-- reduzir sensação de lista estática;
-- conduzir o olhar com etapa ativa e botão Próxima etapa.
+Conceito:
+- não é gamificação;
+- não é app;
+- é uma linha de acompanhamento contábil;
+- o botão “Próxima etapa” serve para guiar a leitura com suavidade.
 ============================================================
 */
 
-const serviceJourneys = [
+const serviceStages = [
   {
     id: 'abertura',
     icon: Building2,
     eyebrow: 'Começando ou ajustando',
     title: 'Abertura e regularização de empresa',
     description:
-      'Para abrir, ajustar ou regularizar o CNPJ com documentação e enquadramento mais organizados.',
+      'A CF entende o momento da empresa e orienta os primeiros passos com documentação, enquadramento e organização cadastral.',
+    shortDescription:
+      'CNPJ, alterações, enquadramento e organização cadastral.',
     items: ['Abertura de CNPJ', 'Alterações contratuais', 'Enquadramento inicial', 'Organização cadastral'],
   },
   {
@@ -41,7 +44,9 @@ const serviceJourneys = [
     eyebrow: 'Dia a dia contábil',
     title: 'Rotina contábil mensal',
     description:
-      'Para manter documentos, prazos e obrigações em ordem sem depender da correria.',
+      'A rotina mensal ajuda a manter documentos, prazos e informações em ordem, reduzindo correria e decisões no escuro.',
+    shortDescription:
+      'Documentos, prazos, relatórios e acompanhamento mensal.',
     items: ['Organização de documentos', 'Acompanhamento mensal', 'Relatórios e informações', 'Previsibilidade da rotina'],
   },
   {
@@ -50,7 +55,9 @@ const serviceJourneys = [
     eyebrow: 'Fiscal e tributário',
     title: 'Impostos, notas e obrigações fiscais',
     description:
-      'Para acompanhar o que está sendo pago, quando deve ser pago e quais cuidados exigem atenção.',
+      'Acompanhamento fiscal para entender guias, notas, apurações e obrigações que fazem parte da rotina da empresa.',
+    shortDescription:
+      'Guias, notas fiscais, Simples Nacional e obrigações fiscais.',
     items: ['Guias e apurações', 'Notas fiscais', 'Simples Nacional', 'Obrigações fiscais'],
   },
   {
@@ -59,75 +66,96 @@ const serviceJourneys = [
     eyebrow: 'Equipe e folha',
     title: 'Departamento pessoal e trabalhista',
     description:
-      'Para empresas com funcionários ou em fase de contratação que precisam de segurança nas rotinas de pessoal.',
+      'Apoio para empresas com equipe, admissões, desligamentos, folha de pagamento e obrigações trabalhistas.',
+    shortDescription:
+      'Folha, admissões, desligamentos e obrigações trabalhistas.',
     items: ['Folha de pagamento', 'Admissões', 'Desligamentos', 'Obrigações trabalhistas'],
   },
   {
     id: 'regularizacao',
     icon: ShieldAlert,
     eyebrow: 'Pendências e ajustes',
-    title: 'Regularização e acompanhamento de pendências',
+    title: 'Regularização e pendências',
     description:
-      'Para organizar atrasos, dúvidas cadastrais, documentos pendentes ou riscos que precisam de atenção.',
+      'Quando existem atrasos, dúvidas cadastrais ou pendências, a CF ajuda a organizar o cenário e indicar os próximos passos.',
+    shortDescription:
+      'Pendências fiscais, CNPJ irregular, ajustes e próximos passos.',
     items: ['Pendências fiscais', 'CNPJ irregular', 'Ajustes cadastrais', 'Orientação sobre próximos passos'],
   },
 ];
 
 export default function ServicesSection() {
   const [activeIndex, setActiveIndex] = useState(0);
-  const stepRefs = useRef([]);
-  const activeStep = serviceJourneys[activeIndex];
-  const progress = ((activeIndex + 1) / serviceJourneys.length) * 100;
+  const stageRefs = useRef([]);
 
-  function goToStep(index) {
-    const safeIndex = Math.max(0, Math.min(index, serviceJourneys.length - 1));
+  const activeStage = serviceStages[activeIndex];
+  const ActiveIcon = activeStage.icon;
+  const progress = ((activeIndex + 1) / serviceStages.length) * 100;
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visibleEntry = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+
+        if (visibleEntry) {
+          setActiveIndex(Number(visibleEntry.target.dataset.index));
+        }
+      },
+      {
+        root: null,
+        rootMargin: '-35% 0px -45% 0px',
+        threshold: [0.15, 0.35, 0.6],
+      }
+    );
+
+    stageRefs.current.forEach((element) => {
+      if (element) observer.observe(element);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
+  const goToStage = (index) => {
+    const safeIndex = Math.max(0, Math.min(index, serviceStages.length - 1));
+    stageRefs.current[safeIndex]?.scrollIntoView({ behavior: 'smooth', block: 'center' });
     setActiveIndex(safeIndex);
+  };
 
-    const target = stepRefs.current[safeIndex];
-    if (target) {
-      target.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }
-  }
-
-  function goNextStep() {
-    if (activeIndex < serviceJourneys.length - 1) {
-      goToStep(activeIndex + 1);
+  const handleNext = () => {
+    if (activeIndex < serviceStages.length - 1) {
+      goToStage(activeIndex + 1);
       return;
     }
 
-    const target = document.getElementById('proximo-passo-servicos');
-    if (target) {
-      target.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }
-  }
-
-  const ActiveIcon = activeStep.icon;
-  const isLastStep = activeIndex === serviceJourneys.length - 1;
+    window.location.href = '/diagnostico';
+  };
 
   return (
     <section id="servicos" className="relative overflow-hidden bg-[#F4F8FB] px-5 py-20 md:px-8 md:py-24">
       <div className="absolute -right-28 top-20 h-80 w-80 rounded-full bg-sky-300/12 blur-3xl" />
-      <div className="absolute -left-28 bottom-20 h-80 w-80 rounded-full bg-white/70 blur-3xl" />
+      <div className="absolute -left-28 bottom-10 h-80 w-80 rounded-full bg-white/70 blur-3xl" />
 
       <div className="relative mx-auto max-w-7xl">
         <Reveal>
           <SectionHeader
-            eyebrow="Áreas atendidas"
+            eyebrow="Acompanhamento contábil"
             title="Como a CF acompanha a rotina da sua empresa"
-            description="A contabilidade entra em diferentes momentos: abertura, rotina mensal, impostos, equipe e regularização. Avance pelas etapas para entender a sequência."
+            description="Da abertura à rotina mensal, a CF ajuda a organizar prazos, documentos, impostos e pendências para que sua empresa tenha mais clareza no dia a dia."
           />
         </Reveal>
 
-        <div className="grid gap-7 lg:grid-cols-[0.78fr_1.22fr]">
+        <div className="grid gap-8 lg:grid-cols-[0.78fr_1.22fr] lg:items-start">
           <Reveal as="aside">
             <div className="rounded-[1.8rem] border border-white/80 bg-white/82 p-6 shadow-xl shadow-slate-900/7 backdrop-blur md:p-7 lg:sticky lg:top-28">
-              <div className="flex items-center justify-between gap-4">
+              <div className="flex items-start justify-between gap-4">
                 <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-sky-50 text-[#0369A1]">
-                  <ActiveIcon className="h-6 w-6" />
+                  <FileSearch className="h-6 w-6" />
                 </div>
 
-                <span className="rounded-full bg-[#E8F0F6] px-3 py-1 text-xs font-extrabold text-[#173D5A]">
-                  {activeIndex + 1} de {serviceJourneys.length}
+                <span className="rounded-full bg-[#F4F8FB] px-3 py-1 text-xs font-extrabold text-[#173D5A]">
+                  {String(activeIndex + 1).padStart(2, '0')} de {String(serviceStages.length).padStart(2, '0')}
                 </span>
               </div>
 
@@ -135,142 +163,153 @@ export default function ServicesSection() {
                 etapa atual
               </p>
 
-              <h3 className="mt-2 text-2xl font-extrabold leading-tight text-[#0F172A]">
-                {activeStep.title}
-              </h3>
+              <div className="mt-3 flex items-start gap-4">
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-[#173D5A] to-[#0369A1] text-white shadow-lg shadow-sky-900/18">
+                  <ActiveIcon className="h-6 w-6" />
+                </div>
 
-              <p className="mt-4 leading-relaxed text-[#475569]">
-                {activeStep.description}
-              </p>
+                <div>
+                  <h3 className="text-xl font-extrabold leading-tight text-[#0F172A]">
+                    {activeStage.title}
+                  </h3>
+                  <p className="mt-2 text-sm leading-relaxed text-[#64748B]">
+                    {activeStage.shortDescription}
+                  </p>
+                </div>
+              </div>
 
               <div className="mt-6">
                 <div className="mb-2 flex items-center justify-between text-xs font-bold text-[#64748B]">
-                  <span>Progresso da rotina</span>
+                  <span>Progresso da leitura</span>
                   <span>{Math.round(progress)}%</span>
                 </div>
+
                 <div className="h-2 overflow-hidden rounded-full bg-[#E8F0F6]">
                   <motion.div
                     className="h-full rounded-full bg-[#0077B6]"
-                    initial={false}
                     animate={{ width: `${progress}%` }}
-                    transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+                    transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
                   />
                 </div>
               </div>
 
-              <div className="mt-6 space-y-2">
-                {serviceJourneys.map((step, index) => (
-                  <button
-                    key={step.id}
-                    type="button"
-                    onClick={() => goToStep(index)}
-                    className={`flex w-full items-center gap-3 rounded-2xl px-3 py-3 text-left text-sm font-bold transition duration-300 ${
-                      activeIndex === index
-                        ? 'bg-[#173D5A] text-white shadow-lg shadow-slate-900/12'
-                        : 'bg-[#F4F8FB] text-[#475569] hover:bg-sky-50 hover:text-[#0369A1]'
-                    }`}
-                  >
-                    <span className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-xs font-extrabold ${
-                      activeIndex === index ? 'bg-white text-[#173D5A]' : 'bg-white text-[#0369A1]'
-                    }`}>
+              <div className="mt-5 grid grid-cols-5 gap-2" aria-label="Etapas da seção de serviços">
+                {serviceStages.map((stage, index) => {
+                  const isActive = activeIndex === index;
+                  const isDone = index < activeIndex;
+
+                  return (
+                    <button
+                      key={stage.id}
+                      type="button"
+                      onClick={() => goToStage(index)}
+                      className={`h-9 rounded-full text-xs font-extrabold transition duration-300 ${
+                        isActive
+                          ? 'bg-[#173D5A] text-white shadow-lg shadow-sky-900/15'
+                          : isDone
+                            ? 'bg-sky-50 text-[#0369A1]'
+                            : 'bg-[#F4F8FB] text-[#64748B] hover:bg-sky-50 hover:text-[#0369A1]'
+                      }`}
+                      aria-label={`Ir para ${stage.title}`}
+                    >
                       {index + 1}
-                    </span>
-                    {step.title}
-                  </button>
-                ))}
+                    </button>
+                  );
+                })}
               </div>
 
               <button
                 type="button"
-                onClick={goNextStep}
-                className="mt-6 inline-flex w-full items-center justify-center rounded-xl bg-[#0077B6] px-5 py-3.5 text-sm font-extrabold text-white shadow-xl shadow-sky-900/14 transition duration-300 hover:-translate-y-0.5 hover:bg-[#0369A1]"
+                onClick={handleNext}
+                className="mt-6 inline-flex w-full items-center justify-center rounded-xl bg-[#0077B6] px-5 py-3.5 text-sm font-extrabold text-white shadow-xl shadow-sky-900/18 transition duration-300 hover:-translate-y-0.5 hover:bg-[#0369A1]"
               >
-                {isLastStep ? 'Ir para o próximo passo' : 'Próxima etapa'}
+                {activeIndex < serviceStages.length - 1 ? 'Próxima etapa' : 'Fazer diagnóstico'}
                 <ArrowRight className="ml-2 h-5 w-5" />
               </button>
+
+              <div className="mt-5 rounded-2xl bg-[#F4F8FB] p-4">
+                <div className="flex items-start gap-3">
+                  <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-[#0077B6]" />
+                  <p className="text-sm leading-relaxed text-[#475569]">
+                    A ideia é entender o momento da empresa e organizar o próximo passo com clareza.
+                  </p>
+                </div>
+              </div>
             </div>
           </Reveal>
 
-          <div className="relative overflow-hidden rounded-[1.8rem] border border-white/80 bg-white/78 shadow-xl shadow-slate-900/7 backdrop-blur">
-            <div className="absolute left-[34px] top-8 hidden h-[calc(100%-4rem)] w-px bg-[#CBDDE8] md:block" />
-            <motion.div
-              className="absolute left-[34px] top-8 hidden w-px bg-[#0077B6] md:block"
-              initial={false}
-              animate={{ height: `calc((100% - 4rem) * ${activeIndex / Math.max(serviceJourneys.length - 1, 1)})` }}
-              transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-            />
+          <div className="relative">
+            <div className="absolute left-7 top-4 hidden h-[calc(100%-2rem)] w-px bg-[#CBDDE8] md:block" />
 
-            {serviceJourneys.map((service, index) => {
-              const Icon = service.icon;
-              const isActive = activeIndex === index;
-              const isLast = index === serviceJourneys.length - 1;
+            <div className="space-y-5">
+              {serviceStages.map((service, index) => {
+                const Icon = service.icon;
+                const isActive = activeIndex === index;
 
-              return (
-                <motion.article
-                  key={service.id}
-                  ref={(element) => {
-                    stepRefs.current[index] = element;
-                  }}
-                  id={service.id}
-                  onViewportEnter={() => setActiveIndex(index)}
-                  viewport={{ amount: 0.55, margin: '-20% 0px -20% 0px' }}
-                  initial={{ opacity: 0, y: 24 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.04 }}
-                  className={`relative scroll-mt-28 p-6 transition duration-300 md:p-7 ${!isLast ? 'border-b border-slate-200/70' : ''} ${
-                    isActive ? 'bg-white' : 'bg-transparent'
-                  }`}
-                >
-                  <div className="grid gap-6 md:grid-cols-[auto_1fr]">
-                    <div className={`relative z-10 flex h-14 w-14 items-center justify-center rounded-2xl text-white shadow-lg transition duration-300 ${
-                      isActive
-                        ? 'bg-gradient-to-br from-[#173D5A] to-[#0369A1] shadow-sky-900/18'
-                        : 'bg-[#173D5A]/75 shadow-slate-900/10'
-                    }`}>
-                      <Icon className="h-7 w-7" />
-                    </div>
+                return (
+                  <Reveal key={service.id} delay={index * 0.04} as="article">
+                    <motion.div
+                      id={service.id}
+                      ref={(element) => {
+                        stageRefs.current[index] = element;
+                      }}
+                      data-index={index}
+                      initial={{ opacity: 0, y: 18 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true, margin: '-80px' }}
+                      transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+                      className={`relative scroll-mt-28 rounded-[1.7rem] border p-6 transition duration-300 md:p-7 ${
+                        isActive
+                          ? 'border-sky-200 bg-white shadow-2xl shadow-slate-900/10'
+                          : 'border-white/80 bg-white/70 shadow-lg shadow-slate-900/5'
+                      }`}
+                    >
+                      <div className="grid gap-6 md:grid-cols-[auto_1fr]">
+                        <div className="relative z-10 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-[#173D5A] to-[#0369A1] text-white shadow-lg shadow-sky-900/18">
+                          <Icon className="h-7 w-7" />
+                        </div>
 
-                    <div>
-                      <div className="flex flex-wrap items-center gap-3">
-                        <p className="text-xs font-extrabold uppercase tracking-[0.2em] text-[#0369A1]">
-                          {service.eyebrow}
-                        </p>
-                        <span className={`rounded-full px-3 py-1 text-xs font-extrabold transition duration-300 ${
-                          isActive ? 'bg-[#E8F0F6] text-[#173D5A]' : 'bg-slate-100 text-[#64748B]'
-                        }`}>
-                          etapa {index + 1}
-                        </span>
-                      </div>
-
-                      <h3 className="mt-2 text-2xl font-extrabold leading-tight text-[#0F172A]">
-                        {service.title}
-                      </h3>
-
-                      <p className="mt-3 leading-relaxed text-[#475569]">
-                        {service.description}
-                      </p>
-
-                      <div className="mt-5 grid gap-2 sm:grid-cols-2">
-                        {service.items.map((item) => (
-                          <div
-                            key={item}
-                            className="flex items-center gap-2 rounded-xl bg-[#F4F8FB] px-3 py-2 text-sm font-bold text-[#475569]"
-                          >
-                            <span className="h-1.5 w-1.5 rounded-full bg-[#0077B6]" />
-                            {item}
+                        <div>
+                          <div className="flex flex-wrap items-center gap-3">
+                            <p className="text-xs font-extrabold uppercase tracking-[0.2em] text-[#0369A1]">
+                              {service.eyebrow}
+                            </p>
+                            <span className="rounded-full bg-sky-50 px-3 py-1 text-xs font-extrabold text-[#173D5A]">
+                              etapa {index + 1}
+                            </span>
                           </div>
-                        ))}
+
+                          <h3 className="mt-2 text-2xl font-extrabold leading-tight text-[#0F172A]">
+                            {service.title}
+                          </h3>
+
+                          <p className="mt-3 leading-relaxed text-[#475569]">
+                            {service.description}
+                          </p>
+
+                          <div className="mt-5 grid gap-2 sm:grid-cols-2">
+                            {service.items.map((item) => (
+                              <div
+                                key={item}
+                                className="flex items-center gap-2 rounded-xl bg-[#F4F8FB] px-3 py-2 text-sm font-bold text-[#475569]"
+                              >
+                                <span className="h-1.5 w-1.5 rounded-full bg-[#0077B6]" />
+                                {item}
+                              </div>
+                            ))}
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                  </div>
-                </motion.article>
-              );
-            })}
+                    </motion.div>
+                  </Reveal>
+                );
+              })}
+            </div>
           </div>
         </div>
 
         <Reveal>
-          <div id="proximo-passo-servicos" className="mt-8 rounded-[1.6rem] border border-sky-900/10 bg-gradient-to-r from-[#173D5A] to-[#0F2F46] p-6 text-white shadow-2xl shadow-slate-900/12 md:p-7">
+          <div className="mt-8 rounded-[1.6rem] border border-sky-900/10 bg-gradient-to-r from-[#173D5A] to-[#0F2F46] p-6 text-white shadow-2xl shadow-slate-900/12 md:p-7">
             <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
               <div>
                 <p className="text-sm font-bold uppercase tracking-[0.2em] text-sky-200">
@@ -281,9 +320,13 @@ export default function ServicesSection() {
                 </h3>
               </div>
 
-              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-white/12 text-sky-100">
-                <RefreshCcw className="h-6 w-6" />
-              </div>
+              <a
+                href="/diagnostico"
+                className="inline-flex items-center justify-center rounded-xl bg-white px-5 py-3 text-sm font-extrabold text-[#173D5A] shadow-xl shadow-black/10 transition duration-300 hover:-translate-y-0.5 hover:bg-sky-50"
+              >
+                Fazer diagnóstico
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </a>
             </div>
           </div>
         </Reveal>
