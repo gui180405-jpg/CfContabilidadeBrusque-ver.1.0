@@ -9,7 +9,7 @@ export default function HomePage({ onStartQuiz, navigate }) {
   return (
     <>
       <HeroSection onStartQuiz={onStartQuiz} navigate={navigate} />
-      <JourneySection navigate={navigate} onStartQuiz={onStartQuiz} />
+      <JourneySection onStartQuiz={onStartQuiz} />
       <SpecialtiesSection />
       <HowItWorksSection />
       <LocationSection compact />

@@ -12,6 +12,7 @@ export default function ServicesPage({ onStartQuiz }) {
         description="A CF acompanha abertura, fiscal, contábil, trabalhista e regularização para que prazos, impostos, documentos e decisões fiquem mais claros."
         onStartQuiz={onStartQuiz}
       />
+
       <ServicesSection />
       <FAQSection />
       <CTASection onStartQuiz={onStartQuiz} />
