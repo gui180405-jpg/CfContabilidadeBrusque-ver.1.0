@@ -14,18 +14,19 @@ import Reveal from '../common/Reveal';
 
 /*
 ============================================================
-SERVIÇOS — CICLO CONTÁBIL
+SERVIÇOS — CICLO CONTÁBIL SMOOTH
 ============================================================
 Conceito:
-A contabilidade não é uma escada linear. É uma rotina que gira:
-documentos, impostos, prazos, equipe, regularização e acompanhamento.
+A contabilidade não é uma sequência rígida de etapas.
+É um ciclo de organização que sustenta a rotina da empresa.
 
-Objetivo visual:
+Correções:
 - mais profundidade;
 - menos branco;
-- sem "appzinho";
-- mais institucional;
-- ciclo interativo com conteúdo claro.
+- interação mais calma;
+- pontos do ciclo mais leves;
+- card explicativo mais premium;
+- motion suave, sem sensação de app exagerado.
 ============================================================
 */
 
@@ -44,7 +45,7 @@ const cycleItems = [
       'enquadramento inicial',
       'organização cadastral',
     ],
-    position: 'left-[50%] top-[0%] -translate-x-1/2',
+    position: 'left-1/2 top-[4%] -translate-x-1/2',
   },
   {
     id: 'rotina',
@@ -60,7 +61,7 @@ const cycleItems = [
       'relatórios e informações',
       'previsibilidade da rotina',
     ],
-    position: 'right-[0%] top-[31%] -translate-y-1/2',
+    position: 'right-[2%] top-[34%] -translate-y-1/2',
   },
   {
     id: 'impostos',
@@ -76,7 +77,7 @@ const cycleItems = [
       'Simples Nacional',
       'obrigações fiscais',
     ],
-    position: 'right-[12%] bottom-[0%]',
+    position: 'right-[15%] bottom-[4%]',
   },
   {
     id: 'trabalhista',
@@ -92,7 +93,7 @@ const cycleItems = [
       'desligamentos',
       'obrigações trabalhistas',
     ],
-    position: 'left-[12%] bottom-[0%]',
+    position: 'left-[15%] bottom-[4%]',
   },
   {
     id: 'regularizacao',
@@ -108,13 +109,14 @@ const cycleItems = [
       'ajustes cadastrais',
       'orientação sobre próximos passos',
     ],
-    position: 'left-[0%] top-[31%] -translate-y-1/2',
+    position: 'left-[2%] top-[34%] -translate-y-1/2',
   },
 ];
 
 export default function ServicesSection() {
   const [activeIndex, setActiveIndex] = useState(0);
   const active = cycleItems[activeIndex];
+  const ActiveIcon = active.icon;
 
   const progressLabel = useMemo(() => {
     return `${String(activeIndex + 1).padStart(2, '0')} de ${String(cycleItems.length).padStart(2, '0')}`;
@@ -126,7 +128,7 @@ export default function ServicesSection() {
 
   return (
     <section id="servicos" className="relative overflow-hidden bg-[#0F2F46] px-5 py-20 text-white md:px-8 md:py-24">
-      <div className="absolute -left-32 top-8 h-96 w-96 rounded-full bg-sky-400/20 blur-3xl" />
+      <div className="absolute -left-32 top-8 h-96 w-96 rounded-full bg-sky-400/18 blur-3xl" />
       <div className="absolute -right-40 bottom-0 h-[34rem] w-[34rem] rounded-full bg-[#0077B6]/18 blur-3xl" />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(255,255,255,0.08),transparent_28%),radial-gradient(circle_at_80%_10%,rgba(14,165,233,0.12),transparent_26%)]" />
 
@@ -151,16 +153,18 @@ export default function ServicesSection() {
 
         <div className="mt-14 grid gap-9 lg:grid-cols-[1.02fr_0.98fr] lg:items-center">
           <Reveal>
-            <div className="relative mx-auto aspect-square w-full max-w-[580px]">
-              <div className="absolute inset-[11%] rounded-full border border-sky-200/15" />
-              <div className="absolute inset-[20%] rounded-full border border-sky-200/10" />
+            <div className="relative mx-auto hidden aspect-square w-full max-w-[560px] lg:block">
+              <div className="absolute inset-[10%] rounded-full bg-white/[0.03] shadow-[inset_0_0_60px_rgba(255,255,255,0.06)]" />
+              <div className="absolute inset-[12%] rounded-full border border-sky-200/14" />
+              <div className="absolute inset-[22%] rounded-full border border-sky-200/10" />
+
               <motion.div
-                className="absolute inset-[11%] rounded-full border border-sky-300/22"
+                className="absolute inset-[12%] rounded-full border border-sky-300/20"
                 animate={{ rotate: 360 }}
-                transition={{ duration: 42, repeat: Infinity, ease: 'linear' }}
+                transition={{ duration: 58, repeat: Infinity, ease: 'linear' }}
               />
 
-              <div className="absolute left-1/2 top-1/2 z-10 w-[46%] -translate-x-1/2 -translate-y-1/2 rounded-[2rem] border border-white/16 bg-white/10 p-6 text-center shadow-2xl shadow-black/18 backdrop-blur-md">
+              <div className="absolute left-1/2 top-1/2 z-10 w-[48%] -translate-x-1/2 -translate-y-1/2 rounded-[2rem] border border-white/16 bg-white/10 p-6 text-center shadow-2xl shadow-black/18 backdrop-blur-md">
                 <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-white text-[#173D5A] shadow-xl shadow-black/14">
                   <RefreshCcw className="h-7 w-7" />
                 </div>
@@ -188,37 +192,66 @@ export default function ServicesSection() {
                     type="button"
                     onClick={() => setActiveIndex(index)}
                     onMouseEnter={() => setActiveIndex(index)}
-                    className={`absolute z-20 ${item.position} group max-w-[148px] focus:outline-none`}
+                    className={`absolute z-20 ${item.position} group focus:outline-none`}
                     aria-label={`Selecionar ${item.title}`}
                   >
                     <motion.div
                       animate={{
-                        y: isActive ? -4 : 0,
-                        scale: isActive ? 1.04 : 1,
+                        y: isActive ? -3 : 0,
+                        scale: isActive ? 1.03 : 1,
                       }}
-                      transition={{ type: 'spring', stiffness: 240, damping: 20 }}
-                      className={`rounded-2xl border p-3 text-left shadow-xl backdrop-blur transition duration-300 ${
-                        isActive
-                          ? 'border-sky-200/80 bg-white text-[#0F172A] shadow-sky-950/22'
-                          : 'border-white/14 bg-white/10 text-sky-100 shadow-black/12 hover:border-sky-200/45 hover:bg-white/16'
+                      transition={{ type: 'spring', stiffness: 220, damping: 22 }}
+                      className="flex flex-col items-center gap-2"
+                    >
+                      <span
+                        className={`flex h-14 w-14 items-center justify-center rounded-2xl border shadow-xl backdrop-blur transition duration-300 ${
+                          isActive
+                            ? 'border-sky-200/75 bg-white text-[#173D5A] shadow-sky-950/25'
+                            : 'border-white/14 bg-white/10 text-sky-100 shadow-black/12 group-hover:border-sky-200/45 group-hover:bg-white/16'
+                        }`}
+                      >
+                        <Icon className="h-6 w-6" />
+                      </span>
+
+                      <span
+                        className={`rounded-full px-3 py-1 text-xs font-extrabold shadow-sm backdrop-blur transition duration-300 ${
+                          isActive
+                            ? 'bg-white text-[#173D5A]'
+                            : 'bg-white/8 text-sky-100 group-hover:bg-white/12'
+                        }`}
+                      >
+                        {item.short}
+                      </span>
+                    </motion.div>
+                  </button>
+                );
+              })}
+            </div>
+
+            <div className="grid gap-3 lg:hidden">
+              {cycleItems.map((item, index) => {
+                const Icon = item.icon;
+                const isActive = index === activeIndex;
+
+                return (
+                  <button
+                    key={item.id}
+                    type="button"
+                    onClick={() => setActiveIndex(index)}
+                    className={`flex items-center gap-3 rounded-2xl border p-4 text-left transition duration-300 ${
+                      isActive
+                        ? 'border-sky-200/70 bg-white text-[#0F172A]'
+                        : 'border-white/14 bg-white/8 text-sky-100'
+                    }`}
+                  >
+                    <span
+                      className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl ${
+                        isActive ? 'bg-[#0077B6] text-white' : 'bg-white/10 text-sky-100'
                       }`}
                     >
-                      <div className="flex items-center gap-3">
-                        <span
-                          className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl transition duration-300 ${
-                            isActive
-                              ? 'bg-[#0077B6] text-white'
-                              : 'bg-white/10 text-sky-100 group-hover:bg-white/16'
-                          }`}
-                        >
-                          <Icon className="h-5 w-5" />
-                        </span>
-
-                        <span className="text-sm font-extrabold leading-tight">
-                          {item.short}
-                        </span>
-                      </div>
-                    </motion.div>
+                      <Icon className="h-5 w-5" />
+                    </span>
+                    <span className="font-extrabold">{item.short}</span>
                   </button>
                 );
               })}
@@ -226,7 +259,7 @@ export default function ServicesSection() {
           </Reveal>
 
           <Reveal>
-            <div className="overflow-hidden rounded-[2rem] border border-white/14 bg-[#173D5A]/70 shadow-2xl shadow-black/18 backdrop-blur-xl">
+            <div className="overflow-hidden rounded-[2rem] border border-white/14 bg-[#173D5A]/74 shadow-2xl shadow-black/20 backdrop-blur-xl">
               <div className="border-b border-white/10 p-6 md:p-7">
                 <div className="flex flex-wrap items-center justify-between gap-4">
                   <div>
@@ -260,16 +293,13 @@ export default function ServicesSection() {
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={active.id}
-                    initial={{ opacity: 0, y: 12 }}
+                    initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -8 }}
-                    transition={{ duration: 0.28 }}
+                    transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
                   >
                     <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-white text-[#173D5A] shadow-xl shadow-black/12">
-                      {(() => {
-                        const ActiveIcon = active.icon;
-                        return <ActiveIcon className="h-7 w-7" />;
-                      })()}
+                      <ActiveIcon className="h-7 w-7" />
                     </div>
 
                     <p className="text-xs font-extrabold uppercase tracking-[0.22em] text-sky-200">
