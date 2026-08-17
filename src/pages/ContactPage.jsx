@@ -16,15 +16,9 @@ import { site } from '../content/siteContent';
 
 /*
 ============================================================
-PÁGINA CONTATO — VERSÃO LIMPA
+PÁGINA CONTATO
 ============================================================
-
-Correções aplicadas:
-- remove o botão/card "Som opcional";
-- remove o card "Atendimento rápido e orientado";
-- mantém o celular com mensagens;
-- não tampa mais o texto;
-- deixa a página mais limpa e profissional.
+Celular com mensagens limpo, sem overlays por cima do conteúdo.
 ============================================================
 */
 
