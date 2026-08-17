@@ -1,145 +1,131 @@
-import { useCallback, useState } from 'react';
 import { motion } from 'framer-motion';
 import {
   ArrowRight,
-  BellRing,
-  CheckCheck,
+  CheckCircle2,
+  Clock,
+  Mail,
+  MapPin,
   MessageCircle,
   Phone,
+  Send,
   ShieldCheck,
-  Sparkles,
-  Volume2,
-  VolumeX,
 } from 'lucide-react';
 import PrimaryButton from '../components/common/PrimaryButton';
-import LocationSection from '../components/landing/LocationSection';
-import FAQSection from '../components/landing/FAQSection';
+import Reveal from '../components/common/Reveal';
 import { site } from '../content/siteContent';
 
-const chatMessages = [
+/*
+============================================================
+PÁGINA CONTATO — VERSÃO LIMPA
+============================================================
+
+Correções aplicadas:
+- remove o botão/card "Som opcional";
+- remove o card "Atendimento rápido e orientado";
+- mantém o celular com mensagens;
+- não tampa mais o texto;
+- deixa a página mais limpa e profissional.
+============================================================
+*/
+
+const whatsappHref =
+  site?.whatsappUrl ||
+  site?.whatsappLink ||
+  site?.contact?.whatsappUrl ||
+  site?.contact?.whatsapp ||
+  '/diagnostico';
+
+const contactEmail =
+  site?.email ||
+  site?.contact?.email ||
+  'contato@cfcontabilidadebrusque.com';
+
+const phoneLabel =
+  site?.phone ||
+  site?.contact?.phone ||
+  'Fale com a CF';
+
+const messages = [
   {
-    side: 'client',
+    from: 'client',
     text: 'Olá! Quero entender melhor a parte contábil da minha empresa.',
-    delay: 0.75,
+    time: '09:41',
   },
   {
-    side: 'cf',
+    from: 'cf',
     text: 'Claro! Podemos analisar sua situação e indicar os próximos passos.',
-    delay: 1.15,
+    time: '09:42',
   },
   {
-    side: 'client',
+    from: 'client',
     text: 'Preciso de mais organização com prazos, impostos e documentos.',
-    delay: 1.55,
+    time: '09:41',
   },
   {
-    side: 'cf',
+    from: 'cf',
     text: 'Perfeito. Vamos te orientar com clareza e segurança.',
-    delay: 1.95,
+    time: '09:43',
   },
 ];
 
-function playNotificationSound() {
-  try {
-    const AudioContext = window.AudioContext || window.webkitAudioContext;
+const contactCards = [
+  {
+    icon: MessageCircle,
+    title: 'WhatsApp',
+    description: 'Envie uma mensagem para iniciar o atendimento.',
+  },
+  {
+    icon: Mail,
+    title: 'E-mail',
+    description: contactEmail,
+  },
+  {
+    icon: MapPin,
+    title: 'Localização',
+    description: 'Brusque, Santa Catarina',
+  },
+  {
+    icon: Clock,
+    title: 'Atendimento',
+    description: 'Orientação para empresas que buscam mais organização.',
+  },
+];
 
-    if (!AudioContext) return;
-
-    const audioContext = new AudioContext();
-    const now = audioContext.currentTime;
-
-    const oscillator = audioContext.createOscillator();
-    const gain = audioContext.createGain();
-
-    oscillator.type = 'sine';
-    oscillator.frequency.setValueAtTime(880, now);
-    oscillator.frequency.exponentialRampToValueAtTime(660, now + 0.12);
-
-    gain.gain.setValueAtTime(0.0001, now);
-    gain.gain.exponentialRampToValueAtTime(0.045, now + 0.015);
-    gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.16);
-
-    oscillator.connect(gain);
-    gain.connect(audioContext.destination);
-
-    oscillator.start(now);
-    oscillator.stop(now + 0.18);
-
-    setTimeout(() => {
-      audioContext.close?.();
-    }, 320);
-  } catch {
-    // Som é apenas um detalhe visual/interativo. Se o navegador bloquear, o site continua normal.
-  }
-}
-
-function PhoneChatMockup({ whatsappUrl }) {
-  const [soundEnabled, setSoundEnabled] = useState(false);
-  const [animationRun, setAnimationRun] = useState(0);
-
-  const handleSoundToggle = useCallback(() => {
-    const nextValue = !soundEnabled;
-
-    setSoundEnabled(nextValue);
-
-    if (nextValue) {
-      playNotificationSound();
-      setAnimationRun((current) => current + 1);
-    }
-  }, [soundEnabled]);
-
-  const handleMessageComplete = useCallback(() => {
-    if (soundEnabled) {
-      playNotificationSound();
-    }
-  }, [soundEnabled]);
-
+function ChatPhone() {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 90, rotate: -2, scale: 0.94 }}
-      animate={{ opacity: 1, y: 0, rotate: 0, scale: 1 }}
-      transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
-      className="relative mx-auto w-full max-w-[370px]"
-    >
-      <div className="absolute -inset-10 rounded-full bg-sky-500/18 blur-3xl" />
-      <div className="absolute -right-8 top-12 h-28 w-28 rounded-full bg-emerald-400/18 blur-2xl" />
-      <div className="absolute -left-8 bottom-16 h-24 w-24 rounded-full bg-sky-300/18 blur-2xl" />
+    <div className="relative mx-auto w-full max-w-[360px]">
+      <div className="absolute -inset-5 rounded-[3rem] bg-sky-300/16 blur-3xl" />
 
       <motion.div
-        animate={{ y: [0, -8, 0] }}
-        transition={{ duration: 5.2, repeat: Infinity, ease: 'easeInOut' }}
-        className="relative rounded-[2.4rem] border-[10px] border-slate-950 bg-slate-950 shadow-2xl shadow-slate-900/24"
+        initial={{ opacity: 0, y: 24, rotate: -1 }}
+        animate={{ opacity: 1, y: 0, rotate: 0 }}
+        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+        className="relative overflow-hidden rounded-[2.6rem] border-[7px] border-slate-950 bg-slate-950 shadow-2xl shadow-slate-900/28"
       >
-        <div className="absolute left-1/2 top-0 z-20 h-6 w-28 -translate-x-1/2 rounded-b-2xl bg-slate-950" />
+        <div className="absolute left-1/2 top-0 z-20 h-7 w-28 -translate-x-1/2 rounded-b-2xl bg-slate-950" />
 
-        <div className="overflow-hidden rounded-[1.75rem] bg-[#e8f5ec]">
-          <div className="relative bg-[#075e54] px-4 pb-4 pt-7 text-white">
-            <div className="absolute right-4 top-4">
-              <button
-                type="button"
-                onClick={handleSoundToggle}
-                aria-label={soundEnabled ? 'Desativar som das mensagens' : 'Ativar som das mensagens'}
-                className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-white/10 text-emerald-50 backdrop-blur transition hover:bg-white/18"
-              >
-                {soundEnabled ? <Volume2 className="h-4 w-4" /> : <VolumeX className="h-4 w-4" />}
-              </button>
-            </div>
+        <div className="overflow-hidden rounded-[2rem] bg-[#eef7f2]">
+          <div className="bg-[#075E54] px-5 pb-4 pt-7 text-white">
+            <div className="flex items-center gap-3">
+              <div className="relative flex h-12 w-12 items-center justify-center rounded-full border-2 border-white/85 bg-[#173D5A]">
+                {site?.chatLogo ? (
+                  <img
+                    src={site.chatLogo}
+                    alt="CF Contabilidade"
+                    className="h-8 w-8 object-contain"
+                  />
+                ) : (
+                  <span className="text-lg font-extrabold">CF</span>
+                )}
 
-            <div className="flex items-center gap-3 pr-12">
-              <div className="relative flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-lg shadow-black/10">
-                <img
-                  src="/cf-chat-logo.webp"
-                  alt="Logo CF Contabilidade"
-                  className="h-10 w-10 rounded-full object-cover"
-                />
-                <span className="absolute -bottom-0.5 -right-0.5 h-3.5 w-3.5 rounded-full border-2 border-[#075e54] bg-emerald-400" />
+                <span className="absolute -bottom-1 -right-1 h-3.5 w-3.5 rounded-full border-2 border-[#075E54] bg-emerald-400" />
               </div>
 
               <div className="min-w-0 flex-1">
                 <p className="truncate text-sm font-extrabold">
                   CF Contabilidade Brusque
                 </p>
-                <p className="text-xs text-emerald-100">
+                <p className="text-xs font-semibold text-emerald-100">
                   online agora
                 </p>
               </div>
@@ -148,198 +134,156 @@ function PhoneChatMockup({ whatsappUrl }) {
             </div>
           </div>
 
-          <div className="relative min-h-[430px] px-4 py-5">
-            <div className="absolute inset-0 opacity-[0.18] cf-subtle-grid" />
-
-            <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
-              <img
-                src="/cf-chat-logo.webp"
-                alt=""
-                className="h-44 w-44 rounded-full object-cover opacity-[0.055] grayscale"
-              />
+          <div className="relative min-h-[410px] px-4 py-5">
+            <div className="absolute inset-0 opacity-[0.04]">
+              <div className="h-full w-full bg-[radial-gradient(circle_at_20%_20%,#0f172a_0,transparent_22%),radial-gradient(circle_at_80%_40%,#0f172a_0,transparent_18%),radial-gradient(circle_at_40%_80%,#0f172a_0,transparent_20%)]" />
             </div>
 
-            <div className="relative space-y-3">
-              {chatMessages.map((message) => {
-                const isCf = message.side === 'cf';
+            <div className="relative z-10 space-y-4">
+              {messages.map((message, index) => {
+                const isClient = message.from === 'client';
 
                 return (
                   <motion.div
-                    key={`${animationRun}-${message.text}`}
-                    initial={{
-                      opacity: 0,
-                      y: 18,
-                      scale: 0.96,
-                    }}
-                    animate={{
-                      opacity: 1,
-                      y: 0,
-                      scale: 1,
-                    }}
-                    transition={{
-                      delay: message.delay,
-                      duration: 0.42,
-                      ease: [0.22, 1, 0.36, 1],
-                    }}
-                    onAnimationComplete={handleMessageComplete}
-                    className={`flex ${isCf ? 'justify-start' : 'justify-end'}`}
+                    key={`${message.from}-${index}`}
+                    initial={{ opacity: 0, y: 14 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.38, delay: index * 0.08 }}
+                    className={`flex ${isClient ? 'justify-end' : 'justify-start'}`}
                   >
                     <div
-                      className={`max-w-[82%] rounded-2xl px-4 py-3 text-sm leading-relaxed shadow-md ${
-                        isCf
-                          ? 'rounded-tl-md bg-white text-slate-800'
-                          : 'rounded-tr-md bg-[#dcf8c6] text-slate-850'
+                      className={`max-w-[82%] rounded-2xl px-4 py-3 text-sm leading-relaxed shadow-lg ${
+                        isClient
+                          ? 'rounded-tr-sm bg-[#DCF8C6] text-slate-800 shadow-emerald-900/8'
+                          : 'rounded-tl-sm bg-white text-slate-800 shadow-slate-900/8'
                       }`}
                     >
-                      {isCf && (
-                        <div className="mb-1 flex items-center gap-2 text-[11px] font-extrabold uppercase tracking-[0.12em] text-sky-800">
-                          <img
-                            src="/cf-chat-logo.webp"
-                            alt=""
-                            className="h-4 w-4 rounded-full object-cover"
-                          />
+                      {!isClient && (
+                        <div className="mb-1 flex items-center gap-2 text-xs font-extrabold text-[#173D5A]">
+                          <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[#173D5A] text-[10px] text-white">
+                            CF
+                          </span>
                           CF
                         </div>
                       )}
 
-                      {message.text}
+                      <p>{message.text}</p>
 
-                      <div className="mt-1 flex items-center justify-end gap-1 text-[10px] text-slate-500">
-                        09:{isCf ? '42' : '41'}
-                        {!isCf && <CheckCheck className="h-3.5 w-3.5 text-sky-600" />}
+                      <div className="mt-1 flex items-center justify-end gap-1 text-[11px] text-slate-500">
+                        {message.time}
+                        {isClient && <CheckCircle2 className="h-3 w-3 text-sky-500" />}
                       </div>
                     </div>
                   </motion.div>
                 );
               })}
             </div>
+          </div>
 
-            <motion.div
-              initial={{ opacity: 0, y: 14 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 2.35, duration: 0.45 }}
-              className="absolute inset-x-4 bottom-4"
+          <div className="bg-[#eef7f2] px-4 pb-5">
+            <a
+              href={whatsappHref}
+              className="flex items-center gap-3 rounded-2xl bg-white px-4 py-3 shadow-xl shadow-slate-900/10 transition duration-300 hover:-translate-y-0.5"
             >
-              <a
-                href={whatsappUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center justify-between rounded-2xl bg-white px-4 py-3 text-sm font-bold text-slate-700 shadow-xl shadow-slate-900/10 transition duration-300 hover:-translate-y-0.5 hover:text-emerald-700"
-              >
-                <span>Enviar mensagem</span>
-                <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-500 text-white">
-                  <ArrowRight className="h-5 w-5" />
-                </span>
-              </a>
-            </motion.div>
+              <span className="flex-1 text-sm font-extrabold text-[#173D5A]">
+                Enviar mensagem
+              </span>
+
+              <span className="flex h-10 w-10 items-center justify-center rounded-full bg-emerald-500 text-white shadow-lg shadow-emerald-900/18">
+                <Send className="h-5 w-5" />
+              </span>
+            </a>
           </div>
         </div>
       </motion.div>
-
-      <motion.div
-        initial={{ opacity: 0, x: 24, y: 12 }}
-        animate={{ opacity: 1, x: 0, y: 0 }}
-        transition={{ delay: 2.55, duration: 0.5 }}
-        className="absolute -right-5 bottom-20 hidden rounded-2xl border border-white/70 bg-white/88 p-4 shadow-2xl shadow-slate-900/12 backdrop-blur md:block"
-      >
-        <div className="flex items-center gap-3">
-          <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-sky-50 text-sky-800">
-            <ShieldCheck className="h-5 w-5" />
-          </div>
-
-          <div>
-            <p className="text-xs font-bold uppercase tracking-[0.16em] text-sky-800">
-              Atendimento
-            </p>
-            <p className="text-sm font-extrabold text-slate-950">
-              rápido e orientado
-            </p>
-          </div>
-        </div>
-      </motion.div>
-
-      <motion.div
-        initial={{ opacity: 0, x: -16, y: -8 }}
-        animate={{ opacity: 1, x: 0, y: 0 }}
-        transition={{ delay: 2.8, duration: 0.45 }}
-        className="absolute -left-4 top-24 hidden rounded-2xl border border-white/70 bg-white/88 px-4 py-3 text-sm font-bold text-slate-700 shadow-xl shadow-slate-900/10 backdrop-blur md:flex md:items-center md:gap-2"
-      >
-        <BellRing className="h-4 w-4 text-emerald-600" />
-        {soundEnabled ? 'Som ativado' : 'Som opcional'}
-      </motion.div>
-    </motion.div>
-  );
-}
-
-function ContactHero({ onStartQuiz }) {
-  const whatsappUrl = `https://wa.me/${site.phoneWhats}?text=${encodeURIComponent(site.whatsappDefaultMessage)}`;
-
-  return (
-    <section className="relative overflow-hidden bg-[#dfeaf2] px-5 pb-16 pt-32 md:px-8 md:pb-20 md:pt-36">
-      <div className="absolute inset-0 cf-subtle-grid opacity-55" />
-      <div className="absolute -left-28 top-12 h-80 w-80 rounded-full bg-sky-500/16 blur-3xl" />
-      <div className="absolute right-0 top-24 h-96 w-96 rounded-full bg-emerald-400/10 blur-3xl" />
-      <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#e8f0f6] to-transparent" />
-
-      <div className="relative z-10 mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-[1fr_0.86fr]">
-        <motion.div
-          initial={{ opacity: 0, y: 18 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
-          className="text-left"
-        >
-          <div className="inline-flex items-center gap-2 rounded-full border border-sky-900/10 bg-white/78 px-4 py-2 text-sm font-bold text-sky-900 shadow-sm backdrop-blur">
-            <Sparkles className="h-4 w-4" />
-            Contato
-          </div>
-
-          <h1 className="mt-5 text-4xl font-extrabold tracking-tight text-slate-950 md:text-5xl">
-            Fale com a CF Contabilidade Brusque.
-          </h1>
-
-          <p className="mt-6 max-w-3xl text-lg leading-relaxed text-slate-700 md:text-xl">
-            Entre em contato pelo WhatsApp, telefone, e-mail ou visite nosso escritório em Brusque-SC.
-            Nossa equipe pode te orientar com clareza sobre a rotina contábil da sua empresa.
-          </p>
-
-          <div className="mt-8 flex flex-col gap-4 sm:flex-row">
-            <PrimaryButton href={whatsappUrl} external>
-              Falar no WhatsApp
-            </PrimaryButton>
-
-            <button
-              type="button"
-              onClick={onStartQuiz}
-              className="rounded-xl border border-slate-300 bg-white/84 px-6 py-3.5 text-sm font-bold text-slate-800 shadow-sm transition hover:-translate-y-0.5 hover:border-sky-200 hover:text-sky-800 md:text-base"
-            >
-              Fazer diagnóstico
-            </button>
-          </div>
-
-          <div className="mt-8 grid max-w-2xl gap-3 sm:grid-cols-3">
-            {['Atendimento próximo', 'Orientação clara', 'Rotina organizada'].map((item) => (
-              <div
-                key={item}
-                className="rounded-2xl border border-white/70 bg-white/70 px-4 py-3 text-sm font-bold text-slate-700 shadow-lg shadow-slate-900/5 backdrop-blur"
-              >
-                {item}
-              </div>
-            ))}
-          </div>
-        </motion.div>
-
-        <PhoneChatMockup whatsappUrl={whatsappUrl} />
-      </div>
-    </section>
+    </div>
   );
 }
 
 export default function ContactPage({ onStartQuiz }) {
   return (
-    <>
-      <ContactHero onStartQuiz={onStartQuiz} />
-      <LocationSection />
-      <FAQSection />
-    </>
+    <main className="bg-[#E8F0F6]">
+      <section className="relative overflow-hidden px-5 pb-20 pt-32 md:px-8 md:pb-24 md:pt-36">
+        <div className="absolute -left-32 top-16 h-96 w-96 rounded-full bg-sky-400/14 blur-3xl" />
+        <div className="absolute right-0 top-20 h-[30rem] w-[30rem] rounded-full bg-white/70 blur-3xl" />
+        <div className="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-[#F4F8FB] via-[#F4F8FB]/70 to-transparent" />
+
+        <div className="relative mx-auto grid max-w-7xl items-center gap-14 lg:grid-cols-[1fr_0.86fr]">
+          <Reveal>
+            <div>
+              <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-[#CBDDE8] bg-white/76 px-4 py-2 text-sm font-bold text-[#173D5A] shadow-sm backdrop-blur">
+                <span className="h-2 w-2 rounded-full bg-[#0077B6]" />
+                Contato CF Contabilidade
+              </div>
+
+              <h1 className="max-w-4xl text-4xl font-extrabold leading-[1.04] tracking-tight text-[#0F172A] md:text-5xl lg:text-[4rem]">
+                Converse com a CF e entenda o próximo passo da sua empresa.
+              </h1>
+
+              <p className="mt-6 max-w-2xl text-lg leading-relaxed text-[#475569] md:text-xl">
+                Envie uma mensagem para organizar dúvidas sobre abertura, rotina
+                contábil, impostos, documentos, folha ou regularização.
+              </p>
+
+              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+                <a
+                  href={whatsappHref}
+                  className="inline-flex items-center justify-center rounded-xl bg-[#0077B6] px-6 py-3.5 text-sm font-extrabold text-white shadow-xl shadow-sky-900/18 transition duration-300 hover:-translate-y-0.5 hover:bg-[#0369A1] md:text-base"
+                >
+                  Falar com a CF
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </a>
+
+                <PrimaryButton onClick={onStartQuiz}>
+                  Fazer diagnóstico
+                  <ShieldCheck className="ml-2 h-5 w-5" />
+                </PrimaryButton>
+              </div>
+
+              <div className="mt-8 grid gap-3 sm:grid-cols-3">
+                {['orientação inicial', 'clareza sobre prazos', 'rotina mais organizada'].map((item) => (
+                  <div
+                    key={item}
+                    className="flex items-center gap-2 rounded-2xl border border-white/80 bg-white/62 px-3 py-2 text-sm font-bold text-[#475569] shadow-sm backdrop-blur"
+                  >
+                    <CheckCircle2 className="h-5 w-5 shrink-0 text-[#0077B6]" />
+                    {item}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </Reveal>
+
+          <ChatPhone />
+        </div>
+      </section>
+
+      <section className="bg-[#F4F8FB] px-5 pb-20 md:px-8 md:pb-24">
+        <div className="mx-auto grid max-w-7xl gap-4 md:grid-cols-2 lg:grid-cols-4">
+          {contactCards.map((card, index) => {
+            const Icon = card.icon;
+
+            return (
+              <Reveal key={card.title} delay={index * 0.05}>
+                <div className="h-full rounded-[1.5rem] border border-white/80 bg-white/78 p-5 shadow-xl shadow-slate-900/7 backdrop-blur">
+                  <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-sky-50 text-[#0369A1]">
+                    <Icon className="h-6 w-6" />
+                  </div>
+
+                  <h2 className="font-extrabold text-[#0F172A]">
+                    {card.title}
+                  </h2>
+
+                  <p className="mt-2 text-sm leading-relaxed text-[#64748B]">
+                    {card.description}
+                  </p>
+                </div>
+              </Reveal>
+            );
+          })}
+        </div>
+      </section>
+    </main>
   );
 }
