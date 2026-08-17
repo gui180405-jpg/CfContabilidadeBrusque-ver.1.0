@@ -5,28 +5,30 @@ import {
   BadgeDollarSign,
   BriefcaseBusiness,
   Building2,
+  CalendarCheck,
   CheckCircle2,
   ClipboardCheck,
+  FileText,
   RefreshCcw,
   ShieldAlert,
+  ShieldCheck,
 } from 'lucide-react';
 import Reveal from '../common/Reveal';
 
 /*
 ============================================================
-SERVIÇOS — CICLO CONTÁBIL SMOOTH
+SERVIÇOS — CICLO CONTÁBIL PREMIUM
 ============================================================
 Conceito:
-A contabilidade não é uma sequência rígida de etapas.
-É um ciclo de organização que sustenta a rotina da empresa.
+A contabilidade não é uma escada linear. É um ciclo de organização:
+documentos, prazos, impostos, equipe, pendências e acompanhamento.
 
-Correções:
-- mais profundidade;
-- menos branco;
-- interação mais calma;
-- pontos do ciclo mais leves;
-- card explicativo mais premium;
-- motion suave, sem sensação de app exagerado.
+Objetivo visual:
+- fundo mais profundo;
+- ícones flutuantes premium;
+- motion sutil, respirando;
+- card explicativo claro;
+- sem parecer dashboard pesado.
 ============================================================
 */
 
@@ -45,7 +47,7 @@ const cycleItems = [
       'enquadramento inicial',
       'organização cadastral',
     ],
-    position: 'left-1/2 top-[4%] -translate-x-1/2',
+    position: 'left-1/2 top-0 -translate-x-1/2',
   },
   {
     id: 'rotina',
@@ -61,7 +63,7 @@ const cycleItems = [
       'relatórios e informações',
       'previsibilidade da rotina',
     ],
-    position: 'right-[2%] top-[34%] -translate-y-1/2',
+    position: 'right-0 top-[32%] -translate-y-1/2',
   },
   {
     id: 'impostos',
@@ -77,7 +79,7 @@ const cycleItems = [
       'Simples Nacional',
       'obrigações fiscais',
     ],
-    position: 'right-[15%] bottom-[4%]',
+    position: 'right-[10%] bottom-0',
   },
   {
     id: 'trabalhista',
@@ -93,7 +95,7 @@ const cycleItems = [
       'desligamentos',
       'obrigações trabalhistas',
     ],
-    position: 'left-[15%] bottom-[4%]',
+    position: 'left-[10%] bottom-0',
   },
   {
     id: 'regularizacao',
@@ -109,7 +111,34 @@ const cycleItems = [
       'ajustes cadastrais',
       'orientação sobre próximos passos',
     ],
-    position: 'left-[2%] top-[34%] -translate-y-1/2',
+    position: 'left-0 top-[32%] -translate-y-1/2',
+  },
+];
+
+const floatingDetails = [
+  {
+    icon: FileText,
+    className: 'left-[15%] top-[17%]',
+    delay: 0,
+    motion: { y: [-5, 7, -5], x: [0, 3, 0], rotate: [-1.5, 1.5, -1.5] },
+  },
+  {
+    icon: CalendarCheck,
+    className: 'right-[14%] top-[17%]',
+    delay: 0.45,
+    motion: { y: [6, -6, 6], x: [0, -3, 0], rotate: [1, -1, 1] },
+  },
+  {
+    icon: ShieldCheck,
+    className: 'left-[18%] bottom-[16%]',
+    delay: 0.9,
+    motion: { y: [-4, 6, -4], x: [-2, 2, -2], rotate: [0, 2, 0] },
+  },
+  {
+    icon: CheckCircle2,
+    className: 'right-[18%] bottom-[16%]',
+    delay: 1.15,
+    motion: { y: [5, -5, 5], x: [2, -2, 2], rotate: [2, 0, 2] },
   },
 ];
 
@@ -128,7 +157,7 @@ export default function ServicesSection() {
 
   return (
     <section id="servicos" className="relative overflow-hidden bg-[#0F2F46] px-5 py-20 text-white md:px-8 md:py-24">
-      <div className="absolute -left-32 top-8 h-96 w-96 rounded-full bg-sky-400/18 blur-3xl" />
+      <div className="absolute -left-32 top-8 h-96 w-96 rounded-full bg-sky-400/20 blur-3xl" />
       <div className="absolute -right-40 bottom-0 h-[34rem] w-[34rem] rounded-full bg-[#0077B6]/18 blur-3xl" />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(255,255,255,0.08),transparent_28%),radial-gradient(circle_at_80%_10%,rgba(14,165,233,0.12),transparent_26%)]" />
 
@@ -153,18 +182,21 @@ export default function ServicesSection() {
 
         <div className="mt-14 grid gap-9 lg:grid-cols-[1.02fr_0.98fr] lg:items-center">
           <Reveal>
-            <div className="relative mx-auto hidden aspect-square w-full max-w-[560px] lg:block">
-              <div className="absolute inset-[10%] rounded-full bg-white/[0.03] shadow-[inset_0_0_60px_rgba(255,255,255,0.06)]" />
-              <div className="absolute inset-[12%] rounded-full border border-sky-200/14" />
-              <div className="absolute inset-[22%] rounded-full border border-sky-200/10" />
-
+            <div className="relative mx-auto aspect-square w-full max-w-[590px]">
+              <div className="absolute inset-0 rounded-full bg-sky-300/8 blur-3xl" />
+              <div className="absolute inset-[8%] rounded-full border border-sky-100/18" />
+              <div className="absolute inset-[18%] rounded-full border border-sky-100/10" />
               <motion.div
-                className="absolute inset-[12%] rounded-full border border-sky-300/20"
-                animate={{ rotate: 360 }}
-                transition={{ duration: 58, repeat: Infinity, ease: 'linear' }}
+                className="absolute inset-[8%] rounded-full border border-sky-300/22"
+                animate={{ opacity: [0.42, 0.85, 0.42], scale: [1, 1.018, 1] }}
+                transition={{ duration: 6.5, repeat: Infinity, ease: 'easeInOut' }}
               />
 
-              <div className="absolute left-1/2 top-1/2 z-10 w-[48%] -translate-x-1/2 -translate-y-1/2 rounded-[2rem] border border-white/16 bg-white/10 p-6 text-center shadow-2xl shadow-black/18 backdrop-blur-md">
+              <motion.div
+                className="absolute left-1/2 top-1/2 z-10 w-[46%] -translate-x-1/2 -translate-y-1/2 rounded-[2rem] border border-white/18 bg-white/12 p-6 text-center shadow-2xl shadow-black/22 backdrop-blur-md"
+                animate={{ y: [0, -5, 0] }}
+                transition={{ duration: 5.8, repeat: Infinity, ease: 'easeInOut' }}
+              >
                 <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-white text-[#173D5A] shadow-xl shadow-black/14">
                   <RefreshCcw className="h-7 w-7" />
                 </div>
@@ -180,86 +212,110 @@ export default function ServicesSection() {
                 <p className="mt-3 text-sm leading-relaxed text-sky-100/76">
                   Acompanhamento para reduzir correria, atrasos e decisões sem clareza.
                 </p>
-              </div>
+              </motion.div>
 
-              {cycleItems.map((item, index) => {
-                const Icon = item.icon;
-                const isActive = index === activeIndex;
-
-                return (
-                  <button
-                    key={item.id}
-                    type="button"
-                    onClick={() => setActiveIndex(index)}
-                    onMouseEnter={() => setActiveIndex(index)}
-                    className={`absolute z-20 ${item.position} group focus:outline-none`}
-                    aria-label={`Selecionar ${item.title}`}
-                  >
+              <div className="pointer-events-none absolute inset-0 hidden md:block">
+                {floatingDetails.map((detail, index) => {
+                  const Icon = detail.icon;
+                  return (
                     <motion.div
-                      animate={{
-                        y: isActive ? -3 : 0,
-                        scale: isActive ? 1.03 : 1,
+                      key={index}
+                      className={`absolute ${detail.className} z-[8] flex h-11 w-11 items-center justify-center rounded-2xl border border-white/12 bg-white/8 text-sky-100/75 shadow-lg shadow-black/10 backdrop-blur-md`}
+                      animate={detail.motion}
+                      transition={{
+                        duration: 4.2 + index * 0.45,
+                        delay: detail.delay,
+                        repeat: Infinity,
+                        ease: 'easeInOut',
                       }}
-                      transition={{ type: 'spring', stiffness: 220, damping: 22 }}
-                      className="flex flex-col items-center gap-2"
-                    >
-                      <span
-                        className={`flex h-14 w-14 items-center justify-center rounded-2xl border shadow-xl backdrop-blur transition duration-300 ${
-                          isActive
-                            ? 'border-sky-200/75 bg-white text-[#173D5A] shadow-sky-950/25'
-                            : 'border-white/14 bg-white/10 text-sky-100 shadow-black/12 group-hover:border-sky-200/45 group-hover:bg-white/16'
-                        }`}
-                      >
-                        <Icon className="h-6 w-6" />
-                      </span>
-
-                      <span
-                        className={`rounded-full px-3 py-1 text-xs font-extrabold shadow-sm backdrop-blur transition duration-300 ${
-                          isActive
-                            ? 'bg-white text-[#173D5A]'
-                            : 'bg-white/8 text-sky-100 group-hover:bg-white/12'
-                        }`}
-                      >
-                        {item.short}
-                      </span>
-                    </motion.div>
-                  </button>
-                );
-              })}
-            </div>
-
-            <div className="grid gap-3 lg:hidden">
-              {cycleItems.map((item, index) => {
-                const Icon = item.icon;
-                const isActive = index === activeIndex;
-
-                return (
-                  <button
-                    key={item.id}
-                    type="button"
-                    onClick={() => setActiveIndex(index)}
-                    className={`flex items-center gap-3 rounded-2xl border p-4 text-left transition duration-300 ${
-                      isActive
-                        ? 'border-sky-200/70 bg-white text-[#0F172A]'
-                        : 'border-white/14 bg-white/8 text-sky-100'
-                    }`}
-                  >
-                    <span
-                      className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl ${
-                        isActive ? 'bg-[#0077B6] text-white' : 'bg-white/10 text-sky-100'
-                      }`}
                     >
                       <Icon className="h-5 w-5" />
-                    </span>
-                    <span className="font-extrabold">{item.short}</span>
-                  </button>
-                );
-              })}
+                    </motion.div>
+                  );
+                })}
+              </div>
+
+              <div className="hidden md:block">
+                {cycleItems.map((item, index) => {
+                  const Icon = item.icon;
+                  const isActive = index === activeIndex;
+
+                  return (
+                    <button
+                      key={item.id}
+                      id={item.id}
+                      type="button"
+                      onClick={() => setActiveIndex(index)}
+                      onMouseEnter={() => setActiveIndex(index)}
+                      className={`absolute z-20 ${item.position} group max-w-[150px] scroll-mt-28 focus:outline-none`}
+                      aria-label={`Selecionar ${item.title}`}
+                    >
+                      <motion.div
+                        animate={{
+                          y: isActive ? -5 : 0,
+                          scale: isActive ? 1.04 : 1,
+                        }}
+                        transition={{ type: 'spring', stiffness: 220, damping: 20 }}
+                        className={`rounded-2xl border p-3 text-left shadow-xl backdrop-blur transition duration-300 ${
+                          isActive
+                            ? 'border-sky-200/85 bg-white text-[#0F172A] shadow-sky-950/26'
+                            : 'border-white/14 bg-white/10 text-sky-100/82 shadow-black/12 hover:border-sky-200/45 hover:bg-white/16'
+                        }`}
+                      >
+                        <div className="flex items-center gap-3">
+                          <span
+                            className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl transition duration-300 ${
+                              isActive
+                                ? 'bg-[#0077B6] text-white shadow-lg shadow-sky-900/25'
+                                : 'bg-white/10 text-sky-100 group-hover:bg-white/16'
+                            }`}
+                          >
+                            <Icon className="h-5 w-5" />
+                          </span>
+
+                          <span className="text-sm font-extrabold leading-tight">
+                            {item.short}
+                          </span>
+                        </div>
+                      </motion.div>
+                    </button>
+                  );
+                })}
+              </div>
+
+              <div className="grid gap-3 md:hidden">
+                {cycleItems.map((item, index) => {
+                  const Icon = item.icon;
+                  const isActive = index === activeIndex;
+
+                  return (
+                    <button
+                      key={item.id}
+                      type="button"
+                      onClick={() => setActiveIndex(index)}
+                      className={`flex items-center gap-3 rounded-2xl border p-3 text-left transition duration-300 ${
+                        isActive
+                          ? 'border-sky-200 bg-white text-[#0F172A]'
+                          : 'border-white/14 bg-white/8 text-sky-100'
+                      }`}
+                    >
+                      <span
+                        className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${
+                          isActive ? 'bg-[#0077B6] text-white' : 'bg-white/10 text-sky-100'
+                        }`}
+                      >
+                        <Icon className="h-5 w-5" />
+                      </span>
+                      <span className="text-sm font-extrabold">{item.short}</span>
+                    </button>
+                  );
+                })}
+              </div>
             </div>
           </Reveal>
 
           <Reveal>
-            <div className="overflow-hidden rounded-[2rem] border border-white/14 bg-[#173D5A]/74 shadow-2xl shadow-black/20 backdrop-blur-xl">
+            <div className="overflow-hidden rounded-[2rem] border border-white/16 bg-[#123A55]/82 shadow-2xl shadow-black/22 backdrop-blur-xl">
               <div className="border-b border-white/10 p-6 md:p-7">
                 <div className="flex flex-wrap items-center justify-between gap-4">
                   <div>
@@ -293,10 +349,10 @@ export default function ServicesSection() {
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={active.id}
-                    initial={{ opacity: 0, y: 10 }}
+                    initial={{ opacity: 0, y: 12 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -8 }}
-                    transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                    transition={{ duration: 0.32, ease: 'easeOut' }}
                   >
                     <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-white text-[#173D5A] shadow-xl shadow-black/12">
                       <ActiveIcon className="h-7 w-7" />
@@ -340,7 +396,7 @@ export default function ServicesSection() {
 
                   <a
                     href="/diagnostico"
-                    className="inline-flex items-center justify-center rounded-xl border border-white/16 bg-white/8 px-5 py-3 text-sm font-extrabold text-white transition duration-300 hover:-translate-y-0.5 hover:bg-white/14"
+                    className="inline-flex items-center justify-center rounded-xl border border-white/18 bg-white/8 px-5 py-3 text-sm font-extrabold text-white transition duration-300 hover:-translate-y-0.5 hover:bg-white/14"
                   >
                     Entender minha situação contábil
                   </a>
