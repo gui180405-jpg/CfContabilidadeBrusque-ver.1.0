@@ -34,6 +34,7 @@ export const site = {
   teamImage: '/EquipeCfcontabilidade.jpg',
   receptionImage: '/cf-recepcao-brasil.webp',
   officeImage: '/cf-escritorio-vista.webp',
+  chatLogo: '/cf-chat-logo.webp',
 
   // FOTO DA ROSE COM VÍDEO
   // Se quiser deixar 100% local no futuro, salve a foto em public/rose-michei.png

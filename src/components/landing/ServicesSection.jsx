@@ -1,165 +1,140 @@
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import {
   ArrowRight,
   BadgeDollarSign,
   BriefcaseBusiness,
   Building2,
-  CalendarCheck,
   CheckCircle2,
   ClipboardCheck,
   FileText,
-  RefreshCcw,
   ShieldAlert,
-  ShieldCheck,
+  Sparkles,
 } from 'lucide-react';
 import Reveal from '../common/Reveal';
 
 /*
 ============================================================
-SERVIÇOS — CICLO CONTÁBIL PREMIUM
+SERVIÇOS — MAPA DA ROTINA CONTÁBIL
 ============================================================
-Conceito:
-A contabilidade não é uma escada linear. É um ciclo de organização:
-documentos, prazos, impostos, equipe, pendências e acompanhamento.
 
-Objetivo visual:
-- fundo mais profundo;
-- ícones flutuantes premium;
-- motion sutil, respirando;
-- card explicativo claro;
-- sem parecer dashboard pesado.
+Conceito final:
+A CF organiza a rotina contábil, fiscal, trabalhista e societária
+das empresas para que elas tenham mais clareza, previsibilidade
+e segurança para crescer.
+
+Direção visual:
+- sem órbita;
+- sem sistema solar;
+- sem ícones soltos;
+- fundo azul profundo;
+- bloco institucional forte;
+- áreas organizadas com leitura clara;
+- motion suave e útil.
 ============================================================
 */
 
-const cycleItems = [
+const serviceAreas = [
   {
     id: 'abertura',
     icon: Building2,
-    short: 'Abertura',
+    label: 'Abertura',
     eyebrow: 'começando ou ajustando',
-    title: 'Abertura e regularização',
+    title: 'Abertura e regularização de empresa',
     description:
-      'CNPJ, enquadramento, alterações e organização cadastral para começar ou ajustar a empresa com mais segurança.',
-    bullets: [
+      'A CF orienta a estrutura inicial da empresa, ajudando a organizar CNPJ, enquadramento, alterações e cadastros para começar com mais segurança.',
+    items: [
       'abertura de CNPJ',
       'alterações contratuais',
       'enquadramento inicial',
       'organização cadastral',
     ],
-    position: 'left-1/2 top-0 -translate-x-1/2',
   },
   {
     id: 'rotina',
     icon: ClipboardCheck,
-    short: 'Rotina mensal',
+    label: 'Rotina mensal',
     eyebrow: 'dia a dia contábil',
     title: 'Rotina contábil mensal',
     description:
-      'Documentos, prazos, relatórios e acompanhamento da movimentação para reduzir correria e decisões no escuro.',
-    bullets: [
+      'Acompanhamento dos documentos, prazos, relatórios e informações que sustentam a rotina da empresa ao longo do mês.',
+    items: [
       'organização de documentos',
       'acompanhamento mensal',
       'relatórios e informações',
       'previsibilidade da rotina',
     ],
-    position: 'right-0 top-[32%] -translate-y-1/2',
   },
   {
     id: 'impostos',
     icon: BadgeDollarSign,
-    short: 'Impostos',
+    label: 'Impostos',
     eyebrow: 'fiscal e tributário',
     title: 'Fiscal, impostos e notas',
     description:
-      'Guias, notas fiscais, Simples Nacional e obrigações fiscais acompanhadas com mais clareza.',
-    bullets: [
+      'Acompanhamento de guias, apurações, notas fiscais, Simples Nacional e obrigações fiscais para trazer mais clareza sobre o que está sendo pago.',
+    items: [
       'guias e apurações',
       'notas fiscais',
       'Simples Nacional',
       'obrigações fiscais',
     ],
-    position: 'right-[10%] bottom-0',
   },
   {
     id: 'trabalhista',
     icon: BriefcaseBusiness,
-    short: 'Equipe',
+    label: 'Equipe',
     eyebrow: 'departamento pessoal',
     title: 'Departamento pessoal e trabalhista',
     description:
-      'Folha, admissões, desligamentos e obrigações trabalhistas para empresas com equipe ou em fase de contratação.',
-    bullets: [
+      'Organização das rotinas de folha, admissões, desligamentos e obrigações trabalhistas para empresas com equipe ou em fase de contratação.',
+    items: [
       'folha de pagamento',
       'admissões',
       'desligamentos',
       'obrigações trabalhistas',
     ],
-    position: 'left-[10%] bottom-0',
   },
   {
     id: 'regularizacao',
     icon: ShieldAlert,
-    short: 'Pendências',
+    label: 'Pendências',
     eyebrow: 'ajustes e regularidade',
-    title: 'Pendências e regularização',
+    title: 'Regularização e pendências',
     description:
-      'Acompanhamento de atrasos, CNPJ irregular, ajustes cadastrais e próximos passos para voltar à organização.',
-    bullets: [
+      'Apoio para organizar atrasos, pendências fiscais, CNPJ irregular, ajustes cadastrais e próximos passos para voltar à rotina com mais segurança.',
+    items: [
       'pendências fiscais',
       'CNPJ irregular',
       'ajustes cadastrais',
       'orientação sobre próximos passos',
     ],
-    position: 'left-0 top-[32%] -translate-y-1/2',
   },
 ];
 
-const floatingDetails = [
-  {
-    icon: FileText,
-    className: 'left-[15%] top-[17%]',
-    delay: 0,
-    motion: { y: [-5, 7, -5], x: [0, 3, 0], rotate: [-1.5, 1.5, -1.5] },
-  },
-  {
-    icon: CalendarCheck,
-    className: 'right-[14%] top-[17%]',
-    delay: 0.45,
-    motion: { y: [6, -6, 6], x: [0, -3, 0], rotate: [1, -1, 1] },
-  },
-  {
-    icon: ShieldCheck,
-    className: 'left-[18%] bottom-[16%]',
-    delay: 0.9,
-    motion: { y: [-4, 6, -4], x: [-2, 2, -2], rotate: [0, 2, 0] },
-  },
-  {
-    icon: CheckCircle2,
-    className: 'right-[18%] bottom-[16%]',
-    delay: 1.15,
-    motion: { y: [5, -5, 5], x: [2, -2, 2], rotate: [2, 0, 2] },
-  },
+const routinePoints = [
+  'documentos em ordem',
+  'prazos acompanhados',
+  'impostos com clareza',
 ];
 
 export default function ServicesSection() {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const active = cycleItems[activeIndex];
-  const ActiveIcon = active.icon;
+  const [activeIndex, setActiveIndex] = useState(1);
+  const activeArea = serviceAreas[activeIndex];
+  const ActiveIcon = activeArea.icon;
 
-  const progressLabel = useMemo(() => {
-    return `${String(activeIndex + 1).padStart(2, '0')} de ${String(cycleItems.length).padStart(2, '0')}`;
-  }, [activeIndex]);
-
-  const goNext = () => {
-    setActiveIndex((current) => (current + 1) % cycleItems.length);
+  const handleNextArea = () => {
+    setActiveIndex((current) => (current + 1) % serviceAreas.length);
   };
 
   return (
-    <section id="servicos" className="relative overflow-hidden bg-[#0F2F46] px-5 py-20 text-white md:px-8 md:py-24">
-      <div className="absolute -left-32 top-8 h-96 w-96 rounded-full bg-sky-400/20 blur-3xl" />
-      <div className="absolute -right-40 bottom-0 h-[34rem] w-[34rem] rounded-full bg-[#0077B6]/18 blur-3xl" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(255,255,255,0.08),transparent_28%),radial-gradient(circle_at_80%_10%,rgba(14,165,233,0.12),transparent_26%)]" />
+    <section
+      id="servicos"
+      className="relative overflow-hidden bg-[#0F2F46] px-5 py-20 text-white md:px-8 md:py-24"
+    >
+      <div className="absolute -left-32 top-10 h-96 w-96 rounded-full bg-sky-400/14 blur-3xl" />
+      <div className="absolute -right-40 bottom-0 h-[34rem] w-[34rem] rounded-full bg-[#0077B6]/14 blur-3xl" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(255,255,255,0.06),transparent_28%),radial-gradient(circle_at_80%_8%,rgba(14,165,233,0.1),transparent_26%)]" />
 
       <div className="relative mx-auto max-w-7xl">
         <Reveal>
@@ -174,246 +149,226 @@ export default function ServicesSection() {
             </h2>
 
             <p className="mt-5 text-lg leading-relaxed text-sky-100/82">
-              A contabilidade conecta documentos, impostos, prazos, equipe e regularização
-              para que a empresa tenha mais clareza no dia a dia.
+              A contabilidade conecta documentos, impostos, prazos, equipe e
+              regularização para que a empresa tenha mais clareza no dia a dia.
             </p>
           </div>
         </Reveal>
 
-        <div className="mt-14 grid gap-9 lg:grid-cols-[1.02fr_0.98fr] lg:items-center">
+        <div className="mt-14 grid gap-8 lg:grid-cols-[0.92fr_1.08fr] lg:items-stretch">
           <Reveal>
-            <div className="relative mx-auto aspect-square w-full max-w-[590px]">
-              <div className="absolute inset-0 rounded-full bg-sky-300/8 blur-3xl" />
-              <div className="absolute inset-[8%] rounded-full border border-sky-100/18" />
-              <div className="absolute inset-[18%] rounded-full border border-sky-100/10" />
-              <motion.div
-                className="absolute inset-[8%] rounded-full border border-sky-300/22"
-                animate={{ opacity: [0.42, 0.85, 0.42], scale: [1, 1.018, 1] }}
-                transition={{ duration: 6.5, repeat: Infinity, ease: 'easeInOut' }}
-              />
+            <div className="relative h-full overflow-hidden rounded-[2rem] border border-white/14 bg-white/8 p-6 shadow-2xl shadow-black/18 backdrop-blur-xl md:p-8">
+              <div className="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-sky-300/12 blur-3xl" />
+              <div className="absolute -bottom-28 -left-28 h-80 w-80 rounded-full bg-white/8 blur-3xl" />
 
-              <motion.div
-                className="absolute left-1/2 top-1/2 z-10 w-[46%] -translate-x-1/2 -translate-y-1/2 rounded-[2rem] border border-white/18 bg-white/12 p-6 text-center shadow-2xl shadow-black/22 backdrop-blur-md"
-                animate={{ y: [0, -5, 0] }}
-                transition={{ duration: 5.8, repeat: Infinity, ease: 'easeInOut' }}
-              >
-                <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-white text-[#173D5A] shadow-xl shadow-black/14">
-                  <RefreshCcw className="h-7 w-7" />
+              <div className="relative z-10 flex h-full flex-col">
+                <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-white text-[#173D5A] shadow-xl shadow-black/12">
+                  <FileText className="h-7 w-7" />
                 </div>
 
-                <p className="text-xs font-extrabold uppercase tracking-[0.22em] text-sky-200">
-                  ciclo contábil
+                <p className="mt-8 text-xs font-extrabold uppercase tracking-[0.22em] text-sky-200">
+                  mapa de acompanhamento
                 </p>
 
-                <h3 className="mt-2 text-xl font-extrabold leading-tight text-white md:text-2xl">
+                <h3 className="mt-3 text-3xl font-extrabold leading-tight text-white md:text-4xl">
                   Rotina contábil organizada
                 </h3>
 
-                <p className="mt-3 text-sm leading-relaxed text-sky-100/76">
-                  Acompanhamento para reduzir correria, atrasos e decisões sem clareza.
+                <p className="mt-5 max-w-xl text-lg leading-relaxed text-sky-100/80">
+                  A CF organiza a rotina contábil, fiscal, trabalhista e
+                  societária das empresas para que elas tenham mais clareza,
+                  previsibilidade e segurança para crescer.
                 </p>
-              </motion.div>
 
-              <div className="pointer-events-none absolute inset-0 hidden md:block">
-                {floatingDetails.map((detail, index) => {
-                  const Icon = detail.icon;
-                  return (
+                <div className="mt-8 grid gap-3">
+                  {routinePoints.map((point, index) => (
                     <motion.div
-                      key={index}
-                      className={`absolute ${detail.className} z-[8] flex h-11 w-11 items-center justify-center rounded-2xl border border-white/12 bg-white/8 text-sky-100/75 shadow-lg shadow-black/10 backdrop-blur-md`}
-                      animate={detail.motion}
-                      transition={{
-                        duration: 4.2 + index * 0.45,
-                        delay: detail.delay,
-                        repeat: Infinity,
-                        ease: 'easeInOut',
-                      }}
+                      key={point}
+                      initial={{ opacity: 0, x: -12 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.4, delay: index * 0.08 }}
+                      className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/8 p-4 text-sm font-bold text-sky-50"
                     >
-                      <Icon className="h-5 w-5" />
-                    </motion.div>
-                  );
-                })}
-              </div>
-
-              <div className="hidden md:block">
-                {cycleItems.map((item, index) => {
-                  const Icon = item.icon;
-                  const isActive = index === activeIndex;
-
-                  return (
-                    <button
-                      key={item.id}
-                      id={item.id}
-                      type="button"
-                      onClick={() => setActiveIndex(index)}
-                      onMouseEnter={() => setActiveIndex(index)}
-                      className={`absolute z-20 ${item.position} group max-w-[150px] scroll-mt-28 focus:outline-none`}
-                      aria-label={`Selecionar ${item.title}`}
-                    >
-                      <motion.div
-                        animate={{
-                          y: isActive ? -5 : 0,
-                          scale: isActive ? 1.04 : 1,
-                        }}
-                        transition={{ type: 'spring', stiffness: 220, damping: 20 }}
-                        className={`rounded-2xl border p-3 text-left shadow-xl backdrop-blur transition duration-300 ${
-                          isActive
-                            ? 'border-sky-200/85 bg-white text-[#0F172A] shadow-sky-950/26'
-                            : 'border-white/14 bg-white/10 text-sky-100/82 shadow-black/12 hover:border-sky-200/45 hover:bg-white/16'
-                        }`}
-                      >
-                        <div className="flex items-center gap-3">
-                          <span
-                            className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl transition duration-300 ${
-                              isActive
-                                ? 'bg-[#0077B6] text-white shadow-lg shadow-sky-900/25'
-                                : 'bg-white/10 text-sky-100 group-hover:bg-white/16'
-                            }`}
-                          >
-                            <Icon className="h-5 w-5" />
-                          </span>
-
-                          <span className="text-sm font-extrabold leading-tight">
-                            {item.short}
-                          </span>
-                        </div>
-                      </motion.div>
-                    </button>
-                  );
-                })}
-              </div>
-
-              <div className="grid gap-3 md:hidden">
-                {cycleItems.map((item, index) => {
-                  const Icon = item.icon;
-                  const isActive = index === activeIndex;
-
-                  return (
-                    <button
-                      key={item.id}
-                      type="button"
-                      onClick={() => setActiveIndex(index)}
-                      className={`flex items-center gap-3 rounded-2xl border p-3 text-left transition duration-300 ${
-                        isActive
-                          ? 'border-sky-200 bg-white text-[#0F172A]'
-                          : 'border-white/14 bg-white/8 text-sky-100'
-                      }`}
-                    >
-                      <span
-                        className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${
-                          isActive ? 'bg-[#0077B6] text-white' : 'bg-white/10 text-sky-100'
-                        }`}
-                      >
-                        <Icon className="h-5 w-5" />
+                      <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-sky-300/16 text-sky-200">
+                        <CheckCircle2 className="h-4 w-4" />
                       </span>
-                      <span className="text-sm font-extrabold">{item.short}</span>
-                    </button>
-                  );
-                })}
+                      {point}
+                    </motion.div>
+                  ))}
+                </div>
+
+                <div className="mt-auto pt-8">
+                  <div className="rounded-[1.4rem] border border-sky-200/14 bg-[#173D5A]/70 p-5">
+                    <div className="flex items-start gap-4">
+                      <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-white/10 text-sky-200">
+                        <Sparkles className="h-5 w-5" />
+                      </div>
+
+                      <div>
+                        <p className="text-sm font-extrabold text-white">
+                          Não é só cumprir obrigação.
+                        </p>
+                        <p className="mt-2 text-sm leading-relaxed text-sky-100/72">
+                          É acompanhar o que sustenta a empresa antes que a
+                          rotina vire urgência.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </Reveal>
 
           <Reveal>
-            <div className="overflow-hidden rounded-[2rem] border border-white/16 bg-[#123A55]/82 shadow-2xl shadow-black/22 backdrop-blur-xl">
-              <div className="border-b border-white/10 p-6 md:p-7">
-                <div className="flex flex-wrap items-center justify-between gap-4">
-                  <div>
-                    <p className="text-sm font-bold uppercase tracking-[0.2em] text-sky-200">
-                      acompanhamento contábil
-                    </p>
-                    <p className="mt-2 text-sm font-bold text-sky-100/75">
-                      Área {progressLabel}
-                    </p>
-                  </div>
+            <div className="grid h-full gap-5">
+              <div className="grid gap-4 sm:grid-cols-2">
+                {serviceAreas.map((area, index) => {
+                  const Icon = area.icon;
+                  const isActive = index === activeIndex;
 
-                  <div className="flex items-center gap-2">
-                    {cycleItems.map((item, index) => (
-                      <button
-                        key={item.id}
-                        type="button"
-                        onClick={() => setActiveIndex(index)}
-                        className={`h-2.5 rounded-full transition-all duration-300 ${
-                          index === activeIndex
-                            ? 'w-8 bg-sky-300'
-                            : 'w-2.5 bg-white/22 hover:bg-white/45'
+                  return (
+                    <motion.button
+                      key={area.id}
+                      type="button"
+                      onClick={() => setActiveIndex(index)}
+                      whileHover={{ y: -4 }}
+                      transition={{ type: 'spring', stiffness: 240, damping: 20 }}
+                      className={`group rounded-[1.5rem] border p-5 text-left shadow-xl backdrop-blur transition duration-300 ${
+                        isActive
+                          ? 'border-sky-200/70 bg-white text-[#0F172A] shadow-sky-950/24'
+                          : 'border-white/12 bg-white/8 text-white shadow-black/10 hover:border-sky-200/40 hover:bg-white/12'
+                      }`}
+                    >
+                      <div className="mb-5 flex items-center justify-between gap-4">
+                        <div
+                          className={`flex h-12 w-12 items-center justify-center rounded-2xl transition duration-300 ${
+                            isActive
+                              ? 'bg-[#0077B6] text-white'
+                              : 'bg-white/10 text-sky-100 group-hover:bg-white/16'
+                          }`}
+                        >
+                          <Icon className="h-6 w-6" />
+                        </div>
+
+                        <span
+                          className={`text-xs font-extrabold ${
+                            isActive ? 'text-[#0369A1]' : 'text-sky-200/80'
+                          }`}
+                        >
+                          0{index + 1}
+                        </span>
+                      </div>
+
+                      <p
+                        className={`text-xs font-extrabold uppercase tracking-[0.18em] ${
+                          isActive ? 'text-[#0369A1]' : 'text-sky-200/75'
                         }`}
-                        aria-label={`Ir para ${item.title}`}
-                      />
-                    ))}
-                  </div>
-                </div>
+                      >
+                        {area.eyebrow}
+                      </p>
+
+                      <h3 className="mt-2 text-lg font-extrabold leading-tight">
+                        {area.label}
+                      </h3>
+                    </motion.button>
+                  );
+                })}
               </div>
 
-              <div className="p-6 md:p-7">
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={active.id}
-                    initial={{ opacity: 0, y: 12 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -8 }}
-                    transition={{ duration: 0.32, ease: 'easeOut' }}
-                  >
-                    <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-white text-[#173D5A] shadow-xl shadow-black/12">
-                      <ActiveIcon className="h-7 w-7" />
+              <div className="overflow-hidden rounded-[2rem] border border-white/14 bg-[#173D5A]/74 shadow-2xl shadow-black/18 backdrop-blur-xl">
+                <div className="border-b border-white/10 p-6 md:p-7">
+                  <div className="flex flex-wrap items-center justify-between gap-4">
+                    <div>
+                      <p className="text-sm font-bold uppercase tracking-[0.2em] text-sky-200">
+                        detalhe da área
+                      </p>
+                      <p className="mt-2 text-sm font-bold text-sky-100/75">
+                        Área {String(activeIndex + 1).padStart(2, '0')} de{' '}
+                        {String(serviceAreas.length).padStart(2, '0')}
+                      </p>
                     </div>
 
-                    <p className="text-xs font-extrabold uppercase tracking-[0.22em] text-sky-200">
-                      {active.eyebrow}
-                    </p>
-
-                    <h3 className="mt-3 text-3xl font-extrabold leading-tight text-white md:text-4xl">
-                      {active.title}
-                    </h3>
-
-                    <p className="mt-5 text-lg leading-relaxed text-sky-100/82">
-                      {active.description}
-                    </p>
-
-                    <div className="mt-7 grid gap-3 sm:grid-cols-2">
-                      {active.bullets.map((bullet) => (
-                        <div
-                          key={bullet}
-                          className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/8 p-4 text-sm font-bold text-sky-50"
-                        >
-                          <CheckCircle2 className="h-5 w-5 shrink-0 text-sky-300" />
-                          {bullet}
-                        </div>
+                    <div className="flex items-center gap-2">
+                      {serviceAreas.map((area, index) => (
+                        <button
+                          key={area.id}
+                          type="button"
+                          onClick={() => setActiveIndex(index)}
+                          className={`h-2.5 rounded-full transition-all duration-300 ${
+                            index === activeIndex
+                              ? 'w-8 bg-sky-300'
+                              : 'w-2.5 bg-white/22 hover:bg-white/45'
+                          }`}
+                          aria-label={`Ir para ${area.title}`}
+                        />
                       ))}
                     </div>
-                  </motion.div>
-                </AnimatePresence>
+                  </div>
+                </div>
 
-                <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                  <button
-                    type="button"
-                    onClick={goNext}
-                    className="inline-flex items-center justify-center rounded-xl bg-white px-5 py-3 text-sm font-extrabold text-[#173D5A] shadow-xl shadow-black/12 transition duration-300 hover:-translate-y-0.5 hover:bg-sky-50"
-                  >
-                    Ver outra área
-                    <ArrowRight className="ml-2 h-5 w-5" />
-                  </button>
+                <div className="p-6 md:p-7">
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={activeArea.id}
+                      initial={{ opacity: 0, y: 12 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -8 }}
+                      transition={{ duration: 0.28 }}
+                    >
+                      <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-white text-[#173D5A] shadow-xl shadow-black/12">
+                        <ActiveIcon className="h-7 w-7" />
+                      </div>
 
-                  <a
-                    href="/diagnostico"
-                    className="inline-flex items-center justify-center rounded-xl border border-white/18 bg-white/8 px-5 py-3 text-sm font-extrabold text-white transition duration-300 hover:-translate-y-0.5 hover:bg-white/14"
-                  >
-                    Entender minha situação contábil
-                  </a>
+                      <p className="text-xs font-extrabold uppercase tracking-[0.22em] text-sky-200">
+                        {activeArea.eyebrow}
+                      </p>
+
+                      <h3 className="mt-3 text-3xl font-extrabold leading-tight text-white md:text-4xl">
+                        {activeArea.title}
+                      </h3>
+
+                      <p className="mt-5 text-lg leading-relaxed text-sky-100/82">
+                        {activeArea.description}
+                      </p>
+
+                      <div className="mt-7 grid gap-3 sm:grid-cols-2">
+                        {activeArea.items.map((item) => (
+                          <div
+                            key={item}
+                            className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/8 p-4 text-sm font-bold text-sky-50"
+                          >
+                            <CheckCircle2 className="h-5 w-5 shrink-0 text-sky-300" />
+                            {item}
+                          </div>
+                        ))}
+                      </div>
+                    </motion.div>
+                  </AnimatePresence>
+
+                  <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+                    <button
+                      type="button"
+                      onClick={handleNextArea}
+                      className="inline-flex items-center justify-center rounded-xl bg-white px-5 py-3 text-sm font-extrabold text-[#173D5A] shadow-xl shadow-black/12 transition duration-300 hover:-translate-y-0.5 hover:bg-sky-50"
+                    >
+                      Ver outra área
+                      <ArrowRight className="ml-2 h-5 w-5" />
+                    </button>
+
+                    <a
+                      href="/diagnostico"
+                      className="inline-flex items-center justify-center rounded-xl border border-white/16 bg-white/8 px-5 py-3 text-sm font-extrabold text-white transition duration-300 hover:-translate-y-0.5 hover:bg-white/14"
+                    >
+                      Entender minha situação contábil
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
           </Reveal>
         </div>
-
-        <Reveal>
-          <div className="mt-10 rounded-[1.6rem] border border-white/12 bg-white/8 p-5 text-center shadow-xl shadow-black/10 backdrop-blur md:p-6">
-            <p className="mx-auto max-w-3xl text-base leading-relaxed text-sky-100/82">
-              A empresa pode precisar de uma dessas áreas em momentos diferentes.
-              Por isso, a CF trabalha com orientação, rotina e acompanhamento, sem tratar a contabilidade apenas como uma obrigação de última hora.
-            </p>
-          </div>
-        </Reveal>
       </div>
     </section>
   );
