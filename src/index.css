@@ -2,26 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
-/*
-============================================================
-ESTILOS GLOBAIS — CF CONTABILIDADE
-============================================================
-A base visual agora usa mais profundidade:
-- fundos levemente azulados;
-- sombras elegantes;
-- bordas suaves;
-- detalhes discretos de movimento.
-============================================================
-*/
-
 :root {
   color-scheme: light;
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  background: #e3edf4;
+  background: #f6f7f5;
   --cf-blue: #005f93;
   --cf-blue-dark: #07385f;
   --cf-ink: #071225;
-  --cf-soft: #e3edf4;
+  --cf-soft: #f6f7f5;
 }
 
 html {
@@ -31,10 +19,7 @@ html {
 body {
   margin: 0;
   min-width: 320px;
-  background:
-    radial-gradient(circle at top left, rgba(0, 95, 147, 0.16), transparent 32rem),
-    radial-gradient(circle at top right, rgba(7, 56, 95, 0.10), transparent 28rem),
-    linear-gradient(180deg, #e5eef5 0%, #dce8f1 45%, #e7eef4 100%);
+  background: #f6f7f5;
   color: #0f172a;
 }
 
@@ -43,15 +28,19 @@ a {
   -webkit-tap-highlight-color: transparent;
 }
 
-::selection {
-  background: rgba(14, 165, 233, 0.22);
+button {
+  font: inherit;
 }
 
-/* Detalhe discreto para cards principais. */
+::selection {
+  background: rgba(0, 95, 147, 0.18);
+}
+
+/* Mantidos porque páginas antigas ainda utilizam estas classes. */
 .cf-depth-card {
   position: relative;
   overflow: hidden;
-  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.11);
+  box-shadow: 0 14px 38px rgba(15, 23, 42, 0.08);
 }
 
 .cf-depth-card::before {
@@ -59,10 +48,7 @@ a {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.72), rgba(255, 255, 255, 0) 36%),
-    radial-gradient(circle at top right, rgba(14, 165, 233, 0.10), transparent 34%);
-  opacity: 0.85;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.65), rgba(255, 255, 255, 0) 42%);
 }
 
 .cf-depth-card > * {
@@ -70,7 +56,6 @@ a {
   z-index: 1;
 }
 
-/* Brilho sutil no hover, usado em botões e cards especiais. */
 .cf-shine {
   position: relative;
   overflow: hidden;
@@ -82,9 +67,9 @@ a {
   top: -40%;
   bottom: -40%;
   left: -90%;
-  width: 55%;
+  width: 45%;
   transform: rotate(18deg);
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.28), transparent);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.16), transparent);
   transition: left 0.75s ease;
 }
 
@@ -92,21 +77,11 @@ a {
   left: 125%;
 }
 
-/* Textura de fundo quase invisível para não ficar chapado. */
 .cf-subtle-grid {
   background-image:
-    linear-gradient(rgba(7, 56, 95, 0.07) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(7, 56, 95, 0.07) 1px, transparent 1px);
-  background-size: 38px 38px;
-}
-
-@keyframes cf-soft-float {
-  0%, 100% { transform: translate3d(0, 0, 0); }
-  50% { transform: translate3d(0, -8px, 0); }
-}
-
-.cf-soft-float {
-  animation: cf-soft-float 7s ease-in-out infinite;
+    linear-gradient(rgba(7, 56, 95, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(7, 56, 95, 0.05) 1px, transparent 1px);
+  background-size: 42px 42px;
 }
 
 @media (prefers-reduced-motion: reduce) {

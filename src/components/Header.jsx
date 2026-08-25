@@ -1,20 +1,7 @@
 import { useState } from 'react';
-import { Menu, X } from 'lucide-react';
+import { ArrowRight, Menu, X } from 'lucide-react';
 import { navItems } from './contentBridge';
-import PrimaryButton from './common/PrimaryButton';
 import Logo from './common/Logo';
-
-/*
-============================================================
-HEADER / MENU PRINCIPAL
-============================================================
-Header com aparência de site institucional:
-- branco, fixo e limpo;
-- sombra discreta;
-- linha superior azul como detalhe de marca;
-- navegação com movimento leve.
-============================================================
-*/
 
 export default function Header({ onStartQuiz, currentPath, navigate }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -26,47 +13,50 @@ export default function Header({ onStartQuiz, currentPath, navigate }) {
   }
 
   return (
-    <header className="fixed left-0 right-0 top-0 z-50 border-b border-slate-300/70 bg-[#f2f7fa]/94 shadow-[0_12px_34px_rgba(15,23,42,0.07)] backdrop-blur-xl">
-      <div className="h-1 w-full bg-gradient-to-r from-sky-950 via-sky-700 to-sky-400" />
-
+    <header className="fixed inset-x-0 top-0 z-50 border-b border-slate-200/90 bg-[#F6F7F5]/95 backdrop-blur-md">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-3.5 md:px-8">
-        <a href="/" onClick={(event) => handleNavigate(event, '/')} className="flex items-center" aria-label="Voltar ao início">
+        <a
+          href="/"
+          onClick={(event) => handleNavigate(event, '/')}
+          className="flex items-center"
+          aria-label="Voltar ao início"
+        >
           <Logo variant="dark" className="origin-left" />
         </a>
 
         <nav className="hidden items-center gap-7 lg:flex" aria-label="Navegação principal">
           {navItems.map((item) => {
             const isActive = currentPath === item.href;
+
             return (
               <a
                 key={item.href}
                 href={item.href}
                 onClick={(event) => handleNavigate(event, item.href)}
-                className={`group relative py-2 text-sm font-semibold transition duration-300 ${
-                  isActive ? 'text-sky-800' : 'text-slate-600 hover:text-sky-800'
+                className={`relative py-2 text-sm font-bold transition ${
+                  isActive ? 'text-[#005F93]' : 'text-slate-600 hover:text-[#005F93]'
                 }`}
               >
                 {item.label}
-                <span
-                  className={`absolute -bottom-0.5 left-0 h-0.5 rounded-full bg-sky-700 transition-all duration-300 ${
-                    isActive ? 'w-full' : 'w-0 group-hover:w-full'
-                  }`}
-                />
+                {isActive && <span className="absolute inset-x-0 -bottom-[15px] h-[2px] bg-[#005F93]" />}
               </a>
             );
           })}
         </nav>
 
-        <div className="hidden lg:block">
-          <PrimaryButton onClick={onStartQuiz} className="px-5 py-3 text-sm">
-            Diagnóstico contábil
-          </PrimaryButton>
-        </div>
+        <button
+          type="button"
+          onClick={onStartQuiz}
+          className="group hidden items-center gap-2 border border-[#07385F] bg-[#07385F] px-4 py-3 text-sm font-bold text-white transition hover:bg-[#005F93] lg:inline-flex"
+        >
+          Analisar empresa
+          <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+        </button>
 
         <button
           type="button"
           onClick={() => setIsOpen((value) => !value)}
-          className="rounded-xl border border-slate-300 bg-[#f7fafc] p-2 text-slate-900 shadow-sm transition hover:border-sky-200 hover:text-sky-800 lg:hidden"
+          className="border border-slate-300 bg-white p-2.5 text-[#071225] lg:hidden"
           aria-label={isOpen ? 'Fechar menu' : 'Abrir menu'}
           aria-expanded={isOpen}
         >
@@ -75,23 +65,31 @@ export default function Header({ onStartQuiz, currentPath, navigate }) {
       </div>
 
       {isOpen && (
-        <div className="border-t border-slate-200 bg-[#f2f7fa] px-5 py-5 shadow-lg lg:hidden">
-          <div className="mx-auto flex max-w-7xl flex-col gap-3">
+        <div className="border-t border-slate-200 bg-[#F6F7F5] px-5 py-5 lg:hidden">
+          <div className="mx-auto flex max-w-7xl flex-col">
             {navItems.map((item) => (
               <a
                 key={item.href}
                 href={item.href}
                 onClick={(event) => handleNavigate(event, item.href)}
-                className={`rounded-xl px-3 py-2 text-base font-semibold transition ${
-                  currentPath === item.href ? 'bg-sky-50 text-sky-700' : 'text-slate-700 hover:bg-slate-50 hover:text-sky-700'
+                className={`border-b border-slate-200 py-4 text-base font-bold ${
+                  currentPath === item.href ? 'text-[#005F93]' : 'text-[#071225]'
                 }`}
               >
                 {item.label}
               </a>
             ))}
-            <PrimaryButton onClick={() => { setIsOpen(false); onStartQuiz(); }} className="mt-2 w-full">
-              Diagnóstico contábil
-            </PrimaryButton>
+            <button
+              type="button"
+              onClick={() => {
+                setIsOpen(false);
+                onStartQuiz();
+              }}
+              className="mt-5 inline-flex items-center justify-center gap-2 bg-[#07385F] px-5 py-3.5 font-bold text-white"
+            >
+              Analisar empresa
+              <ArrowRight className="h-4 w-4" />
+            </button>
           </div>
         </div>
       )}
