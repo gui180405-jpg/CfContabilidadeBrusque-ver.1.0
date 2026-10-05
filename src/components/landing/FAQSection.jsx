@@ -7,7 +7,7 @@ export default function FAQSection() {
   const [openIndex, setOpenIndex] = useState(0);
 
   return (
-    <section id="faq" className="bg-[#dbe7f0] px-5 py-20 md:px-8 md:py-24">
+    <section id="faq" className="bg-[#F5F4F1] px-5 py-20 md:px-8 md:py-24">
       <div className="mx-auto max-w-4xl">
         <SectionHeader
           eyebrow="Dúvidas frequentes"
@@ -27,7 +27,7 @@ export default function FAQSection() {
                   aria-expanded={isOpen}
                 >
                   <span className="font-bold text-slate-950">{item.question}</span>
-                  <ChevronDown className={`h-5 w-5 shrink-0 text-sky-700 transition ${isOpen ? 'rotate-180' : ''}`} />
+                  <ChevronDown className={`h-5 w-5 shrink-0 text-[#005F93] transition ${isOpen ? 'rotate-180' : ''}`} />
                 </button>
                 {isOpen && <p className="px-5 pb-5 leading-relaxed text-slate-600">{item.answer}</p>}
               </div>

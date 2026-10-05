@@ -8,7 +8,7 @@ const icons = [BriefcaseBusiness, Store, UserRoundCheck, HeartPulse, Building2, 
 
 export default function SpecialtiesSection() {
   return (
-    <section id="segmentos" className="relative overflow-hidden bg-[#e8f0f6] px-5 py-20 md:px-8 md:py-24">
+    <section id="segmentos" className="relative overflow-hidden bg-[#F5F4F1] px-5 py-20 md:px-8 md:py-24">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_10%_10%,rgba(14,165,233,0.08),transparent_28%)]" />
 
       <div className="relative mx-auto max-w-7xl">
@@ -28,9 +28,9 @@ export default function SpecialtiesSection() {
                 <motion.div
                   whileHover={{ y: -7, scale: 1.012 }}
                   transition={{ type: 'spring', stiffness: 220, damping: 18 }}
-                  className="cf-depth-card h-full rounded-2xl border border-white/75 bg-white/88 p-7 transition duration-300 hover:border-sky-200"
+                  className="cf-depth-card h-full rounded-2xl border border-white/75 bg-white/88 p-7 transition duration-300 hover:border-[#005F93]"
                 >
-                  <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-sky-50 to-sky-100 text-sky-800 shadow-inner">
+                  <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-[#F5F4F1] to-[#F5F4F1] text-[#005F93] shadow-inner">
                     <Icon className="h-6 w-6" />
                   </div>
                   <h3 className="text-xl font-bold text-slate-950">{item.title}</h3>

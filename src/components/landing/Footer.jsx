@@ -28,7 +28,7 @@ export default function Footer({ navigate }) {
                 key={item.href}
                 href={item.href}
                 onClick={(event) => handleNavigate(event, item.href)}
-                className="block text-sm text-slate-400 hover:text-sky-300"
+                className="block text-sm text-slate-400 hover:text-[#005F93]"
               >
                 {item.label}
               </a>
@@ -39,16 +39,16 @@ export default function Footer({ navigate }) {
         <div>
           <h3 className="mb-4 font-bold text-white">Contato</h3>
           <div className="space-y-4 text-sm text-slate-300">
-            <a href={`tel:${site.phoneHuman.replace(/\D/g, '')}`} className="flex items-center gap-3 hover:text-sky-300">
-              <Phone className="h-4 w-4 text-sky-300" />
+            <a href={`tel:${site.phoneHuman.replace(/\D/g, '')}`} className="flex items-center gap-3 hover:text-[#005F93]">
+              <Phone className="h-4 w-4 text-[#005F93]" />
               {site.phoneHuman}
             </a>
-            <a href={`mailto:${site.email}`} className="flex items-center gap-3 hover:text-sky-300">
-              <Mail className="h-4 w-4 text-sky-300" />
+            <a href={`mailto:${site.email}`} className="flex items-center gap-3 hover:text-[#005F93]">
+              <Mail className="h-4 w-4 text-[#005F93]" />
               {site.email}
             </a>
             <p className="flex items-start gap-3 leading-relaxed">
-              <MapPin className="mt-1 h-4 w-4 shrink-0 text-sky-300" />
+              <MapPin className="mt-1 h-4 w-4 shrink-0 text-[#005F93]" />
               {site.address}
             </p>
           </div>

@@ -28,7 +28,7 @@ export default function FounderSection() {
 
   return (
     <section id="sobre" className="relative overflow-hidden bg-slate-950 px-5 py-20 md:px-8 md:py-24">
-      <div className="absolute -left-32 top-10 h-80 w-80 rounded-full bg-sky-500/10 blur-3xl" />
+      <div className="absolute -left-32 top-10 h-80 w-80 rounded-full bg-[#F5F4F1]0/10 blur-3xl" />
       <div className="absolute -right-32 bottom-0 h-96 w-96 rounded-full bg-blue-500/10 blur-3xl" />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(14,165,233,0.10),transparent_45%)]" />
 
@@ -49,10 +49,10 @@ export default function FounderSection() {
               onClick={() => setShowVideo(true)}
               whileHover={{ y: -8, scale: 1.015 }}
               transition={{ type: 'spring', stiffness: 180, damping: 18 }}
-              className="group relative w-full max-w-[360px] rounded-[2rem] border border-white/10 bg-white/8 p-3 text-left shadow-2xl shadow-black/30 backdrop-blur focus:outline-none focus:ring-4 focus:ring-sky-400/30"
+              className="group relative w-full max-w-[360px] rounded-[2rem] border border-white/10 bg-white/8 p-3 text-left shadow-2xl shadow-black/30 backdrop-blur focus:outline-none focus:ring-4 focus:ring-[#005F93]/30"
               aria-label="Assistir apresentação da Rose Michei"
             >
-              <div className="absolute -inset-4 rounded-[2.4rem] bg-sky-400/10 blur-2xl" />
+              <div className="absolute -inset-4 rounded-[2.4rem] bg-[#005F93]/10 blur-2xl" />
               <div className="relative overflow-hidden rounded-[1.5rem] border border-white/10 bg-slate-900">
                 <img
                   src={site.founderImage}
@@ -63,15 +63,15 @@ export default function FounderSection() {
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-transparent" />
                 <div className="absolute bottom-5 left-5 right-5 flex items-center justify-between gap-4">
                   <div>
-                    <p className="text-xs font-bold uppercase tracking-[0.2em] text-sky-200">Assistir apresentação</p>
+                    <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#005F93]">Assistir apresentação</p>
                     <p className="mt-1 text-lg font-extrabold text-white">Clique na foto</p>
                   </div>
-                  <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-white text-sky-800 shadow-xl transition duration-300 group-hover:scale-110">
+                  <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-white text-[#005F93] shadow-xl transition duration-300 group-hover:scale-110">
                     <Play className="ml-1 h-7 w-7" />
                   </div>
                 </div>
               </div>
-              <div className="absolute -bottom-4 right-6 rounded-full bg-sky-700 px-4 py-2 text-xs font-bold text-white shadow-xl shadow-sky-950/30">
+              <div className="absolute -bottom-4 right-6 rounded-full bg-[#005F93] px-4 py-2 text-xs font-bold text-white shadow-xl shadow-[#131F39]/30">
                 CEO & Fundadora
               </div>
             </motion.button>
@@ -83,14 +83,14 @@ export default function FounderSection() {
           </Reveal>
 
           <Reveal delay={0.12}>
-            <p className="text-sm font-bold uppercase tracking-[0.22em] text-sky-300">Rose Michei</p>
+            <p className="text-sm font-bold uppercase tracking-[0.22em] text-[#005F93]">Rose Michei</p>
             <h3 className="mt-4 text-3xl font-extrabold text-white md:text-5xl">
               Experiência, clareza e proximidade na rotina contábil.
             </h3>
             <p className="mt-6 max-w-2xl text-lg leading-relaxed text-slate-300">
               Com mais de <span className="font-semibold text-white">17 anos de experiência</span> na área contábil, Rose Michei lidera a CF Contabilidade Brusque com foco em organização, orientação responsável e suporte próximo para empresas que querem crescer com segurança.
             </p>
-            <blockquote className="mt-8 border-l-4 border-sky-500 pl-5 text-lg italic leading-relaxed text-slate-300">
+            <blockquote className="mt-8 border-l-4 border-[#005F93] pl-5 text-lg italic leading-relaxed text-slate-300">
               “A contabilidade vai muito além dos números. Ela precisa ajudar o empresário a tomar decisões com mais clareza.”
             </blockquote>
 
@@ -100,9 +100,9 @@ export default function FounderSection() {
                   key={point.title}
                   whileHover={{ y: -5 }}
                   transition={{ type: 'spring', stiffness: 220, damping: 18 }}
-                  className="rounded-2xl border border-white/10 bg-white/7 p-5 shadow-xl shadow-black/10 backdrop-blur transition duration-300 hover:border-sky-400/40 hover:bg-white/10"
+                  className="rounded-2xl border border-white/10 bg-white/7 p-5 shadow-xl shadow-black/10 backdrop-blur transition duration-300 hover:border-[#005F93]/40 hover:bg-white/10"
                 >
-                  <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-sky-500/15 text-sky-300">
+                  <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-[#F5F4F1]0/15 text-[#005F93]">
                     <point.icon className="h-5 w-5" />
                   </div>
                   <h4 className="font-bold text-white">{point.title}</h4>

@@ -5,13 +5,17 @@ export default {
     extend: {
       colors: {
         cf: {
-          navy: '#0f172a',
-          blue: '#0284c7',
-          cyan: '#38bdf8',
+          navy: '#131F39',
+          blue: '#005F93',
+          black: '#000000',
+          background: '#F5F4F1',
+          muted: '#6B7280',
+          border: '#E2E6EC',
+          'on-dark': '#F5F4F1',
         },
       },
       boxShadow: {
-        soft: '0 24px 80px rgba(2, 8, 23, 0.35)',
+        soft: '0 24px 80px rgba(19, 31, 57, 0.20)',
       },
     },
   },

@@ -47,10 +47,10 @@ const methodHighlights = [
 
 export default function ServicesPageHero({ eyebrow, title, description, onStartQuiz }) {
   return (
-    <section className="relative overflow-hidden bg-[#E8F0F6] px-5 pb-20 pt-32 md:px-8 md:pb-24 md:pt-36">
-      <div className="absolute -left-32 top-16 h-80 w-80 rounded-full bg-sky-500/10 blur-3xl" />
+    <section className="relative overflow-hidden bg-[#F5F4F1] px-5 pb-20 pt-32 md:px-8 md:pb-24 md:pt-36">
+      <div className="absolute -left-32 top-16 h-80 w-80 rounded-full bg-[#F5F4F1]0/10 blur-3xl" />
       <div className="absolute right-0 top-20 h-96 w-96 rounded-full bg-white/70 blur-3xl" />
-      <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#0F2F46] via-[#0F2F46]/20 to-transparent" />
+      <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#131F39] via-[#131F39]/20 to-transparent" />
 
       <div className="relative z-10 mx-auto max-w-7xl">
         <motion.div
@@ -59,16 +59,16 @@ export default function ServicesPageHero({ eyebrow, title, description, onStartQ
           transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
           className="max-w-4xl"
         >
-          <div className="inline-flex items-center gap-2 rounded-full border border-[#CBDDE8] bg-white/76 px-4 py-2 text-sm font-bold text-[#173D5A] shadow-sm backdrop-blur">
-            <span className="h-2 w-2 rounded-full bg-[#0077B6]" />
+          <div className="inline-flex items-center gap-2 rounded-full border border-[#E2E6EC] bg-white/76 px-4 py-2 text-sm font-bold text-[#131F39] shadow-sm backdrop-blur">
+            <span className="h-2 w-2 rounded-full bg-[#005F93]" />
             {eyebrow}
           </div>
 
-          <h1 className="mt-6 max-w-4xl text-4xl font-extrabold leading-[1.04] tracking-tight text-[#0F172A] md:text-5xl lg:text-6xl">
+          <h1 className="mt-6 max-w-4xl text-4xl font-extrabold leading-[1.04] tracking-tight text-[#000000] md:text-5xl lg:text-6xl">
             {title}
           </h1>
 
-          <p className="mt-6 max-w-3xl text-lg leading-relaxed text-[#475569] md:text-xl">
+          <p className="mt-6 max-w-3xl text-lg leading-relaxed text-[#6B7280] md:text-xl">
             {description}
           </p>
 
@@ -76,9 +76,9 @@ export default function ServicesPageHero({ eyebrow, title, description, onStartQ
             {trustPoints.map((point) => (
               <div
                 key={point}
-                className="inline-flex items-center gap-2 rounded-full border border-white/80 bg-white/72 px-4 py-2 text-sm font-bold text-[#475569] shadow-sm backdrop-blur"
+                className="inline-flex items-center gap-2 rounded-full border border-white/80 bg-white/72 px-4 py-2 text-sm font-bold text-[#6B7280] shadow-sm backdrop-blur"
               >
-                <CheckCircle2 className="h-4 w-4 text-[#0077B6]" />
+                <CheckCircle2 className="h-4 w-4 text-[#005F93]" />
                 {point}
               </div>
             ))}
@@ -92,7 +92,7 @@ export default function ServicesPageHero({ eyebrow, title, description, onStartQ
 
             <a
               href="#servicos"
-              className="inline-flex items-center justify-center rounded-xl border border-[#CBDDE8] bg-white/82 px-6 py-3.5 text-sm font-bold text-[#0F172A] shadow-sm backdrop-blur transition duration-300 hover:-translate-y-0.5 hover:border-sky-200 hover:text-[#0369A1] md:text-base"
+              className="inline-flex items-center justify-center rounded-xl border border-[#E2E6EC] bg-white/82 px-6 py-3.5 text-sm font-bold text-[#000000] shadow-sm backdrop-blur transition duration-300 hover:-translate-y-0.5 hover:border-[#005F93] hover:text-[#005F93] md:text-base"
             >
               Ver áreas atendidas
             </a>
@@ -112,20 +112,20 @@ export default function ServicesPageHero({ eyebrow, title, description, onStartQ
                 className="rounded-[1.45rem] border border-white/80 bg-white/72 p-5 shadow-xl shadow-slate-900/7 backdrop-blur"
               >
                 <div className="mb-5 flex items-center justify-between">
-                  <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-sky-50 text-[#0369A1]">
+                  <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#F5F4F1] text-[#005F93]">
                     <Icon className="h-5 w-5" />
                   </div>
 
-                  <span className="text-xs font-extrabold text-[#173D5A]/35">
+                  <span className="text-xs font-extrabold text-[#131F39]/35">
                     0{index + 1}
                   </span>
                 </div>
 
-                <h2 className="font-extrabold text-[#0F172A]">
+                <h2 className="font-extrabold text-[#000000]">
                   {item.title}
                 </h2>
 
-                <p className="mt-2 text-sm leading-relaxed text-[#64748B]">
+                <p className="mt-2 text-sm leading-relaxed text-[#6B7280]">
                   {item.description}
                 </p>
               </motion.article>

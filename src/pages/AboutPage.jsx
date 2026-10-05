@@ -44,7 +44,7 @@ const workPillars = [
 
 function TeamCultureSection() {
   return (
-    <section className="relative overflow-hidden bg-[#eef1f4] px-5 py-18 md:px-8 md:py-24">
+    <section className="relative overflow-hidden bg-[#F5F4F1] px-5 py-18 md:px-8 md:py-24">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_8%,rgba(14,116,144,0.09),transparent_34%)]" />
       <div className="absolute inset-0 cf-subtle-grid opacity-[0.035]" />
 
@@ -55,7 +55,7 @@ function TeamCultureSection() {
           viewport={{ once: true, margin: '-80px' }}
           transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
         >
-          <div className="inline-flex items-center gap-2 rounded-full border border-sky-900/10 bg-white/80 px-4 py-2 text-sm font-bold text-sky-900 shadow-sm backdrop-blur">
+          <div className="inline-flex items-center gap-2 rounded-full border border-[#131F39]/10 bg-white/80 px-4 py-2 text-sm font-bold text-[#131F39] shadow-sm backdrop-blur">
             <UsersRound className="h-4 w-4" />
             A CF por dentro
           </div>
@@ -76,7 +76,7 @@ function TeamCultureSection() {
                 key={point}
                 className="flex items-start gap-3 rounded-2xl border border-white/70 bg-white/78 p-4 shadow-lg shadow-slate-900/5 backdrop-blur"
               >
-                <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-sky-800" />
+                <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-[#005F93]" />
                 <p className="font-semibold leading-relaxed text-slate-750">
                   {point}
                 </p>
@@ -92,7 +92,7 @@ function TeamCultureSection() {
 
             <a
               href="/servicos"
-              className="inline-flex items-center justify-center rounded-xl border border-slate-200 bg-white/80 px-6 py-3.5 text-sm font-bold text-slate-800 shadow-lg shadow-slate-900/5 backdrop-blur transition duration-300 hover:-translate-y-0.5 hover:border-sky-200 hover:text-sky-800 md:text-base"
+              className="inline-flex items-center justify-center rounded-xl border border-slate-200 bg-white/80 px-6 py-3.5 text-sm font-bold text-slate-800 shadow-lg shadow-slate-900/5 backdrop-blur transition duration-300 hover:-translate-y-0.5 hover:border-[#005F93] hover:text-[#005F93] md:text-base"
             >
               Conhecer serviços
             </a>
@@ -106,7 +106,7 @@ function TeamCultureSection() {
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
           className="relative"
         >
-          <div className="absolute -inset-4 rounded-[2.25rem] bg-sky-900/8 blur-2xl" />
+          <div className="absolute -inset-4 rounded-[2.25rem] bg-[#131F39]/8 blur-2xl" />
 
           <div className="relative overflow-hidden rounded-[2rem] border border-white/80 bg-white/80 p-3 shadow-2xl shadow-slate-900/12 backdrop-blur">
             <img
@@ -117,12 +117,12 @@ function TeamCultureSection() {
 
             <div className="absolute inset-x-6 bottom-6 rounded-2xl border border-white/18 bg-slate-950/72 p-5 text-white shadow-2xl shadow-black/20 backdrop-blur-md">
               <div className="flex items-start gap-3">
-                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-sky-300/16 text-sky-200">
+                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#005F93]/16 text-[#005F93]">
                   <Building2 className="h-5 w-5" />
                 </div>
 
                 <div>
-                  <p className="text-sm font-bold uppercase tracking-[0.18em] text-sky-200">
+                  <p className="text-sm font-bold uppercase tracking-[0.18em] text-[#005F93]">
                     Estrutura real
                   </p>
                   <p className="mt-1 text-base font-semibold leading-relaxed text-white/92">
@@ -155,7 +155,7 @@ function WorkPillarsSection() {
                 transition={{ duration: 0.55, delay: index * 0.08 }}
                 className="rounded-[1.5rem] border border-white/80 bg-white/82 p-6 shadow-xl shadow-slate-900/7 backdrop-blur transition duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-slate-900/10"
               >
-                <div className="flex h-13 w-13 items-center justify-center rounded-2xl bg-sky-50 text-sky-800">
+                <div className="flex h-13 w-13 items-center justify-center rounded-2xl bg-[#F5F4F1] text-[#005F93]">
                   <Icon className="h-6 w-6" />
                 </div>
 
@@ -171,10 +171,10 @@ function WorkPillarsSection() {
           })}
         </div>
 
-        <div className="mt-8 rounded-[1.75rem] border border-sky-900/10 bg-gradient-to-r from-[#173d5a] to-[#226281] p-7 text-white shadow-2xl shadow-slate-900/12 md:p-8">
+        <div className="mt-8 rounded-[1.75rem] border border-[#131F39]/10 bg-gradient-to-r from-[#131F39] to-[#005F93] p-7 text-white shadow-2xl shadow-slate-900/12 md:p-8">
           <div className="grid gap-6 md:grid-cols-[1fr_auto] md:items-center">
             <div>
-              <p className="text-sm font-bold uppercase tracking-[0.2em] text-sky-200">
+              <p className="text-sm font-bold uppercase tracking-[0.2em] text-[#005F93]">
                 Nosso jeito de trabalhar
               </p>
               <h2 className="mt-3 text-2xl font-extrabold md:text-3xl">
@@ -189,7 +189,7 @@ function WorkPillarsSection() {
               href={`https://wa.me/${site.phoneWhats}?text=${encodeURIComponent(site.whatsappDefaultMessage)}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center rounded-xl bg-white px-6 py-3.5 text-sm font-bold text-sky-900 shadow-xl shadow-black/15 transition duration-300 hover:-translate-y-0.5 hover:bg-sky-50 md:text-base"
+              className="inline-flex items-center justify-center rounded-xl bg-white px-6 py-3.5 text-sm font-bold text-[#131F39] shadow-xl shadow-black/15 transition duration-300 hover:-translate-y-0.5 hover:bg-[#F5F4F1] md:text-base"
             >
               <MessageCircle className="mr-2 h-5 w-5" />
               Falar com a CF

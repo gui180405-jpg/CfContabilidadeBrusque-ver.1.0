@@ -20,10 +20,10 @@ export default function HeroSection({ onStartQuiz, navigate }) {
   const [showVideo, setShowVideo] = useState(false);
 
   return (
-    <section className="relative overflow-hidden bg-[#E8F0F6] px-5 pb-20 pt-32 md:px-8 md:pb-24 md:pt-36">
-      <div className="absolute -left-32 top-16 h-80 w-80 rounded-full bg-sky-500/10 blur-3xl" />
+    <section className="relative overflow-hidden bg-[#F5F4F1] px-5 pb-20 pt-32 md:px-8 md:pb-24 md:pt-36">
+      <div className="absolute -left-32 top-16 h-80 w-80 rounded-full bg-[#F5F4F1]0/10 blur-3xl" />
       <div className="absolute right-0 top-24 h-96 w-96 rounded-full bg-white/70 blur-3xl" />
-      <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#F4F8FB] via-[#F4F8FB]/75 to-transparent" />
+      <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#F5F4F1] via-[#F5F4F1]/75 to-transparent" />
 
       <div className="relative z-10 mx-auto grid max-w-7xl items-center gap-14 lg:grid-cols-[1.05fr_0.95fr]">
         <motion.div
@@ -31,19 +31,19 @@ export default function HeroSection({ onStartQuiz, navigate }) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
         >
-          <div className="mb-6 inline-flex items-center gap-3 rounded-full border border-[#CBDDE8] bg-white/75 px-4 py-2 text-sm font-bold text-[#173D5A] shadow-sm backdrop-blur">
+          <div className="mb-6 inline-flex items-center gap-3 rounded-full border border-[#E2E6EC] bg-white/75 px-4 py-2 text-sm font-bold text-[#131F39] shadow-sm backdrop-blur">
             <span className="relative flex h-2.5 w-2.5">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#0077B6] opacity-35" />
-              <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-[#0077B6]" />
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#005F93] opacity-35" />
+              <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-[#005F93]" />
             </span>
             {homeHero.eyebrow || 'Contabilidade em Brusque-SC'}
           </div>
 
-          <h1 className="max-w-4xl text-4xl font-extrabold leading-[1.04] tracking-tight text-[#0F172A] md:text-5xl lg:text-[4.15rem]">
+          <h1 className="max-w-4xl text-4xl font-extrabold leading-[1.04] tracking-tight text-[#000000] md:text-5xl lg:text-[4.15rem]">
             Contabilidade clara para empresas que querem crescer com segurança.
           </h1>
 
-          <p className="mt-6 max-w-2xl text-lg leading-relaxed text-[#475569] md:text-xl">
+          <p className="mt-6 max-w-2xl text-lg leading-relaxed text-[#6B7280] md:text-xl">
             A CF organiza a rotina contábil, fiscal, trabalhista e societária para que sua empresa tenha mais previsibilidade, menos correria e mais confiança nas decisões.
           </p>
 
@@ -56,7 +56,7 @@ export default function HeroSection({ onStartQuiz, navigate }) {
             <button
               type="button"
               onClick={() => navigate('/servicos')}
-              className="inline-flex items-center justify-center rounded-xl border border-[#CBDDE8] bg-white/78 px-6 py-3.5 text-sm font-bold text-[#0F172A] shadow-sm backdrop-blur transition duration-300 hover:-translate-y-0.5 hover:border-sky-200 hover:bg-white hover:text-[#0369A1] md:text-base"
+              className="inline-flex items-center justify-center rounded-xl border border-[#E2E6EC] bg-white/78 px-6 py-3.5 text-sm font-bold text-[#000000] shadow-sm backdrop-blur transition duration-300 hover:-translate-y-0.5 hover:border-[#005F93] hover:bg-white hover:text-[#005F93] md:text-base"
             >
               Conhecer serviços
             </button>
@@ -69,9 +69,9 @@ export default function HeroSection({ onStartQuiz, navigate }) {
                 initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.45, delay: 0.18 + index * 0.08 }}
-                className="flex items-center gap-2 rounded-2xl border border-white/80 bg-white/60 px-3 py-2 text-sm font-semibold text-[#475569] shadow-sm backdrop-blur"
+                className="flex items-center gap-2 rounded-2xl border border-white/80 bg-white/60 px-3 py-2 text-sm font-semibold text-[#6B7280] shadow-sm backdrop-blur"
               >
-                <CheckCircle2 className="h-5 w-5 shrink-0 text-[#0077B6]" />
+                <CheckCircle2 className="h-5 w-5 shrink-0 text-[#005F93]" />
                 {item}
               </motion.div>
             ))}
@@ -91,7 +91,7 @@ export default function HeroSection({ onStartQuiz, navigate }) {
             onClick={() => setShowVideo(true)}
             whileHover={{ y: -5, scale: 1.01 }}
             transition={{ type: 'spring', stiffness: 180, damping: 18 }}
-            className="relative w-full overflow-hidden rounded-[2rem] border border-white/90 bg-white/82 p-3 text-left shadow-2xl shadow-slate-900/12 backdrop-blur focus:outline-none focus:ring-4 focus:ring-sky-200"
+            className="relative w-full overflow-hidden rounded-[2rem] border border-white/90 bg-white/82 p-3 text-left shadow-2xl shadow-slate-900/12 backdrop-blur focus:outline-none focus:ring-4 focus:ring-[#005F93]"
             aria-label="Assistir apresentação da Rose Michei"
           >
             <div className="relative overflow-hidden rounded-[1.5rem] bg-slate-100">
@@ -105,13 +105,13 @@ export default function HeroSection({ onStartQuiz, navigate }) {
               <div className="absolute inset-0 bg-gradient-to-t from-slate-950/72 via-slate-950/10 to-transparent" />
 
               <div className="absolute left-5 top-5 inline-flex items-center gap-2 rounded-full border border-white/20 bg-slate-950/70 px-4 py-2.5 text-xs font-bold text-white shadow-2xl shadow-black/20 backdrop-blur-md">
-                <Sparkles className="h-4 w-4 text-sky-200" />
+                <Sparkles className="h-4 w-4 text-[#005F93]" />
                 Quem está à frente da CF
               </div>
 
               <div className="absolute inset-x-6 bottom-6 flex items-end justify-between gap-4">
                 <div>
-                  <p className="text-xs font-bold uppercase tracking-[0.2em] text-sky-200">
+                  <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#005F93]">
                     Contadora responsável
                   </p>
                   <h2 className="mt-1 text-3xl font-extrabold text-white">
@@ -122,7 +122,7 @@ export default function HeroSection({ onStartQuiz, navigate }) {
                   </p>
                 </div>
 
-                <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-white text-[#0369A1] shadow-2xl transition duration-300">
+                <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-white text-[#005F93] shadow-2xl transition duration-300">
                   <Play className="ml-1 h-7 w-7" />
                 </div>
               </div>
@@ -135,8 +135,8 @@ export default function HeroSection({ onStartQuiz, navigate }) {
                 key={metric.value}
                 className="rounded-2xl border border-white/80 bg-white/78 p-4 shadow-lg shadow-slate-900/6 backdrop-blur"
               >
-                <p className="text-xl font-extrabold text-[#0F172A]">{metric.value}</p>
-                <p className="mt-1 text-xs leading-snug text-[#64748B]">{metric.label}</p>
+                <p className="text-xl font-extrabold text-[#000000]">{metric.value}</p>
+                <p className="mt-1 text-xs leading-snug text-[#6B7280]">{metric.label}</p>
               </div>
             ))}
           </div>

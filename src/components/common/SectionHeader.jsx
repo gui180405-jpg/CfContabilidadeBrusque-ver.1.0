@@ -15,7 +15,7 @@ export default function SectionHeader({ eyebrow, title, description, theme = 'li
   return (
     <div className="mx-auto mb-12 max-w-3xl text-center">
       {eyebrow && (
-        <p className={`mb-3 text-sm font-bold uppercase tracking-[0.22em] ${isDark ? 'text-sky-300' : 'text-sky-700'}`}>
+        <p className={`mb-3 text-sm font-bold uppercase tracking-[0.22em] ${isDark ? 'text-[#005F93]' : 'text-[#005F93]'}`}>
           {eyebrow}
         </p>
       )}

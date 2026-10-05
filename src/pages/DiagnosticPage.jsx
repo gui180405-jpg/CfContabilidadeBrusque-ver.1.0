@@ -28,9 +28,9 @@ function DiagnosticSupportSection() {
   const whatsappUrl = `https://wa.me/${site.phoneWhats}?text=${encodeURIComponent(site.whatsappDefaultMessage)}`;
 
   return (
-    <section className="relative overflow-hidden bg-[#dfeaf2] px-5 py-12 md:px-8 md:py-16">
+    <section className="relative overflow-hidden bg-[#F5F4F1] px-5 py-12 md:px-8 md:py-16">
       <div className="absolute inset-0 cf-subtle-grid opacity-35" />
-      <div className="absolute left-0 top-10 h-80 w-80 rounded-full bg-sky-400/12 blur-3xl" />
+      <div className="absolute left-0 top-10 h-80 w-80 rounded-full bg-[#005F93]/12 blur-3xl" />
       <div className="absolute bottom-0 right-0 h-96 w-96 rounded-full bg-white/55 blur-3xl" />
 
       <div className="relative z-10 mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.92fr_1.08fr] lg:items-center">
@@ -40,7 +40,7 @@ function DiagnosticSupportSection() {
           viewport={{ once: true, margin: '-100px' }}
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
         >
-          <div className="inline-flex items-center gap-2 rounded-full border border-sky-900/10 bg-white/76 px-4 py-2 text-sm font-bold text-sky-900 shadow-sm backdrop-blur">
+          <div className="inline-flex items-center gap-2 rounded-full border border-[#131F39]/10 bg-white/76 px-4 py-2 text-sm font-bold text-[#131F39] shadow-sm backdrop-blur">
             <ClipboardCheck className="h-4 w-4" />
             Atendimento consultivo
           </div>
@@ -64,7 +64,7 @@ function DiagnosticSupportSection() {
                 transition={{ duration: 0.5, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
                 className="flex items-start gap-3 rounded-2xl border border-white/80 bg-white/78 p-4 shadow-lg shadow-slate-900/5 backdrop-blur"
               >
-                <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-sky-800" />
+                <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-[#005F93]" />
                 <p className="font-semibold leading-relaxed text-slate-700">
                   {point}
                 </p>
@@ -75,7 +75,7 @@ function DiagnosticSupportSection() {
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <a
               href="#diagnostico"
-              className="inline-flex items-center justify-center rounded-xl bg-sky-800 px-6 py-3.5 text-sm font-bold text-white shadow-xl shadow-sky-900/18 transition duration-300 hover:-translate-y-0.5 hover:bg-sky-700 md:text-base"
+              className="inline-flex items-center justify-center rounded-xl bg-[#005F93] px-6 py-3.5 text-sm font-bold text-white shadow-xl shadow-[#131F39]/18 transition duration-300 hover:-translate-y-0.5 hover:bg-[#005F93] md:text-base"
             >
               Começar diagnóstico
               <ArrowDown className="ml-2 h-5 w-5" />
@@ -85,7 +85,7 @@ function DiagnosticSupportSection() {
               href={whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center rounded-xl border border-slate-200 bg-white/82 px-6 py-3.5 text-sm font-bold text-slate-800 shadow-lg shadow-slate-900/5 backdrop-blur transition duration-300 hover:-translate-y-0.5 hover:border-sky-200 hover:text-sky-800 md:text-base"
+              className="inline-flex items-center justify-center rounded-xl border border-slate-200 bg-white/82 px-6 py-3.5 text-sm font-bold text-slate-800 shadow-lg shadow-slate-900/5 backdrop-blur transition duration-300 hover:-translate-y-0.5 hover:border-[#005F93] hover:text-[#005F93] md:text-base"
             >
               Falar direto com a CF
               <ArrowRight className="ml-2 h-5 w-5" />
@@ -100,8 +100,8 @@ function DiagnosticSupportSection() {
           transition={{ duration: 0.95, ease: [0.16, 1, 0.3, 1] }}
           className="group relative -mt-4 lg:-mt-8"
         >
-          <div className="absolute -inset-5 rounded-[2.5rem] bg-sky-900/8 blur-2xl transition duration-700 group-hover:bg-sky-900/14" />
-          <div className="absolute -right-8 -top-8 h-40 w-40 rounded-full bg-sky-300/18 blur-3xl" />
+          <div className="absolute -inset-5 rounded-[2.5rem] bg-[#131F39]/8 blur-2xl transition duration-700 group-hover:bg-[#131F39]/14" />
+          <div className="absolute -right-8 -top-8 h-40 w-40 rounded-full bg-[#005F93]/18 blur-3xl" />
 
           <div className="relative overflow-hidden rounded-[2rem] border border-white/80 bg-white/80 p-3 shadow-2xl shadow-slate-900/12 backdrop-blur transition duration-700 group-hover:-translate-y-1 group-hover:scale-[1.018] group-hover:shadow-slate-900/18">
             <div className="relative overflow-hidden rounded-[1.55rem]">
@@ -129,7 +129,7 @@ function DiagnosticSupportSection() {
             transition={{ delay: 0.55, duration: 0.55 }}
             className="absolute -right-3 top-12 hidden rounded-2xl border border-white/80 bg-white/90 px-4 py-3 text-sm font-bold text-slate-700 shadow-xl shadow-slate-900/10 backdrop-blur md:flex md:items-center md:gap-2"
           >
-            <Sparkles className="h-4 w-4 text-sky-700" />
+            <Sparkles className="h-4 w-4 text-[#005F93]" />
             Orientação mais clara
           </motion.div>
         </motion.div>
@@ -141,11 +141,11 @@ function DiagnosticSupportSection() {
 export default function DiagnosticPage() {
   return (
     <>
-      <section className="relative overflow-hidden bg-[#dfeaf2] px-5 pb-8 pt-32 md:px-8 md:pb-10 md:pt-36">
+      <section className="relative overflow-hidden bg-[#F5F4F1] px-5 pb-8 pt-32 md:px-8 md:pb-10 md:pt-36">
         <div className="absolute inset-0 cf-subtle-grid opacity-45" />
-        <div className="absolute -left-28 top-10 h-80 w-80 rounded-full bg-sky-500/14 blur-3xl" />
-        <div className="absolute right-0 top-20 h-96 w-96 rounded-full bg-sky-200/20 blur-3xl" />
-        <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#dfeaf2] via-[#dfeaf2]/88 to-transparent" />
+        <div className="absolute -left-28 top-10 h-80 w-80 rounded-full bg-[#F5F4F1]0/14 blur-3xl" />
+        <div className="absolute right-0 top-20 h-96 w-96 rounded-full bg-[#005F93]/20 blur-3xl" />
+        <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#F5F4F1] via-[#F5F4F1]/88 to-transparent" />
 
         <div className="relative z-10 mx-auto max-w-5xl text-center">
           <motion.div
@@ -153,7 +153,7 @@ export default function DiagnosticPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
           >
-            <div className="mx-auto inline-flex items-center gap-2 rounded-full border border-sky-900/10 bg-white/76 px-4 py-2 text-sm font-bold text-sky-900 shadow-sm backdrop-blur">
+            <div className="mx-auto inline-flex items-center gap-2 rounded-full border border-[#131F39]/10 bg-white/76 px-4 py-2 text-sm font-bold text-[#131F39] shadow-sm backdrop-blur">
               <ClipboardList className="h-4 w-4" />
               Diagnóstico contábil
             </div>
@@ -172,7 +172,7 @@ export default function DiagnosticPage() {
                   key={item}
                   className="flex items-center justify-center gap-2 rounded-2xl border border-white/80 bg-white/72 px-4 py-3 text-sm font-bold text-slate-700 shadow-lg shadow-slate-900/5 backdrop-blur"
                 >
-                  <CheckCircle2 className="h-4 w-4 shrink-0 text-sky-800" />
+                  <CheckCircle2 className="h-4 w-4 shrink-0 text-[#005F93]" />
                   {item}
                 </div>
               ))}
@@ -184,11 +184,11 @@ export default function DiagnosticPage() {
       <DiagnosticSupportSection />
       <QuizSection />
 
-      <section className="bg-[#dfeaf2] px-5 pb-20 md:px-8 md:pb-24">
-        <div className="mx-auto max-w-4xl rounded-[1.7rem] border border-sky-900/10 bg-white/72 p-6 shadow-xl shadow-slate-900/6 backdrop-blur md:p-8">
+      <section className="bg-[#F5F4F1] px-5 pb-20 md:px-8 md:pb-24">
+        <div className="mx-auto max-w-4xl rounded-[1.7rem] border border-[#131F39]/10 bg-white/72 p-6 shadow-xl shadow-slate-900/6 backdrop-blur md:p-8">
           <div className="grid gap-5 md:grid-cols-2">
             <div className="flex gap-4">
-              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-sky-50 text-sky-800">
+              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-[#F5F4F1] text-[#005F93]">
                 <ShieldCheck className="h-6 w-6" />
               </div>
               <div>
@@ -202,7 +202,7 @@ export default function DiagnosticPage() {
             </div>
 
             <div className="flex gap-4">
-              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-sky-50 text-sky-800">
+              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-[#F5F4F1] text-[#005F93]">
                 <MessageCircle className="h-6 w-6" />
               </div>
               <div>

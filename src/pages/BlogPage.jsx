@@ -81,13 +81,13 @@ function BlogImageFallback({ category }) {
   const journey = getJourneyForCategory(category);
 
   return (
-    <div className="relative flex h-full min-h-[220px] w-full items-center justify-center overflow-hidden rounded-[1.35rem] bg-gradient-to-br from-[#173d5a] via-[#1d5578] to-[#2f7da6] p-8">
+    <div className="relative flex h-full min-h-[220px] w-full items-center justify-center overflow-hidden rounded-[1.35rem] bg-gradient-to-br from-[#131F39] via-[#005F93] to-[#005F93] p-8">
       <div className="absolute inset-0 cf-subtle-grid opacity-10" />
       <div className="relative text-center">
-        <div className="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-2xl border border-sky-300/20 bg-white/10 text-sky-200 shadow-2xl shadow-black/20 backdrop-blur">
+        <div className="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-2xl border border-[#005F93]/20 bg-white/10 text-[#005F93] shadow-2xl shadow-black/20 backdrop-blur">
           <Newspaper className="h-8 w-8" />
         </div>
-        <p className="text-sm font-bold uppercase tracking-[0.22em] text-sky-200">
+        <p className="text-sm font-bold uppercase tracking-[0.22em] text-[#005F93]">
           {journey}
         </p>
       </div>
@@ -129,7 +129,7 @@ function PostButton({ post, navigate }) {
       rel={isExternalLink(post.link) ? 'noopener noreferrer' : undefined}
       onClick={(event) => navigateToPost(event, post, navigate)}
       aria-label={`Ler artigo completo: ${post.title}`}
-      className="mt-6 inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-sky-800 to-sky-600 px-5 py-3 text-sm font-bold text-white shadow-xl shadow-sky-900/20 transition duration-300 hover:-translate-y-0.5 hover:shadow-2xl hover:shadow-sky-900/25"
+      className="mt-6 inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-[#005F93] to-[#131F39] px-5 py-3 text-sm font-bold text-white shadow-xl shadow-[#131F39]/20 transition duration-300 hover:-translate-y-0.5 hover:shadow-2xl hover:shadow-[#131F39]/25"
     >
       Ler artigo completo
       <ArrowRight className="ml-2 h-4 w-4" />
@@ -147,7 +147,7 @@ function FeaturedPost({ post, navigate }) {
       initial={{ opacity: 0, y: 22 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
-      className="relative -mt-10 overflow-hidden rounded-[2rem] border border-white/10 bg-[#173d5a] shadow-2xl shadow-slate-900/14 md:-mt-14"
+      className="relative -mt-10 overflow-hidden rounded-[2rem] border border-white/10 bg-[#131F39] shadow-2xl shadow-slate-900/14 md:-mt-14"
     >
       <div className="absolute inset-0">
         {post.image ? (
@@ -157,23 +157,23 @@ function FeaturedPost({ post, navigate }) {
             className="h-full w-full object-cover opacity-25"
           />
         ) : (
-          <div className="h-full w-full bg-gradient-to-br from-[#173d5a] via-[#1d5578] to-[#2f7da6]" />
+          <div className="h-full w-full bg-gradient-to-br from-[#131F39] via-[#005F93] to-[#005F93]" />
         )}
 
         <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(15,58,86,0.94)_0%,rgba(22,77,111,0.86)_45%,rgba(47,125,166,0.68)_100%)]" />
         <div className="absolute inset-0 cf-subtle-grid opacity-[0.06]" />
-        <div className="absolute -right-20 -top-20 h-80 w-80 rounded-full bg-sky-400/20 blur-3xl" />
+        <div className="absolute -right-20 -top-20 h-80 w-80 rounded-full bg-[#005F93]/20 blur-3xl" />
       </div>
 
       <div className="relative z-10 grid gap-8 p-7 md:p-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
         <div>
-          <div className="inline-flex items-center gap-2 rounded-full border border-sky-300/25 bg-white/8 px-4 py-2 text-sm font-bold text-sky-200 backdrop-blur">
+          <div className="inline-flex items-center gap-2 rounded-full border border-[#005F93]/25 bg-white/8 px-4 py-2 text-sm font-bold text-[#005F93] backdrop-blur">
             <Sparkles className="h-4 w-4" />
             Conteúdo em destaque
           </div>
 
           <div className="mt-5 flex flex-wrap gap-2">
-            <span className="rounded-full bg-sky-400/12 px-3 py-1 text-xs font-bold uppercase tracking-[0.16em] text-sky-200 ring-1 ring-sky-300/20">
+            <span className="rounded-full bg-[#005F93]/12 px-3 py-1 text-xs font-bold uppercase tracking-[0.16em] text-[#005F93] ring-1 ring-[#005F93]/20">
               {journey}
             </span>
             <span className="rounded-full bg-white/8 px-3 py-1 text-xs font-bold uppercase tracking-[0.16em] text-slate-200 ring-1 ring-white/10">
@@ -199,7 +199,7 @@ function FeaturedPost({ post, navigate }) {
                 rel={isExternalLink(post.link) ? 'noopener noreferrer' : undefined}
                 onClick={(event) => navigateToPost(event, post, navigate)}
                 aria-label={`Ler artigo em destaque: ${post.title}`}
-                className="inline-flex items-center justify-center rounded-xl bg-white px-6 py-3.5 text-sm font-bold text-sky-900 shadow-xl shadow-black/20 transition duration-300 hover:-translate-y-0.5 hover:bg-sky-50 md:text-base"
+                className="inline-flex items-center justify-center rounded-xl bg-white px-6 py-3.5 text-sm font-bold text-[#131F39] shadow-xl shadow-black/20 transition duration-300 hover:-translate-y-0.5 hover:bg-[#F5F4F1] md:text-base"
               >
                 Ler artigo em destaque
                 <ArrowRight className="ml-2 h-5 w-5" />
@@ -213,7 +213,7 @@ function FeaturedPost({ post, navigate }) {
         </div>
 
         <div className="relative hidden lg:block">
-          <div className="absolute -inset-4 rounded-[2rem] bg-sky-300/10 blur-2xl" />
+          <div className="absolute -inset-4 rounded-[2rem] bg-[#005F93]/10 blur-2xl" />
 
           <div className="relative overflow-hidden rounded-[1.6rem] border border-white/10 bg-white/7 p-3 backdrop-blur">
             {post.image ? (
@@ -250,7 +250,7 @@ function JourneyFilters({ selectedJourney, onSelectJourney }) {
         <button
           type="button"
           onClick={() => onSelectJourney('Todos')}
-          className="text-sm font-bold text-sky-800 hover:text-sky-600"
+          className="text-sm font-bold text-[#005F93] hover:text-[#005F93]"
         >
           Ver todos
         </button>
@@ -267,8 +267,8 @@ function JourneyFilters({ selectedJourney, onSelectJourney }) {
               onClick={() => onSelectJourney(journey.name)}
               className={`rounded-2xl border p-4 text-left transition duration-300 hover:-translate-y-0.5 ${
                 active
-                  ? 'border-sky-200 bg-sky-50 shadow-lg shadow-sky-900/8'
-                  : 'border-slate-200/70 bg-[#f7fbfe] hover:border-sky-200 hover:bg-sky-50/70'
+                  ? 'border-[#005F93] bg-[#F5F4F1] shadow-lg shadow-[#131F39]/8'
+                  : 'border-slate-200/70 bg-[#FFFFFF] hover:border-[#005F93] hover:bg-[#F5F4F1]/70'
               }`}
             >
               <p className="font-extrabold text-slate-950">
@@ -294,7 +294,7 @@ function BlogCard({ post, index, navigate }) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: index * 0.04 }}
       whileHover={{ y: -6 }}
-      className="cf-depth-card group flex h-full flex-col overflow-hidden rounded-2xl border border-white/70 bg-white/86 shadow-xl shadow-slate-900/8 backdrop-blur transition duration-300 hover:border-sky-200"
+      className="cf-depth-card group flex h-full flex-col overflow-hidden rounded-2xl border border-white/70 bg-white/86 shadow-xl shadow-slate-900/8 backdrop-blur transition duration-300 hover:border-[#005F93]"
     >
       <div className="relative h-52 overflow-hidden bg-slate-100">
         {post.image ? (
@@ -308,7 +308,7 @@ function BlogCard({ post, index, navigate }) {
         )}
 
         <div className="absolute left-4 top-4 flex flex-wrap gap-2">
-          <span className="rounded-full bg-white/92 px-3 py-1 text-xs font-bold text-sky-800 shadow-lg backdrop-blur">
+          <span className="rounded-full bg-white/92 px-3 py-1 text-xs font-bold text-[#005F93] shadow-lg backdrop-blur">
             {journey}
           </span>
           <span className="rounded-full bg-slate-950/78 px-3 py-1 text-xs font-bold text-white shadow-lg backdrop-blur">
@@ -361,12 +361,12 @@ export default function BlogPage({ navigate, onStartQuiz }) {
   }, [featuredPost, selectedJourney, visiblePosts]);
 
   return (
-    <main className="min-h-screen bg-[#eef1f4]">
-      <section className="relative overflow-hidden bg-[#163a56] px-5 pb-28 pt-32 md:px-8 md:pb-32 md:pt-36">
+    <main className="min-h-screen bg-[#F5F4F1]">
+      <section className="relative overflow-hidden bg-[#131F39] px-5 pb-28 pt-32 md:px-8 md:pb-32 md:pt-36">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_78%_22%,rgba(125,211,252,0.22),transparent_36%)]" />
         <div className="absolute inset-0 cf-subtle-grid opacity-[0.06]" />
-        <div className="absolute -left-32 top-20 h-80 w-80 rounded-full bg-sky-300/18 blur-3xl" />
-        <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#eef1f4] via-[#eef1f4]/75 to-transparent" />
+        <div className="absolute -left-32 top-20 h-80 w-80 rounded-full bg-[#005F93]/18 blur-3xl" />
+        <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#F5F4F1] via-[#F5F4F1]/75 to-transparent" />
 
         <div className="relative z-10 mx-auto max-w-7xl">
           <motion.div
@@ -375,7 +375,7 @@ export default function BlogPage({ navigate, onStartQuiz }) {
             transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
             className="max-w-4xl"
           >
-            <div className="inline-flex items-center gap-2 rounded-full border border-sky-300/25 bg-white/8 px-4 py-2 text-sm font-bold text-sky-200 backdrop-blur">
+            <div className="inline-flex items-center gap-2 rounded-full border border-[#005F93]/25 bg-white/8 px-4 py-2 text-sm font-bold text-[#005F93] backdrop-blur">
               <Newspaper className="h-4 w-4" />
               Blog e jornadas empresariais
             </div>
@@ -391,15 +391,15 @@ export default function BlogPage({ navigate, onStartQuiz }) {
 
             <div className="mt-8 flex flex-wrap gap-3 text-sm text-slate-300">
               <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/7 px-4 py-2 backdrop-blur">
-                <FileText className="h-4 w-4 text-sky-300" />
+                <FileText className="h-4 w-4 text-[#005F93]" />
                 Artigos práticos
               </span>
               <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/7 px-4 py-2 backdrop-blur">
-                <BriefcaseBusiness className="h-4 w-4 text-sky-300" />
+                <BriefcaseBusiness className="h-4 w-4 text-[#005F93]" />
                 Guias por momento
               </span>
               <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/7 px-4 py-2 backdrop-blur">
-                <Tag className="h-4 w-4 text-sky-300" />
+                <Tag className="h-4 w-4 text-[#005F93]" />
                 Segmentos como conteúdo educativo
               </span>
             </div>
@@ -439,13 +439,13 @@ export default function BlogPage({ navigate, onStartQuiz }) {
       </section>
 
       <section className="relative px-5 pb-20 md:px-8 md:pb-24">
-        <div className="mx-auto max-w-7xl overflow-hidden rounded-[2rem] bg-[#173d5a] p-8 shadow-2xl shadow-slate-900/14 md:p-10">
+        <div className="mx-auto max-w-7xl overflow-hidden rounded-[2rem] bg-[#131F39] p-8 shadow-2xl shadow-slate-900/14 md:p-10">
           <div className="relative">
-            <div className="absolute -right-16 -top-16 h-56 w-56 rounded-full bg-sky-400/14 blur-3xl" />
+            <div className="absolute -right-16 -top-16 h-56 w-56 rounded-full bg-[#005F93]/14 blur-3xl" />
 
             <div className="relative z-10 grid gap-8 lg:grid-cols-[1fr_auto] lg:items-center">
               <div>
-                <p className="text-sm font-bold uppercase tracking-[0.2em] text-sky-300">
+                <p className="text-sm font-bold uppercase tracking-[0.2em] text-[#005F93]">
                   Precisa de orientação?
                 </p>
 

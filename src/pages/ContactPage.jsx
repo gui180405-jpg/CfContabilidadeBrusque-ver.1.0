@@ -88,7 +88,7 @@ const contactCards = [
 function ChatPhone() {
   return (
     <div className="relative mx-auto w-full max-w-[360px]">
-      <div className="absolute -inset-5 rounded-[3rem] bg-sky-300/16 blur-3xl" />
+      <div className="absolute -inset-5 rounded-[3rem] bg-[#005F93]/16 blur-3xl" />
 
       <motion.div
         initial={{ opacity: 0, y: 24, rotate: -1 }}
@@ -101,7 +101,7 @@ function ChatPhone() {
         <div className="overflow-hidden rounded-[2rem] bg-[#eef7f2]">
           <div className="bg-[#075E54] px-5 pb-4 pt-7 text-white">
             <div className="flex items-center gap-3">
-              <div className="relative flex h-12 w-12 items-center justify-center rounded-full border-2 border-white/85 bg-[#173D5A]">
+              <div className="relative flex h-12 w-12 items-center justify-center rounded-full border-2 border-white/85 bg-[#131F39]">
                 {site?.chatLogo ? (
                   <img
                     src={site.chatLogo}
@@ -130,7 +130,7 @@ function ChatPhone() {
 
           <div className="relative min-h-[410px] px-4 py-5">
             <div className="absolute inset-0 opacity-[0.04]">
-              <div className="h-full w-full bg-[radial-gradient(circle_at_20%_20%,#0f172a_0,transparent_22%),radial-gradient(circle_at_80%_40%,#0f172a_0,transparent_18%),radial-gradient(circle_at_40%_80%,#0f172a_0,transparent_20%)]" />
+              <div className="h-full w-full bg-[radial-gradient(circle_at_20%_20%,#000000_0,transparent_22%),radial-gradient(circle_at_80%_40%,#000000_0,transparent_18%),radial-gradient(circle_at_40%_80%,#000000_0,transparent_20%)]" />
             </div>
 
             <div className="relative z-10 space-y-4">
@@ -154,8 +154,8 @@ function ChatPhone() {
                       }`}
                     >
                       {!isClient && (
-                        <div className="mb-1 flex items-center gap-2 text-xs font-extrabold text-[#173D5A]">
-                          <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[#173D5A] text-[10px] text-white">
+                        <div className="mb-1 flex items-center gap-2 text-xs font-extrabold text-[#131F39]">
+                          <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[#131F39] text-[10px] text-white">
                             CF
                           </span>
                           CF
@@ -166,7 +166,7 @@ function ChatPhone() {
 
                       <div className="mt-1 flex items-center justify-end gap-1 text-[11px] text-slate-500">
                         {message.time}
-                        {isClient && <CheckCircle2 className="h-3 w-3 text-sky-500" />}
+                        {isClient && <CheckCircle2 className="h-3 w-3 text-[#005F93]" />}
                       </div>
                     </div>
                   </motion.div>
@@ -180,7 +180,7 @@ function ChatPhone() {
               href={whatsappHref}
               className="flex items-center gap-3 rounded-2xl bg-white px-4 py-3 shadow-xl shadow-slate-900/10 transition duration-300 hover:-translate-y-0.5"
             >
-              <span className="flex-1 text-sm font-extrabold text-[#173D5A]">
+              <span className="flex-1 text-sm font-extrabold text-[#131F39]">
                 Enviar mensagem
               </span>
 
@@ -197,25 +197,25 @@ function ChatPhone() {
 
 export default function ContactPage({ onStartQuiz }) {
   return (
-    <main className="bg-[#E8F0F6]">
+    <main className="bg-[#F5F4F1]">
       <section className="relative overflow-hidden px-5 pb-20 pt-32 md:px-8 md:pb-24 md:pt-36">
-        <div className="absolute -left-32 top-16 h-96 w-96 rounded-full bg-sky-400/14 blur-3xl" />
+        <div className="absolute -left-32 top-16 h-96 w-96 rounded-full bg-[#005F93]/14 blur-3xl" />
         <div className="absolute right-0 top-20 h-[30rem] w-[30rem] rounded-full bg-white/70 blur-3xl" />
-        <div className="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-[#F4F8FB] via-[#F4F8FB]/70 to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-[#F5F4F1] via-[#F5F4F1]/70 to-transparent" />
 
         <div className="relative mx-auto grid max-w-7xl items-center gap-14 lg:grid-cols-[1fr_0.86fr]">
           <Reveal>
             <div>
-              <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-[#CBDDE8] bg-white/76 px-4 py-2 text-sm font-bold text-[#173D5A] shadow-sm backdrop-blur">
-                <span className="h-2 w-2 rounded-full bg-[#0077B6]" />
+              <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-[#E2E6EC] bg-white/76 px-4 py-2 text-sm font-bold text-[#131F39] shadow-sm backdrop-blur">
+                <span className="h-2 w-2 rounded-full bg-[#005F93]" />
                 Contato CF Contabilidade
               </div>
 
-              <h1 className="max-w-4xl text-4xl font-extrabold leading-[1.04] tracking-tight text-[#0F172A] md:text-5xl lg:text-[4rem]">
+              <h1 className="max-w-4xl text-4xl font-extrabold leading-[1.04] tracking-tight text-[#000000] md:text-5xl lg:text-[4rem]">
                 Converse com a CF e entenda o próximo passo da sua empresa.
               </h1>
 
-              <p className="mt-6 max-w-2xl text-lg leading-relaxed text-[#475569] md:text-xl">
+              <p className="mt-6 max-w-2xl text-lg leading-relaxed text-[#6B7280] md:text-xl">
                 Envie uma mensagem para organizar dúvidas sobre abertura, rotina
                 contábil, impostos, documentos, folha ou regularização.
               </p>
@@ -223,7 +223,7 @@ export default function ContactPage({ onStartQuiz }) {
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                 <a
                   href={whatsappHref}
-                  className="inline-flex items-center justify-center rounded-xl bg-[#0077B6] px-6 py-3.5 text-sm font-extrabold text-white shadow-xl shadow-sky-900/18 transition duration-300 hover:-translate-y-0.5 hover:bg-[#0369A1] md:text-base"
+                  className="inline-flex items-center justify-center rounded-xl bg-[#005F93] px-6 py-3.5 text-sm font-extrabold text-white shadow-xl shadow-[#131F39]/18 transition duration-300 hover:-translate-y-0.5 hover:bg-[#005F93] md:text-base"
                 >
                   Falar com a CF
                   <ArrowRight className="ml-2 h-5 w-5" />
@@ -239,9 +239,9 @@ export default function ContactPage({ onStartQuiz }) {
                 {['orientação inicial', 'clareza sobre prazos', 'rotina mais organizada'].map((item) => (
                   <div
                     key={item}
-                    className="flex items-center gap-2 rounded-2xl border border-white/80 bg-white/62 px-3 py-2 text-sm font-bold text-[#475569] shadow-sm backdrop-blur"
+                    className="flex items-center gap-2 rounded-2xl border border-white/80 bg-white/62 px-3 py-2 text-sm font-bold text-[#6B7280] shadow-sm backdrop-blur"
                   >
-                    <CheckCircle2 className="h-5 w-5 shrink-0 text-[#0077B6]" />
+                    <CheckCircle2 className="h-5 w-5 shrink-0 text-[#005F93]" />
                     {item}
                   </div>
                 ))}
@@ -253,7 +253,7 @@ export default function ContactPage({ onStartQuiz }) {
         </div>
       </section>
 
-      <section className="bg-[#F4F8FB] px-5 pb-20 md:px-8 md:pb-24">
+      <section className="bg-[#F5F4F1] px-5 pb-20 md:px-8 md:pb-24">
         <div className="mx-auto grid max-w-7xl gap-4 md:grid-cols-2 lg:grid-cols-4">
           {contactCards.map((card, index) => {
             const Icon = card.icon;
@@ -261,15 +261,15 @@ export default function ContactPage({ onStartQuiz }) {
             return (
               <Reveal key={card.title} delay={index * 0.05}>
                 <div className="h-full rounded-[1.5rem] border border-white/80 bg-white/78 p-5 shadow-xl shadow-slate-900/7 backdrop-blur">
-                  <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-sky-50 text-[#0369A1]">
+                  <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-[#F5F4F1] text-[#005F93]">
                     <Icon className="h-6 w-6" />
                   </div>
 
-                  <h2 className="font-extrabold text-[#0F172A]">
+                  <h2 className="font-extrabold text-[#000000]">
                     {card.title}
                   </h2>
 
-                  <p className="mt-2 text-sm leading-relaxed text-[#64748B]">
+                  <p className="mt-2 text-sm leading-relaxed text-[#6B7280]">
                     {card.description}
                   </p>
                 </div>

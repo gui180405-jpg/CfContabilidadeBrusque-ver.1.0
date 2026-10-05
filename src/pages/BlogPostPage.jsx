@@ -51,7 +51,7 @@ function renderInline(text) {
           href={href}
           target={isExternal ? '_blank' : undefined}
           rel={isExternal ? 'noopener noreferrer' : undefined}
-          className="font-bold text-sky-800 underline decoration-sky-300 underline-offset-4 hover:text-sky-600"
+          className="font-bold text-[#005F93] underline decoration-[#005F93] underline-offset-4 hover:text-[#005F93]"
         >
           {label}
         </a>
@@ -88,7 +88,7 @@ function MarkdownContent({ content }) {
       <ul key={`list-${elements.length}`} className="my-6 space-y-2">
         {listItems.map((item, index) => (
           <li key={`${item}-${index}`} className="flex gap-3 text-slate-700">
-            <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-sky-700" />
+            <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#005F93]" />
             <span>{renderInline(item)}</span>
           </li>
         ))}
@@ -147,7 +147,7 @@ function MarkdownContent({ content }) {
 
     if (trimmed.startsWith('> ')) {
       elements.push(
-        <blockquote key={index} className="my-8 rounded-2xl border-l-4 border-sky-700 bg-sky-50 p-5 font-semibold text-slate-700">
+        <blockquote key={index} className="my-8 rounded-2xl border-l-4 border-[#005F93] bg-[#F5F4F1] p-5 font-semibold text-slate-700">
           {renderInline(trimmed.slice(2))}
         </blockquote>
       );
@@ -173,9 +173,9 @@ export default function BlogPostPage({ navigate, onStartQuiz }) {
 
   if (!post) {
     return (
-      <main className="min-h-screen bg-[#eef1f4] px-5 py-32 md:px-8">
+      <main className="min-h-screen bg-[#F5F4F1] px-5 py-32 md:px-8">
         <div className="mx-auto max-w-3xl rounded-[2rem] border border-white/75 bg-white/82 p-8 text-center shadow-xl shadow-slate-900/8 backdrop-blur">
-          <p className="text-sm font-bold uppercase tracking-[0.2em] text-sky-700">
+          <p className="text-sm font-bold uppercase tracking-[0.2em] text-[#005F93]">
             Conteúdo não encontrado
           </p>
           <h1 className="mt-4 text-3xl font-extrabold text-slate-950">
@@ -195,24 +195,24 @@ export default function BlogPostPage({ navigate, onStartQuiz }) {
   }
 
   return (
-    <main className="min-h-screen bg-[#eef1f4]">
-      <section className="relative overflow-hidden bg-[#163a56] px-5 pb-20 pt-32 md:px-8 md:pb-24 md:pt-36">
+    <main className="min-h-screen bg-[#F5F4F1]">
+      <section className="relative overflow-hidden bg-[#131F39] px-5 pb-20 pt-32 md:px-8 md:pb-24 md:pt-36">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_78%_22%,rgba(125,211,252,0.22),transparent_36%)]" />
         <div className="absolute inset-0 cf-subtle-grid opacity-[0.06]" />
-        <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#eef1f4] via-[#eef1f4]/75 to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#F5F4F1] via-[#F5F4F1]/75 to-transparent" />
 
         <div className="relative z-10 mx-auto max-w-4xl">
           <button
             type="button"
             onClick={() => navigate('/blog')}
-            className="inline-flex items-center text-sm font-bold text-sky-200 transition hover:text-white"
+            className="inline-flex items-center text-sm font-bold text-[#005F93] transition hover:text-white"
           >
             <ArrowLeft className="mr-2 h-4 w-4" />
             Voltar para o Blog
           </button>
 
           <div className="mt-7 flex flex-wrap gap-2">
-            <span className="rounded-full bg-sky-400/12 px-3 py-1 text-xs font-bold uppercase tracking-[0.16em] text-sky-200 ring-1 ring-sky-300/20">
+            <span className="rounded-full bg-[#005F93]/12 px-3 py-1 text-xs font-bold uppercase tracking-[0.16em] text-[#005F93] ring-1 ring-[#005F93]/20">
               {journey}
             </span>
             <span className="rounded-full bg-white/8 px-3 py-1 text-xs font-bold uppercase tracking-[0.16em] text-slate-200 ring-1 ring-white/10">
@@ -264,7 +264,7 @@ export default function BlogPostPage({ navigate, onStartQuiz }) {
                 href={post.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-10 inline-flex items-center rounded-xl border border-sky-200 bg-sky-50 px-5 py-3 text-sm font-bold text-sky-800 transition hover:-translate-y-0.5 hover:bg-sky-100"
+                className="mt-10 inline-flex items-center rounded-xl border border-[#005F93] bg-[#F5F4F1] px-5 py-3 text-sm font-bold text-[#005F93] transition hover:-translate-y-0.5 hover:bg-[#F5F4F1]"
               >
                 Ver fonte externa
                 <ExternalLink className="ml-2 h-4 w-4" />
@@ -272,8 +272,8 @@ export default function BlogPostPage({ navigate, onStartQuiz }) {
             )}
           </div>
 
-          <div className="mt-10 rounded-[1.7rem] bg-[#173d5a] p-7 text-white shadow-2xl shadow-slate-900/12 md:p-8">
-            <p className="text-sm font-bold uppercase tracking-[0.2em] text-sky-300">
+          <div className="mt-10 rounded-[1.7rem] bg-[#131F39] p-7 text-white shadow-2xl shadow-slate-900/12 md:p-8">
+            <p className="text-sm font-bold uppercase tracking-[0.2em] text-[#005F93]">
               Próximo passo
             </p>
             <h2 className="mt-3 text-2xl font-extrabold md:text-3xl">
