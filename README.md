@@ -1,157 +1,84 @@
 # CF Contabilidade Brusque — Site Institucional
 
-Projeto em **React + Vite + Tailwind**, sem Base44 e sem plugin proprietário.
+React 18 + Vite 6 + Tailwind 3, publicado na Vercel. Blog com painel Sveltia CMS
+(artigos em Markdown no próprio repositório do GitHub).
 
-Esta versão foi reorganizada para ficar mais parecida com um site institucional real:
-
-- Home mais limpa;
-- páginas separadas;
-- header fixo branco;
-- área de blog preparada;
-- conteúdo centralizado para personalização.
-
-## Páginas do site
+## Páginas
 
 ```txt
 /             Página inicial
-/sobre        Sobre a CF
 /servicos     Serviços contábeis
-/diagnostico  Diagnóstico contábil
-/blog         Blog institucional
+/sobre        Sobre a CF
+/diagnostico  Diagnóstico (4 perguntas → WhatsApp)
+/blog         Blog
+/blog/<slug>  Artigo
 /contato      Contato e localização
+/admin/blog   Painel do blog (ver GUIA-PAINEL-BLOG.md)
 ```
 
-## Como executar localmente
+Endereços que não existem recebem uma página 404 de verdade (status 404, `noindex`).
+
+## Executar no computador
+
+Requisitos: Node.js 20 ou mais recente (a Vercel usa a versão de `engines` do package.json).
 
 ```bash
-npm ci
-npm run dev
+npm ci          # instala exatamente as versões do package-lock.json
+npm run dev     # http://localhost:5173
 ```
 
-Abra o endereço indicado pelo Vite, normalmente:
+No Windows também dá para usar `rodar-site.bat` e `testar-build.bat`.
 
-```txt
-http://localhost:5173
-```
-
-## Como gerar build
+## Conferir antes de publicar
 
 ```bash
-npm run build
+npm run lint    # erros de código
+npm run build   # gera dist/ — precisa terminar com "built in …"
+npm run check   # os dois acima em sequência
+npm audit       # avisos de segurança das dependências
 ```
 
-O resultado fica na pasta `dist/`.
+Para ver o build final: `npm run preview` (http://localhost:4173).
+Obs.: o `preview` do Vite não aplica o `vercel.json` (cabeçalhos de segurança, 404, URLs limpas);
+isso só vale na Vercel.
 
-## Como publicar na Vercel
+## Publicar na Vercel
 
-Configuração recomendada:
+Configuração do projeto:
 
 ```txt
-Framework Preset: Vite
-Install Command: npm ci
-Build Command: npm run build
-Output Directory: dist
-Node.js Version: 20.x
+Framework Preset:  Vite
+Install Command:   npm ci
+Build Command:     npm run build
+Output Directory:  dist
 ```
 
-## Onde editar textos
+Cada commit na branch `main` gera um deploy. Depois de publicar, confira em uma aba anônima:
+a Home, um artigo do blog, um endereço inexistente (deve mostrar a página 404) e o `/admin/blog`.
 
-A maioria dos textos está em:
+Variáveis de ambiente (Settings → Environment Variables) — **todas opcionais**:
 
-```txt
-src/content/siteContent.js
-```
+| Variável | Para quê |
+|---|---|
+| `OAUTH_CLIENT_ID` / `OAUTH_CLIENT_SECRET` | botão "Entrar com GitHub" do painel (ver GUIA-PAINEL-BLOG.md) |
+| `OAUTH_SCOPE` | `public_repo` se o repositório for público (permissão menor) |
 
-Nesse arquivo você altera:
+O segredo `VERCEL_DEPLOY_HOOK_URL` fica no **GitHub** (não na Vercel) e serve para a publicação agendada.
 
-- telefone;
-- WhatsApp;
-- e-mail;
-- endereço;
-- textos da Home;
-- serviços;
-- segmentos;
-- FAQ;
-- cards futuros do blog.
+## Onde editar
 
-## Como preencher o blog futuramente
+| O quê | Arquivo |
+|---|---|
+| Telefone, WhatsApp, e-mail, endereço, fotos, FAQ | `src/content/siteContent.js` |
+| Título e descrição de cada página no Google | `src/content/pageMeta.js` |
+| Dados da empresa para buscadores (JSON-LD) | `index.html` |
+| Artigos do blog | painel `/admin/blog` (ou `src/content/posts/*.md`) |
+| Cores e fontes | `src/index.css` e `tailwind.config.js` |
+| Cabeçalhos de segurança, URLs, cache | `vercel.json` |
 
-Abra:
-
-```txt
-src/content/siteContent.js
-```
-
-Procure por:
-
-```js
-export const blogPosts = [
-```
-
-Edite os cards existentes ou adicione novos.
-
-Enquanto o item estiver com:
-
-```js
-draft: true
-```
-
-ele aparece como conteúdo futuro/em breve.
-
-## Onde trocar imagens
-
-As imagens ficam em:
-
-```txt
-public/
-```
-
-Exemplos:
-
-```txt
-logo-cf-azul.png
-logo-cf-branca.png
-cf-recepcao.webp
-cf-escritorio-vista.webp
-EquipeCfcontabilidade.jpg
-```
-
-Para trocar a imagem principal, edite em:
-
-```txt
-src/content/siteContent.js
-```
-
-```js
-heroImage: '/cf-recepcao.webp'
-```
+Fotos: originais em `public/fotos/`; versões otimizadas (WebP em vários tamanhos) em
+`public/fotos/otimizadas/`, geradas por `python scripts/otimizar_fotos.py`.
 
 ## Segurança
 
-- Não usa `dangerouslySetInnerHTML`.
-- Links externos usam `rel="noopener noreferrer"`.
-- WhatsApp usa `encodeURIComponent`.
-- Não coleta dados sensíveis.
-- Headers básicos de segurança estão em `vercel.json`.
-
-## Rodar localmente sem baixar ZIP toda hora
-
-Depois de extrair esta versão em uma pasta fixa, rode uma vez:
-
-```bash
-npm ci
-npm run dev
-```
-
-Depois abra:
-
-```txt
-http://localhost:5173
-```
-
-No Windows, também dá para usar os arquivos:
-
-- `rodar-site.bat`: abre o site localmente.
-- `testar-build.bat`: testa se o projeto está pronto para publicar.
-
-Com o site rodando, basta editar os arquivos, salvar e conferir no navegador.
+Resumo em `SECURITY_NOTES.md`.

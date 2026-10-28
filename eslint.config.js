@@ -32,4 +32,9 @@ export default [
       'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
     },
   },
+  // Código que roda no Node (funções da Vercel, scripts de build e configs)
+  {
+    files: ['api/**/*.js', 'scripts/**/*.js', '*.config.js'],
+    languageOptions: { globals: globals.node },
+  },
 ];

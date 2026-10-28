@@ -1,50 +1,44 @@
 /*
 ============================================================
-API ROUTE: /api/auth
+API: /api/auth — início do login "Entrar com GitHub" do painel
 ============================================================
-Inicia o login do Decap CMS com GitHub na Vercel.
+Variáveis na Vercel (Settings → Environment Variables):
+- OAUTH_CLIENT_ID      (do OAuth App criado no GitHub)
+- OAUTH_CLIENT_SECRET  (usado só em /api/callback, nunca no navegador)
+- OAUTH_SCOPE          (opcional: "public_repo" se o repositório for público)
 
-Variável necessária na Vercel:
-- OAUTH_CLIENT_ID
+Sem essas variáveis, o login por token continua funcionando normalmente.
 ============================================================
 */
-
-function getBaseUrl(req) {
-  const proto = req.headers['x-forwarded-proto'] || 'https';
-  const host = req.headers['x-forwarded-host'] || req.headers.host;
-  return `${proto}://${host}`;
-}
-
-function randomState() {
-  return Math.random().toString(36).slice(2) + Date.now().toString(36);
-}
+import { getEnv, getOrigin, randomState, renderResult, setSecurityHeaders, stateCookie } from './_oauth.js';
 
 export default function handler(req, res) {
   if (req.method !== 'GET') {
-    res.status(405).send('Method not allowed');
+    res.setHeader('Allow', 'GET');
+    res.statusCode = 405;
+    res.end('Method not allowed');
     return;
   }
 
-  const clientId = process.env.OAUTH_CLIENT_ID;
+  const { clientId, scope } = getEnv();
+  const origin = getOrigin(req);
 
-  if (!clientId) {
-    res.status(500).send('Missing OAUTH_CLIENT_ID environment variable.');
+  if (!clientId || !origin) {
+    renderResult(res, 'error', { error: 'oauth_nao_configurado' });
     return;
   }
 
-  const redirectUri = `${getBaseUrl(req)}/api/callback`;
-
+  const state = randomState();
   const authUrl = new URL('https://github.com/login/oauth/authorize');
   authUrl.searchParams.set('client_id', clientId);
-  authUrl.searchParams.set('redirect_uri', redirectUri);
+  authUrl.searchParams.set('redirect_uri', `${origin}/api/callback`);
+  authUrl.searchParams.set('scope', scope);
+  authUrl.searchParams.set('state', state);
+  authUrl.searchParams.set('allow_signup', 'false');
 
-  // GitHub usa escopos separados por espaço.
-  // repo = permite criar/editar arquivos no repositório.
-  // user = permite identificar o usuário autenticado.
-  authUrl.searchParams.set('scope', 'repo user');
-
-  authUrl.searchParams.set('state', randomState());
-
+  setSecurityHeaders(res);
+  res.setHeader('Set-Cookie', stateCookie(state, 600));
   res.setHeader('Location', authUrl.toString());
-  res.status(302).end();
+  res.statusCode = 302;
+  res.end();
 }

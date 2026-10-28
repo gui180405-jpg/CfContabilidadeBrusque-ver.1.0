@@ -1,5 +1,16 @@
+# dependências e build
 node_modules
 dist
+
+# variáveis de ambiente e credenciais — nunca versionar
 .env
-.env.local
+.env.*
+!.env.example
+*.pem
+*.key
+.vercel
+
+# sistema / editores
 .DS_Store
+Thumbs.db
+*.log
