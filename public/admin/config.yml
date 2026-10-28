@@ -1,40 +1,185 @@
+# =============================================================
+# PAINEL DO BLOG — CF CONTABILIDADE BRUSQUE (Sveltia CMS)
+# =============================================================
+# Acesso: /admin  (atalho direto para os artigos: /admin/blog)
+# Login:  conta do GitHub com permissão de escrita no repositório abaixo.
+#         Sem essa permissão, o painel não consegue salvar nada.
+# Onde os artigos ficam: src/content/posts/*.md (um arquivo por artigo)
+# Onde as imagens ficam: public/blog/
+# Cada "Salvar" vira um commit no GitHub → a Vercel publica sozinha (1–2 min).
+# Histórico/cópia de segurança: o próprio histórico de commits do GitHub.
+# =============================================================
+
 backend:
   name: github
   repo: gui180405-jpg/CfContabilidadeBrusque-ver.1.0
   branch: main
+  # "Entrar com GitHub": usa as rotas próprias /api/auth e /api/callback.
+  # Só funciona depois de criar o OAuth App no GitHub e cadastrar
+  # OAUTH_CLIENT_ID e OAUTH_CLIENT_SECRET na Vercel (ver GUIA-PAINEL-BLOG.md).
+  # base_url precisa ser o MESMO domínio em que o /admin é aberto
+  # (o token só é entregue para a mesma origem). Troque junto com site_url.
+  base_url: https://cf-contabilidade-brusque-ver-1-0.vercel.app
+  auth_endpoint: api/auth
+  commit_messages:
+    create: 'Blog: novo artigo "{{slug}}" (por {{author-login}})'
+    update: 'Blog: edita "{{slug}}" (por {{author-login}})'
+    delete: 'Blog: exclui "{{slug}}" (por {{author-login}})'
+    uploadMedia: 'Blog: envia imagem "{{path}}" (por {{author-login}})'
+    deleteMedia: 'Blog: remove imagem "{{path}}" (por {{author-login}})'
 
+# Endereço usado nos botões "Ver no site" do painel (troque quando o domínio próprio estiver ativo).
 site_url: https://cf-contabilidade-brusque-ver-1-0.vercel.app
 display_url: https://cf-contabilidade-brusque-ver-1-0.vercel.app
-logo_url: /logo-cf-azul.png
+logo:
+  src: /icone-cf.webp
 
+# Idioma do painel: o Sveltia segue o idioma do navegador (português incluso).
+
+# Imagens enviadas pelo painel: viram WebP otimizado (até 1600 px, qualidade 82),
+# com nome de arquivo limpo. Limite de 8 MB por arquivo enviado.
 media_folder: public/blog
 public_folder: /blog
+media_libraries:
+  default:
+    config:
+      max_file_size: 8000000
+      slugify_filename: true
+      transformations:
+        raster_image:
+          format: webp
+          quality: 82
+          width: 1600
+          height: 1600
 
-locale: pt
+slug:
+  encoding: ascii
+  clean_accents: true
+  sanitize_replacement: '-'
+  maxlength: 80
 
 collections:
   - name: cf_blog_posts
-    label: Blog e Notícias
-    label_singular: Post
+    label: Artigos do blog
+    label_singular: Artigo
+    description: >-
+      Crie, edite e publique os artigos do blog da CF. Use “Status” para salvar
+      como rascunho ou publicar. Uma data futura agenda a publicação.
     folder: src/content/posts
     create: true
-    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    delete: true
     extension: md
     format: frontmatter
-    summary: "{{title}} — {{category}}"
+    slug: '{{year}}-{{month}}-{{day}}-{{fields.slug}}'
+    identifier_field: title
+    summary: '{{title}} — {{status}} · {{date}}'
+    thumbnail: image
+    preview_path: blog/{{fields.slug}}
+    sortable_fields:
+      fields: [date, title, category, status]
+      default:
+        field: date
+        direction: descending
+    view_filters:
+      - label: Publicados
+        field: status
+        pattern: published
+      - label: Rascunhos
+        field: status
+        pattern: draft
+      - label: 'Começando a empresa'
+        field: category
+        pattern: 'Começando a empresa|Abertura de empresa|Abrir CNPJ'
+      - label: 'Rotina contábil'
+        field: category
+        pattern: 'Rotina contábil|Obrigações mensais|Rotina fiscal'
+      - label: 'Impostos e enquadramento'
+        field: category
+        pattern: 'Impostos|Simples Nacional|Tributário'
+      - label: 'Trabalhista e equipe'
+        field: category
+        pattern: 'Trabalhista|Departamento pessoal|Folha'
+      - label: 'Gestão financeira'
+        field: category
+        pattern: 'Gestão financeira|Financeiro'
+      - label: 'Regularização e pendências'
+        field: category
+        pattern: 'Regulariza|Pendências'
+      - label: 'Guias por segmento'
+        field: category
+        pattern: 'segmento|Segmentos'
+      - label: 'Notícias e prazos'
+        field: category
+        pattern: 'Notícias|Prazos|Alerta'
+    view_groups:
+      - label: Status
+        field: status
+      - label: Ano
+        field: date
+        pattern: '\d{4}'
     editor:
       preview: true
+
     fields:
+      # ---------- Conteúdo principal ----------
       - label: Título
         name: title
         widget: string
-        required: true
+        hint: Título que aparece no blog e no topo do artigo.
 
-      - label: Jornada do conteúdo
+      - label: Resumo
+        name: excerpt
+        widget: text
+        hint: 1 ou 2 frases. Aparece na listagem do blog e como descrição no Google, se o campo de SEO ficar vazio.
+
+      - label: Conteúdo do artigo
+        name: body
+        widget: markdown
+        modes: [rich_text, raw]
+        buttons:
+          - bold
+          - italic
+          - link
+          - heading-two
+          - heading-three
+          - heading-four
+          - quote
+          - bulleted-list
+          - numbered-list
+        editor_components: [image]
+        hint: >-
+          Use “Título 2” para as seções e “Título 3” para subseções. Para inserir uma imagem
+          no meio do texto, use o botão “+” → Imagem; o campo “Título” da imagem vira a legenda.
+
+      # ---------- Publicação ----------
+      - label: Status
+        name: status
+        widget: select
+        default: draft
+        options:
+          - { label: Rascunho (não aparece no site), value: draft }
+          - { label: Publicado, value: published }
+        hint: Salve como Rascunho enquanto escreve. Troque para Publicado quando estiver pronto.
+
+      - label: Data de publicação
+        name: date
+        widget: datetime
+        format: YYYY-MM-DD
+        date_format: DD/MM/YYYY
+        time_format: false
+        hint: >-
+          Data futura = publicação agendada: o artigo só aparece a partir desse dia
+          (o site é atualizado automaticamente todas as manhãs).
+
+      - label: Autor
+        name: author
+        widget: string
+        default: Equipe CF Contabilidade
+
+      - label: Jornada (categoria)
         name: category
         widget: select
-        required: true
-        hint: Escolha o momento ou tipo de dúvida que este conteúdo ajuda a resolver.
+        hint: O momento da empresa que este conteúdo ajuda a resolver.
         options:
           - Começando a empresa
           - Rotina contábil
@@ -48,67 +193,84 @@ collections:
       - label: Tipo de conteúdo
         name: type
         widget: select
-        required: true
-        options:
-          - Artigo
-          - Notícia
-          - Alerta
-          - Guia
-          - Orientação
-          - Prazo
+        default: Artigo
+        options: [Artigo, Notícia, Alerta, Guia, Orientação, Prazo]
 
-      - label: Data
-        name: date
-        widget: datetime
-        required: true
-        format: YYYY-MM-DD
-        date_format: DD/MM/YYYY
-        time_format: false
+      - label: Tags
+        name: tags
+        widget: list
+        required: false
+        default: []
+        hint: 'Palavras-chave curtas (ex.: MEI, Simples Nacional, folha). Pressione Enter após cada uma.'
 
+      - label: Artigo em destaque
+        name: featured
+        widget: boolean
+        required: false
+        default: false
+        hint: Aparece no topo do blog. Se vários estiverem marcados, vale o mais recente.
+
+      # ---------- Imagem de capa ----------
+      - label: Imagem de capa
+        name: image
+        widget: image
+        required: false
+        hint: >-
+          Opcional. JPG, PNG ou WebP até 8 MB — o painel converte para WebP otimizado.
+          Ideal: horizontal (16:9), com pelo menos 1600 px de largura. Sem imagem, o blog usa um card padrão.
+
+      - label: Descrição da imagem de capa
+        name: image_alt
+        widget: string
+        required: false
+        hint: 'Descreva o que aparece na foto (acessibilidade e Google). Ex.: “Rose Michei revisando documentos fiscais”.'
+
+      # ---------- Endereço e SEO ----------
+      - label: Endereço do artigo (slug)
+        name: slug
+        widget: string
+        pattern: ['^[a-z0-9]+(?:-[a-z0-9]+)*$', 'Use só letras minúsculas sem acento, números e hífens. Ex.: abrir-cnpj-passo-a-passo']
+        hint: >-
+          Fica em cfcontabilidadebrusque.com/blog/ESTE-ENDERECO. Depois de publicado, evite trocar;
+          se trocar, o endereço antigo continua funcionando (veja “Endereços antigos”).
+
+      - label: SEO e compartilhamento
+        name: seo
+        widget: object
+        collapsed: true
+        required: false
+        hint: Opcional. Se ficar vazio, o site usa o título e o resumo do artigo.
+        fields:
+          - label: Título no Google
+            name: title
+            widget: string
+            required: false
+            hint: 'Até ~60 caracteres. Ex.: “Abrir CNPJ em Brusque: o que analisar antes”.'
+          - label: Descrição no Google
+            name: description
+            widget: text
+            required: false
+            hint: Até ~155 caracteres. Aparece embaixo do título nos resultados de busca e no WhatsApp/LinkedIn.
+
+      # ---------- Avançado ----------
       - label: Tempo de leitura
         name: readTime
         widget: string
         required: false
-        default: 4 min de leitura
-
-      - label: Resumo
-        name: excerpt
-        widget: text
-        required: true
-        hint: Texto curto que aparece no card do blog.
-
-      - label: Imagem
-        name: image
-        widget: image
-        required: false
-        hint: Opcional. Se não enviar imagem, o site usa um card padrão.
+        hint: Opcional. Se ficar vazio, é calculado automaticamente.
 
       - label: Link externo
         name: link
         widget: string
         required: false
-        default: "#"
-        hint: Use # para abrir a página interna do artigo. Use uma URL completa apenas quando for link externo.
+        default: '#'
+        hint: Deixe “#” para abrir a página do artigo no site. Use uma URL completa só para apontar para outro site.
 
-      - label: Post em destaque
-        name: featured
-        widget: boolean
+      - label: Endereços antigos
+        name: redirect_from
+        widget: list
         required: false
-        default: false
-
-      - label: Publicado
-        name: published
-        widget: boolean
-        required: false
-        default: true
-
-      - label: Rascunho / Em breve
-        name: draft
-        widget: boolean
-        required: false
-        default: false
-
-      - label: Conteúdo completo
-        name: body
-        widget: markdown
-        required: false
+        default: []
+        hint: >-
+          Se você trocar o endereço (slug) de um artigo já publicado, coloque aqui o endereço antigo.
+          Quem acessar o link antigo é levado ao novo.

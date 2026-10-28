@@ -1,17 +1,10 @@
 import { useMemo, useState } from 'react';
-import { motion } from 'framer-motion';
-import {
-  ArrowRight,
-  BriefcaseBusiness,
-  CalendarDays,
-  Clock3,
-  FileText,
-  Newspaper,
-  Search,
-  Sparkles,
-  Tag,
-} from 'lucide-react';
+import { m } from 'framer-motion';
+import { ArrowRight, ArrowUpRight, CalendarDays, Clock3, Newspaper } from 'lucide-react';
+import PageHero from '../components/common/PageHero';
 import PrimaryButton from '../components/common/PrimaryButton';
+import { Eyebrow, MaskText, RevealLine } from '../components/motion/primitives';
+import { EASE, VIEWPORT, stagger, variants } from '../components/motion/motionConfig';
 import {
   blogJourneys,
   blogPosts,
@@ -70,36 +63,22 @@ function formatPostDate(date) {
   return parsed.toLocaleDateString('pt-BR');
 }
 
-function navigateToPost(event, post, navigate) {
-  if (isExternalLink(post.link)) return;
-
-  event.preventDefault();
-  navigate(`/blog/${post.slug}`);
-}
-
 function BlogImageFallback({ category }) {
   const journey = getJourneyForCategory(category);
 
   return (
-    <div className="relative flex h-full min-h-[220px] w-full items-center justify-center overflow-hidden rounded-[1.35rem] bg-gradient-to-br from-[#131F39] via-[#005F93] to-[#005F93] p-8">
-      <div className="absolute inset-0 cf-subtle-grid opacity-10" />
-      <div className="relative text-center">
-        <div className="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-2xl border border-[#005F93]/20 bg-white/10 text-[#005F93] shadow-2xl shadow-black/20 backdrop-blur">
-          <Newspaper className="h-8 w-8" />
-        </div>
-        <p className="text-sm font-bold uppercase tracking-[0.22em] text-[#005F93]">
-          {journey}
-        </p>
-      </div>
+    <div className="relative flex h-full w-full flex-col justify-between bg-cf-navy p-3 sm:min-h-[220px] sm:p-7">
+      <Newspaper className="h-5 w-5 text-cf-on-dark sm:h-6 sm:w-6" strokeWidth={1.5} />
+      <p className="cf-label hidden text-cf-on-dark sm:block">{journey}</p>
     </div>
   );
 }
 
 function PostMeta({ post, light = false }) {
-  const textColor = light ? 'text-slate-300' : 'text-slate-500';
+  const textColor = light ? 'text-cf-on-dark' : 'text-cf-muted';
 
   return (
-    <div className={`mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm ${textColor}`}>
+    <div className={`mt-5 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm ${textColor}`}>
       <span className="inline-flex items-center gap-1.5">
         <CalendarDays className="h-4 w-4" />
         {formatPostDate(post.date)}
@@ -113,13 +92,9 @@ function PostMeta({ post, light = false }) {
   );
 }
 
-function PostButton({ post, navigate }) {
+function PostButton({ post }) {
   if (!isAvailable(post)) {
-    return (
-      <span className="mt-6 inline-flex items-center justify-center rounded-xl border border-slate-200 bg-slate-100 px-5 py-3 text-sm font-bold text-slate-500">
-        Em breve
-      </span>
-    );
+    return <span className="cf-label mt-7 inline-flex text-cf-muted">Em breve</span>;
   }
 
   return (
@@ -127,214 +102,223 @@ function PostButton({ post, navigate }) {
       href={getPostUrl(post)}
       target={isExternalLink(post.link) ? '_blank' : undefined}
       rel={isExternalLink(post.link) ? 'noopener noreferrer' : undefined}
-      onClick={(event) => navigateToPost(event, post, navigate)}
       aria-label={`Ler artigo completo: ${post.title}`}
-      className="mt-6 inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-[#005F93] to-[#131F39] px-5 py-3 text-sm font-bold text-white shadow-xl shadow-[#131F39]/20 transition duration-300 hover:-translate-y-0.5 hover:shadow-2xl hover:shadow-[#131F39]/25"
+      className="cf-link mt-7 self-start text-cf-blue hover:text-cf-blue-dark"
     >
       Ler artigo completo
-      <ArrowRight className="ml-2 h-4 w-4" />
+      <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
     </a>
   );
 }
 
-function FeaturedPost({ post, navigate }) {
+function PostImage({ post, className = '' }) {
+  return (
+    <div className={`relative overflow-hidden bg-cf-soft ${className}`}>
+      {post.image ? (
+        <img
+          src={post.image}
+          alt={post.imageAlt || post.title}
+          className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1200ms] ease-cf group-hover:scale-[1.03]"
+          loading="lazy"
+          decoding="async"
+        />
+      ) : (
+        <div className="absolute inset-0">
+          <BlogImageFallback category={post.category} />
+        </div>
+      )}
+    </div>
+  );
+}
+
+function FeaturedPost({ post }) {
   if (!post) return null;
 
   const journey = getJourneyForCategory(post.category);
 
   return (
-    <motion.article
-      initial={{ opacity: 0, y: 22 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
-      className="relative -mt-10 overflow-hidden rounded-[2rem] border border-white/10 bg-[#131F39] shadow-2xl shadow-slate-900/14 md:-mt-14"
+    <m.article
+      initial="hidden"
+      animate="visible"
+      variants={stagger(0.1)}
+      className="group grid gap-10 border-b border-cf-border pb-16 lg:grid-cols-12 lg:items-center lg:gap-10 md:pb-24"
     >
-      <div className="absolute inset-0">
-        {post.image ? (
-          <img
-            src={post.image}
-            alt=""
-            className="h-full w-full object-cover opacity-25"
-          />
-        ) : (
-          <div className="h-full w-full bg-gradient-to-br from-[#131F39] via-[#005F93] to-[#005F93]" />
-        )}
+      <m.div variants={variants.image} className="lg:col-span-7">
+        <PostImage post={post} className="aspect-[16/10] w-full" />
+      </m.div>
 
-        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(15,58,86,0.94)_0%,rgba(22,77,111,0.86)_45%,rgba(47,125,166,0.68)_100%)]" />
-        <div className="absolute inset-0 cf-subtle-grid opacity-[0.06]" />
-        <div className="absolute -right-20 -top-20 h-80 w-80 rounded-full bg-[#005F93]/20 blur-3xl" />
+      <div className="lg:col-span-5">
+        <m.p variants={variants.fade} className="cf-label flex flex-wrap items-center gap-3 text-cf-blue">
+          <span>Conteúdo em destaque</span>
+          <span aria-hidden="true" className="h-px w-6 bg-cf-blue" />
+          <span className="text-cf-muted">{journey}</span>
+          {post.type && <span className="text-cf-muted">• {post.type}</span>}
+        </m.p>
+
+        <m.h2 variants={variants.up} className="mt-6 text-3xl font-black leading-[1.08] tracking-[-0.035em] text-cf-navy md:text-[2.6rem]">
+          {post.title}
+        </m.h2>
+
+        <m.p variants={variants.up} className="mt-5 text-lg leading-8 text-cf-muted">
+          {post.excerpt}
+        </m.p>
+
+        <m.div variants={variants.fade}>
+          <PostMeta post={post} />
+        </m.div>
+
+        <m.div variants={variants.cta} className="mt-8">
+          {isAvailable(post) ? (
+            <PrimaryButton
+              href={getPostUrl(post)}
+              external={isExternalLink(post.link)}
+              aria-label={`Ler artigo em destaque: ${post.title}`}
+            >
+              Ler artigo em destaque
+              <ArrowRight className="h-4 w-4" />
+            </PrimaryButton>
+          ) : (
+            <span className="cf-label text-cf-muted">Conteúdo em breve</span>
+          )}
+        </m.div>
       </div>
-
-      <div className="relative z-10 grid gap-8 p-7 md:p-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
-        <div>
-          <div className="inline-flex items-center gap-2 rounded-full border border-[#005F93]/25 bg-white/8 px-4 py-2 text-sm font-bold text-[#005F93] backdrop-blur">
-            <Sparkles className="h-4 w-4" />
-            Conteúdo em destaque
-          </div>
-
-          <div className="mt-5 flex flex-wrap gap-2">
-            <span className="rounded-full bg-[#005F93]/12 px-3 py-1 text-xs font-bold uppercase tracking-[0.16em] text-[#005F93] ring-1 ring-[#005F93]/20">
-              {journey}
-            </span>
-            <span className="rounded-full bg-white/8 px-3 py-1 text-xs font-bold uppercase tracking-[0.16em] text-slate-200 ring-1 ring-white/10">
-              {post.type}
-            </span>
-          </div>
-
-          <h2 className="mt-5 text-3xl font-extrabold leading-tight text-white md:text-4xl">
-            {post.title}
-          </h2>
-
-          <p className="mt-5 max-w-2xl text-lg leading-relaxed text-slate-300">
-            {post.excerpt}
-          </p>
-
-          <PostMeta post={post} light />
-
-          <div className="mt-7">
-            {isAvailable(post) ? (
-              <a
-                href={getPostUrl(post)}
-                target={isExternalLink(post.link) ? '_blank' : undefined}
-                rel={isExternalLink(post.link) ? 'noopener noreferrer' : undefined}
-                onClick={(event) => navigateToPost(event, post, navigate)}
-                aria-label={`Ler artigo em destaque: ${post.title}`}
-                className="inline-flex items-center justify-center rounded-xl bg-white px-6 py-3.5 text-sm font-bold text-[#131F39] shadow-xl shadow-black/20 transition duration-300 hover:-translate-y-0.5 hover:bg-[#F5F4F1] md:text-base"
-              >
-                Ler artigo em destaque
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </a>
-            ) : (
-              <span className="inline-flex items-center justify-center rounded-xl border border-white/15 bg-white/8 px-6 py-3.5 text-sm font-bold text-white/75 backdrop-blur md:text-base">
-                Conteúdo em breve
-              </span>
-            )}
-          </div>
-        </div>
-
-        <div className="relative hidden lg:block">
-          <div className="absolute -inset-4 rounded-[2rem] bg-[#005F93]/10 blur-2xl" />
-
-          <div className="relative overflow-hidden rounded-[1.6rem] border border-white/10 bg-white/7 p-3 backdrop-blur">
-            {post.image ? (
-              <img
-                src={post.image}
-                alt={post.title}
-                className="h-[340px] w-full rounded-[1.25rem] object-cover"
-              />
-            ) : (
-              <BlogImageFallback category={post.category} />
-            )}
-          </div>
-        </div>
-      </div>
-    </motion.article>
+    </m.article>
   );
 }
 
 function JourneyFilters({ selectedJourney, onSelectJourney }) {
   return (
-    <div className="mt-14 rounded-[1.7rem] border border-white/70 bg-white/72 p-5 shadow-xl shadow-slate-900/8 backdrop-blur md:p-6">
-      <div className="mb-5 flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
+    <div className="mt-14 md:mt-28">
+      <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
         <div>
-          <div className="flex items-center gap-2 text-sm font-bold uppercase tracking-[0.18em] text-slate-500">
-            <Search className="h-4 w-4" />
-            Conteúdos por jornada
-          </div>
-
-          <h2 className="mt-2 text-2xl font-extrabold text-slate-950 md:text-3xl">
-            Encontre conteúdos pelo momento da sua empresa.
-          </h2>
+          <Eyebrow>Conteúdos por jornada</Eyebrow>
+          <MaskText
+            as="h2"
+            className="mt-6 text-3xl font-black leading-[1.06] tracking-[-0.035em] text-cf-navy md:text-4xl"
+            lines={['Encontre conteúdos pelo momento da sua empresa.']}
+          />
         </div>
 
         <button
           type="button"
           onClick={() => onSelectJourney('Todos')}
-          className="text-sm font-bold text-[#005F93] hover:text-[#005F93]"
+          className={`cf-link shrink-0 self-start md:self-auto ${selectedJourney === 'Todos' ? 'text-cf-navy' : 'text-cf-blue hover:text-cf-blue-dark'}`}
         >
           Ver todos
         </button>
       </div>
 
-      <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-4">
-        {visibleJourneyCards.map((journey) => {
+      {/* Mobile: abas roláveis na horizontal + descrição só da jornada escolhida */}
+      <div className="mt-8 sm:hidden">
+        <div className="-mx-5 overflow-x-auto px-5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+          <div className="flex w-max gap-6 border-b border-cf-border">
+            {visibleJourneyCards.map((journey) => {
+              const active = selectedJourney === journey.name;
+
+              return (
+                <button
+                  key={journey.name}
+                  type="button"
+                  onClick={() => onSelectJourney(journey.name)}
+                  aria-pressed={active}
+                  className={`relative whitespace-nowrap py-3.5 text-sm font-bold transition-colors ${active ? 'text-cf-navy' : 'text-cf-muted'}`}
+                >
+                  {journey.name}
+                  {active && (
+                    <m.span
+                      layoutId="cf-journey-tab"
+                      transition={{ duration: 0.4, ease: EASE }}
+                      aria-hidden="true"
+                      className="absolute -bottom-px left-0 right-0 h-[2px] bg-cf-blue"
+                    />
+                  )}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+        <p className="mt-4 text-sm leading-6 text-cf-muted">
+          {blogJourneys.find((item) => item.name === selectedJourney)?.description}
+        </p>
+      </div>
+
+      <m.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={VIEWPORT}
+        variants={stagger(0.04)}
+        className="mt-10 hidden border-t border-cf-border sm:grid sm:grid-cols-2 lg:grid-cols-4"
+      >
+        {visibleJourneyCards.map((journey, index) => {
           const active = selectedJourney === journey.name;
 
           return (
-            <button
+            <m.button
               key={journey.name}
+              variants={variants.up}
               type="button"
               onClick={() => onSelectJourney(journey.name)}
-              className={`rounded-2xl border p-4 text-left transition duration-300 hover:-translate-y-0.5 ${
-                active
-                  ? 'border-[#005F93] bg-[#F5F4F1] shadow-lg shadow-[#131F39]/8'
-                  : 'border-slate-200/70 bg-[#FFFFFF] hover:border-[#005F93] hover:bg-[#F5F4F1]/70'
+              aria-pressed={active}
+              className={`group relative border-b border-cf-border p-5 text-left transition-colors duration-300 sm:[&:nth-child(2n)]:border-l lg:[&:not(:nth-child(4n+1))]:border-l ${
+                active ? 'bg-white' : 'hover:bg-white/60'
               }`}
             >
-              <p className="font-extrabold text-slate-950">
-                {journey.name}
-              </p>
-              <p className="mt-2 text-sm leading-relaxed text-slate-600">
-                {journey.description}
-              </p>
-            </button>
+              {active && (
+                <m.span
+                  layoutId="cf-journey-indicator"
+                  transition={{ duration: 0.45, ease: EASE }}
+                  aria-hidden="true"
+                  className="absolute -top-px left-0 right-0 h-[2px] bg-cf-blue"
+                />
+              )}
+              <span className={`cf-numeral block text-sm ${active ? 'text-cf-blue' : 'text-cf-muted'}`}>
+                {String(index + 1).padStart(2, '0')}
+              </span>
+              <p className="mt-3 font-extrabold text-cf-navy">{journey.name}</p>
+              <p className="mt-2 text-sm leading-relaxed text-cf-muted">{journey.description}</p>
+            </m.button>
           );
         })}
-      </div>
+      </m.div>
     </div>
   );
 }
 
-function BlogCard({ post, index, navigate }) {
+function BlogCard({ post, index }) {
   const journey = getJourneyForCategory(post.category);
 
   return (
-    <motion.article
+    <m.article
       initial={{ opacity: 0, y: 18 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay: index * 0.04 }}
-      whileHover={{ y: -6 }}
-      className="cf-depth-card group flex h-full flex-col overflow-hidden rounded-2xl border border-white/70 bg-white/86 shadow-xl shadow-slate-900/8 backdrop-blur transition duration-300 hover:border-[#005F93]"
+      animate={{ opacity: 1, y: 0, transition: { duration: 0.5, ease: EASE, delay: index * 0.05 } }}
+      className="group grid h-full grid-cols-[5.5rem_1fr] gap-4 border-b border-cf-border pb-7 sm:flex sm:flex-col sm:gap-0 sm:border-b-0 sm:pb-0"
     >
-      <div className="relative h-52 overflow-hidden bg-slate-100">
-        {post.image ? (
-          <img
-            src={post.image}
-            alt={post.title}
-            className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
-          />
-        ) : (
-          <BlogImageFallback category={post.category} />
-        )}
+      {/* mobile: miniatura quadrada à esquerda; sm+: imagem larga no topo */}
+      <PostImage post={post} className="aspect-square w-full sm:aspect-[16/10]" />
 
-        <div className="absolute left-4 top-4 flex flex-wrap gap-2">
-          <span className="rounded-full bg-white/92 px-3 py-1 text-xs font-bold text-[#005F93] shadow-lg backdrop-blur">
-            {journey}
-          </span>
-          <span className="rounded-full bg-slate-950/78 px-3 py-1 text-xs font-bold text-white shadow-lg backdrop-blur">
-            {post.type}
-          </span>
-        </div>
-      </div>
+      <div className="flex min-w-0 flex-1 flex-col sm:border-b sm:border-cf-border sm:pb-8 sm:pt-6">
+        <p className="cf-label flex flex-wrap gap-2 text-cf-blue">
+          {journey}
+          {post.type && <span className="text-cf-muted">• {post.type}</span>}
+        </p>
 
-      <div className="flex flex-1 flex-col p-6">
-        <h3 className="text-xl font-extrabold leading-snug text-slate-950">
+        <h3 className="mt-2 text-lg font-black leading-snug tracking-[-0.02em] text-cf-navy sm:mt-4 sm:text-xl md:text-2xl">
           {post.title}
         </h3>
 
-        <p className="mt-3 flex-1 leading-relaxed text-slate-600">
+        <p className="mt-2 line-clamp-3 flex-1 text-sm leading-6 text-cf-muted sm:mt-3 sm:line-clamp-none sm:text-base sm:leading-7">
           {post.excerpt}
         </p>
 
         <PostMeta post={post} />
 
-        <PostButton post={post} navigate={navigate} />
+        <PostButton post={post} />
       </div>
-    </motion.article>
+    </m.article>
   );
 }
 
-export default function BlogPage({ navigate, onStartQuiz }) {
+export default function BlogPage() {
   const [selectedJourney, setSelectedJourney] = useState(getInitialJourney);
 
   function handleSelectJourney(journeyName) {
@@ -361,75 +345,35 @@ export default function BlogPage({ navigate, onStartQuiz }) {
   }, [featuredPost, selectedJourney, visiblePosts]);
 
   return (
-    <main className="min-h-screen bg-[#F5F4F1]">
-      <section className="relative overflow-hidden bg-[#131F39] px-5 pb-28 pt-32 md:px-8 md:pb-32 md:pt-36">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_78%_22%,rgba(125,211,252,0.22),transparent_36%)]" />
-        <div className="absolute inset-0 cf-subtle-grid opacity-[0.06]" />
-        <div className="absolute -left-32 top-20 h-80 w-80 rounded-full bg-[#005F93]/18 blur-3xl" />
-        <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#F5F4F1] via-[#F5F4F1]/75 to-transparent" />
+    <div className="min-h-screen bg-cf-background">
+      <PageHero
+        tone="dark"
+        eyebrow="Blog e jornadas empresariais"
+        title="Conteúdos organizados pelo momento da sua empresa."
+        description="Orientações sobre abertura, impostos, rotina contábil, trabalhista, gestão, regularização e segmentos empresariais — sem transformar a CF em uma contabilidade de um nicho só."
+        points={['Artigos práticos', 'Guias por momento', 'Segmentos como conteúdo educativo']}
+      />
 
-        <div className="relative z-10 mx-auto max-w-7xl">
-          <motion.div
-            initial={{ opacity: 0, y: 18 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
-            className="max-w-4xl"
-          >
-            <div className="inline-flex items-center gap-2 rounded-full border border-[#005F93]/25 bg-white/8 px-4 py-2 text-sm font-bold text-[#005F93] backdrop-blur">
-              <Newspaper className="h-4 w-4" />
-              Blog e jornadas empresariais
-            </div>
-
-            <h1 className="mt-6 text-4xl font-extrabold leading-[1.04] tracking-tight text-white md:text-5xl lg:text-6xl">
-              Conteúdos organizados pelo momento da sua empresa.
-            </h1>
-
-            <p className="mt-6 max-w-3xl text-lg leading-relaxed text-slate-300 md:text-xl">
-              Orientações sobre abertura, impostos, rotina contábil, trabalhista,
-              gestão, regularização e segmentos empresariais — sem transformar a CF em uma contabilidade de um nicho só.
-            </p>
-
-            <div className="mt-8 flex flex-wrap gap-3 text-sm text-slate-300">
-              <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/7 px-4 py-2 backdrop-blur">
-                <FileText className="h-4 w-4 text-[#005F93]" />
-                Artigos práticos
-              </span>
-              <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/7 px-4 py-2 backdrop-blur">
-                <BriefcaseBusiness className="h-4 w-4 text-[#005F93]" />
-                Guias por momento
-              </span>
-              <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/7 px-4 py-2 backdrop-blur">
-                <Tag className="h-4 w-4 text-[#005F93]" />
-                Segmentos como conteúdo educativo
-              </span>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      <section className="relative px-5 py-16 md:px-8 md:py-20">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_0%,rgba(15,23,42,0.05),transparent_32%)]" />
-        <div className="absolute inset-0 cf-subtle-grid opacity-[0.035]" />
-
-        <div className="relative mx-auto max-w-7xl">
-          <FeaturedPost post={featuredPost} navigate={navigate} />
+      <section className="px-5 py-20 md:px-8 md:py-28">
+        <div className="mx-auto max-w-7xl">
+          <FeaturedPost post={featuredPost} />
 
           <JourneyFilters
             selectedJourney={selectedJourney}
             onSelectJourney={handleSelectJourney}
           />
 
-          <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-8 grid gap-x-8 gap-y-7 sm:mt-12 sm:gap-y-14 md:grid-cols-2 lg:grid-cols-3">
             {filteredPosts.length > 0 ? (
               filteredPosts.map((post, index) => (
-                <BlogCard key={post.slug} post={post} index={index} navigate={navigate} />
+                <BlogCard key={`${selectedJourney}-${post.slug}`} post={post} index={index} />
               ))
             ) : (
-              <div className="col-span-full rounded-2xl border border-white/70 bg-white/75 p-8 text-center shadow-xl shadow-slate-900/8 backdrop-blur">
-                <p className="text-lg font-bold text-slate-900">
+              <div className="col-span-full border-y border-cf-border py-14 text-center">
+                <p className="text-lg font-bold text-cf-navy">
                   Ainda não existem conteúdos nessa jornada.
                 </p>
-                <p className="mt-2 text-slate-600">
+                <p className="mt-2 text-cf-muted">
                   Pelo painel /admin, você pode criar posts e escolher essa jornada.
                 </p>
               </div>
@@ -438,47 +382,37 @@ export default function BlogPage({ navigate, onStartQuiz }) {
         </div>
       </section>
 
-      <section className="relative px-5 pb-20 md:px-8 md:pb-24">
-        <div className="mx-auto max-w-7xl overflow-hidden rounded-[2rem] bg-[#131F39] p-8 shadow-2xl shadow-slate-900/14 md:p-10">
-          <div className="relative">
-            <div className="absolute -right-16 -top-16 h-56 w-56 rounded-full bg-[#005F93]/14 blur-3xl" />
+      <section className="bg-cf-navy px-5 py-16 md:px-8 md:py-28">
+        <div className="mx-auto max-w-7xl">
+          <Eyebrow tone="light">Precisa de orientação?</Eyebrow>
+          <MaskText
+            as="h2"
+            className="mt-7 max-w-4xl text-3xl font-black leading-[1.06] tracking-[-0.035em] text-white md:text-5xl"
+            lines={['Leu algum conteúdo e percebeu que sua empresa precisa de mais organização?']}
+          />
+          <RevealLine className="mt-10 bg-white/20" />
+          <div className="mt-10 grid gap-8 lg:grid-cols-12 lg:items-end">
+            <p className="max-w-2xl text-lg leading-8 text-cf-on-dark lg:col-span-6">
+              A CF pode analisar sua situação contábil e indicar os próximos passos com clareza.
+            </p>
 
-            <div className="relative z-10 grid gap-8 lg:grid-cols-[1fr_auto] lg:items-center">
-              <div>
-                <p className="text-sm font-bold uppercase tracking-[0.2em] text-[#005F93]">
-                  Precisa de orientação?
-                </p>
+            <div className="flex flex-col gap-3 sm:flex-row lg:col-span-6 lg:justify-end">
+              <PrimaryButton variant="light" href="/diagnostico">
+                Analisar minha situação contábil
+                <ArrowRight className="h-4 w-4" />
+              </PrimaryButton>
 
-                <h2 className="mt-3 text-3xl font-extrabold text-white md:text-4xl">
-                  Leu algum conteúdo e percebeu que sua empresa precisa de mais organização?
-                </h2>
-
-                <p className="mt-4 max-w-2xl text-slate-300">
-                  A CF pode analisar sua situação contábil e indicar os próximos passos com clareza.
-                </p>
-              </div>
-
-              <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
-                <PrimaryButton onClick={onStartQuiz}>
-                  Analisar minha situação contábil
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </PrimaryButton>
-
-                <a
-                  href="/contato"
-                  onClick={(event) => {
-                    event.preventDefault();
-                    navigate('/contato');
-                  }}
-                  className="inline-flex items-center justify-center rounded-xl border border-white/15 bg-white/8 px-6 py-3.5 text-sm font-bold text-white backdrop-blur transition duration-300 hover:bg-white/12 md:text-base"
-                >
-                  Falar com a CF
-                </a>
-              </div>
+              <PrimaryButton
+                variant="outline-light"
+                href="/contato"
+              >
+                Falar com a CF
+                <ArrowUpRight className="h-4 w-4" />
+              </PrimaryButton>
             </div>
           </div>
         </div>
       </section>
-    </main>
+    </div>
   );
 }

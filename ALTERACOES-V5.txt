@@ -1,0 +1,12 @@
+CF CONTABILIDADE BRUSQUE — V5 DENSIDADE VISUAL
+
+Alteração desta versão:
+A seção escura de serviços da Home foi reestruturada para não parecer vazia.
+
+- layout 2 colunas no desktop;
+- bloco institucional à esquerda;
+- quatro áreas de serviço mais densas à direita;
+- microinformações úteis em vez de decoração;
+- sem aumento relevante de peso/renderização.
+
+O restante preserva a estrutura leve da V4.

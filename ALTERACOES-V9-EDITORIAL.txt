@@ -1,0 +1,80 @@
+CF CONTABILIDADE BRUSQUE — V9 REPAGINAÇÃO EDITORIAL
+
+Escopo: forma de apresentação. Textos, serviços, dados, imagens, rotas,
+CTAs e funcionalidades foram preservados (exceções listadas no fim).
+
+------------------------------------------------------------
+1. IDENTIDADE
+------------------------------------------------------------
+- Tokens centrais (src/index.css) atualizados para a paleta oficial:
+  Navy #131F39 • Azul CF #005F93 • Preto #000000 • Off-white #F5F4F1
+  Cinza #6B7280 • Branco #FFFFFF.
+  Derivados só para hover/bordas: azul escuro #004A73, borda #DDDAD3,
+  off-white profundo #ECEAE5, texto sobre navy #C4C8D0.
+- Inter agora é carregada de verdade (Google Fonts, variável 300–900,
+  display=swap) no index.html. Antes estava só declarada no CSS.
+- Bauer Bodoni não existe no projeto e não foi instalada.
+- Cantos retos, sem glass, sem blobs de blur, sem sombras decorativas.
+
+------------------------------------------------------------
+2. SISTEMA DE MOVIMENTO (src/components/motion/)
+------------------------------------------------------------
+- motionConfig.js: curva, durações e variantes únicas do site
+  (título por máscara, linha scaleX, número com escala mínima,
+  imagem por recorte, lista em sequência, CTA).
+- MotionRoot.jsx: LazyMotion (recursos do Framer em chunk separado)
+  + MotionConfig reducedMotion="user".
+- primitives.jsx: Stagger/StaggerItem, MaskText, RevealLine, Eyebrow,
+  CountUp, ParallaxImage, HoverArrow.
+- common/Reveal.jsx mantém a API antiga e ganhou `variant`.
+- prefers-reduced-motion: sem deslocamentos/parallax/contagem; só opacidade.
+
+------------------------------------------------------------
+3. COMPONENTES EDITORIAIS (src/components/editorial/)
+------------------------------------------------------------
+- ServiceIndex: serviços como índice numerado + painel sticky com o
+  detalhe do item ativo (hover, foco e posição no scroll). Linha azul
+  desliza até o item ativo. No mobile, cada item mostra o detalhe e o
+  item no centro da tela fica em destaque. Usado na Home e em Serviços.
+- StatRow: provas (17+, Brusque, CRC…) com linha que se desenha,
+  número que conta e rótulo por último.
+- StatementScroll: afirmações lidas uma por vez, com linha de progresso.
+- ProcessTimeline: método como percurso (linha que se desenha e acende
+  cada etapa). Horizontal no desktop, vertical no mobile.
+- PillarIndex: pilares lado a lado, um em foco no hover.
+- SectionHeader e PageHero reescritos no padrão editorial.
+- PrimaryButton ganhou `variant` (primary, light, outline, outline-light).
+
+------------------------------------------------------------
+4. PÁGINAS
+------------------------------------------------------------
+- Home: narrativa Hero → Introdução → Serviços (+ números) → Como
+  trabalhamos → Pessoas → CTA → Endereço. (As seções "Como trabalhamos"
+  e "Pessoas" trocaram de ordem para seguir explicação → autoridade → CTA.)
+- Serviços, Sobre, Contato, Diagnóstico, Blog, Post, 404, Header, Footer,
+  FAQ e CTA alinhados ao mesmo sistema.
+- Header: fica sem linha no topo e ganha linha/compacta ao rolar;
+  indicador da página ativa desliza entre os itens; menu mobile animado.
+
+------------------------------------------------------------
+5. EXCEÇÕES / CORREÇÕES
+------------------------------------------------------------
+- Contato: "Falar com a CF" e "Enviar mensagem" agora abrem o WhatsApp
+  (antes iam para /diagnostico porque procuravam site.whatsappUrl).
+- Contato: WhatsApp e E-mail na lista de canais viraram links.
+- Sobre: "Analisar minha empresa" usa a navegação interna (mesmo destino).
+- Blog: cada post tem chave própria na rota (troca de post remonta a página).
+
+------------------------------------------------------------
+6. PESO
+------------------------------------------------------------
+- JS inicial: ~75 kB gzip (antes ~56 kB). O Framer passou a existir na
+  Home; os recursos de animação (~28 kB gzip) chegam em chunk separado.
+- Componentes antigos não usados (HeroSection, JourneySection,
+  CFOperatingSystemSection, HowItWorksSection, SpecialtiesSection,
+  LocationSection) foram mantidos sem alteração.
+
+VALIDAÇÃO
+- npm run build OK • eslint src sem erros.
+- Testado em 1440px e 390px (sem rolagem horizontal), com e sem
+  prefers-reduced-motion.

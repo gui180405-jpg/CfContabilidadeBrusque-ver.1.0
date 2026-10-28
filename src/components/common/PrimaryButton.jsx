@@ -3,13 +3,40 @@
 BOTÃO PRINCIPAL
 ============================================================
 Use para ações importantes: diagnóstico, WhatsApp, contato.
-Visual mais institucional: menos "landing page", mais site profissional.
+
+variant:
+- 'primary'       azul CF, texto branco (padrão)
+- 'light'         branco, texto navy — para fundos escuros/azuis
+- 'outline'       contorno discreto — para fundos claros
+- 'outline-light' contorno claro — para fundos escuros
+
+Microinteração: o ícone final desliza 4px no hover.
+Cantos retos, sem sombra — o peso vem da cor e da tipografia.
 ============================================================
 */
 
-export default function PrimaryButton({ children, href, onClick, className = '', external = false }) {
-  const baseClasses =
-    'cf-shine inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-[#005F93] to-[#131F39] px-6 py-3.5 text-sm font-bold text-white shadow-xl shadow-[#131F39]/20 transition duration-300 hover:-translate-y-0.5 hover:shadow-2xl hover:shadow-[#131F39]/25 focus:outline-none focus:ring-2 focus:ring-[#005F93] focus:ring-offset-2 focus:ring-offset-[#F5F4F1] md:text-base';
+const base =
+  'group inline-flex items-center justify-center gap-2 border px-6 py-3.5 text-sm font-bold transition-colors duration-300 ease-cf md:text-base ' +
+  '[&>svg]:shrink-0 [&>svg]:transition-transform [&>svg]:duration-300 [&>svg]:ease-cf hover:[&>svg:last-child]:translate-x-1 ' +
+  'focus:outline-none focus-visible:ring-2 focus-visible:ring-cf-blue focus-visible:ring-offset-2 focus-visible:ring-offset-cf-background';
+
+const variantClasses = {
+  primary: 'border-cf-blue bg-cf-blue text-white hover:border-cf-blue-dark hover:bg-cf-blue-dark',
+  light: 'border-white bg-white text-cf-navy hover:bg-transparent hover:text-white',
+  outline: 'border-cf-border bg-transparent text-cf-navy hover:border-cf-navy',
+  'outline-light': 'border-white/30 bg-transparent text-white hover:border-white',
+};
+
+export default function PrimaryButton({
+  children,
+  href,
+  onClick,
+  className = '',
+  external = false,
+  variant = 'primary',
+  ...props
+}) {
+  const classes = `${base} ${variantClasses[variant] || variantClasses.primary} ${className}`;
 
   if (href) {
     return (
@@ -17,7 +44,9 @@ export default function PrimaryButton({ children, href, onClick, className = '',
         href={href}
         target={external ? '_blank' : undefined}
         rel={external ? 'noopener noreferrer' : undefined}
-        className={`${baseClasses} ${className}`}
+        onClick={onClick}
+        className={classes}
+        {...props}
       >
         {children}
       </a>
@@ -25,7 +54,7 @@ export default function PrimaryButton({ children, href, onClick, className = '',
   }
 
   return (
-    <button type="button" onClick={onClick} className={`${baseClasses} ${className}`}>
+    <button type="button" onClick={onClick} className={classes} {...props}>
       {children}
     </button>
   );

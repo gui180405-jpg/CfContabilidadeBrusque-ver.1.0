@@ -2,31 +2,74 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ============================================================
-   IDENTIDADE VISUAL — CF CONTABILIDADE
-   ============================================================ */
+/*
+============================================================
+CF CONTABILIDADE — TOKENS DA IDENTIDADE
+============================================================
+Paleta oficial:
+- Navy       #131F39
+- Azul CF    #005F93
+- Preto      #000000
+- Off-white  #F5F4F1
+- Cinza      #6B7280 (texto usa #636977, o mesmo cinza um tom abaixo,
+               para atingir contraste AA sobre os fundos claros)
+- Branco     #FFFFFF
+
+As demais variáveis são derivadas dessa paleta (tons do próprio
+navy/azul/off-white) e existem só para hover, bordas e texto
+sobre fundo escuro. Toda classe cf-* do Tailwind lê daqui.
+============================================================
+*/
 
 :root {
   color-scheme: light;
-  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family: 'Inter Variable', Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-optical-sizing: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 
   --cf-navy: #131F39;
   --cf-blue: #005F93;
+  --cf-blue-dark: #004A73; /* azul CF escurecido — só hover */
   --cf-black: #000000;
-  --cf-background: #F5F4F1;
-  --cf-muted: #6B7280;
-  --cf-border: #E2E6EC;
+  --cf-background: #F5F4F1; /* off-white */
+  --cf-surface: #FFFFFF;
+  --cf-soft: #ECEAE5; /* off-white um tom abaixo, para alternar seções */
+  --cf-text: #131F39; /* texto corrido em navy */
+  --cf-text-muted: #636977; /* cinza oficial #6B7280 levemente escurecido para texto:
+                               garante contraste AA (4,5:1) sobre off-white e #ECEAE5 */
+  --cf-border: #DDDAD3; /* linha editorial sobre off-white */
+  --cf-on-dark: #C4C8D0; /* branco a ~75% sobre navy */
+
+  /* Canais RGB para utilitários Tailwind com opacidade (ex.: bg-cf-blue/10). */
+  --cf-navy-rgb: 19 31 57;
+  --cf-blue-rgb: 0 95 147;
+  --cf-blue-dark-rgb: 0 74 115;
+  --cf-black-rgb: 0 0 0;
+  --cf-background-rgb: 245 244 241;
+  --cf-surface-rgb: 255 255 255;
+  --cf-soft-rgb: 236 234 229;
+  --cf-text-rgb: 19 31 57;
+  --cf-muted-rgb: 99 105 119;
+  --cf-border-rgb: 221 218 211;
+  --cf-on-dark-rgb: 196 200 208;
+
+  /* Ritmo de movimento compartilhado com src/components/motion/motionConfig.js */
+  --cf-ease: cubic-bezier(0.22, 1, 0.36, 1);
+
+  background: var(--cf-background);
 }
 
 html {
-  scroll-behavior: smooth;
+  scroll-behavior: auto;
 }
 
 body {
   margin: 0;
   min-width: 320px;
   background: var(--cf-background);
-  color: var(--cf-navy);
+  color: var(--cf-text);
 }
 
 button,
@@ -34,25 +77,104 @@ a {
   -webkit-tap-highlight-color: transparent;
 }
 
-::selection {
-  background: rgba(0, 95, 147, 0.20);
+button {
+  font: inherit;
 }
 
+::selection {
+  background: rgba(0, 95, 147, 0.18);
+}
+
+:focus-visible {
+  outline: 2px solid var(--cf-blue);
+  outline-offset: 3px;
+}
+
+/* Sobre fundos escuros (navy/azul) o contorno de foco fica branco — o azul sumiria. */
+.bg-cf-navy :focus-visible,
+.bg-cf-blue :focus-visible,
+.cf-on-dark-focus :focus-visible {
+  outline-color: #fff;
+}
+
+/* ------------------------------------------------------------
+   Componentes editoriais reutilizáveis
+   ------------------------------------------------------------ */
+@layer components {
+  /* Container padrão de seção */
+  .cf-container {
+    @apply mx-auto w-full max-w-7xl px-5 md:px-8;
+  }
+
+  /* Label pequeno em caixa alta (eyebrow) */
+  .cf-label {
+    @apply text-[0.6875rem] font-bold uppercase tracking-[0.22em];
+  }
+
+  /* Títulos de seção */
+  .cf-title-xl {
+    @apply text-[clamp(2.1rem,10.4vw,2.6rem)] font-black leading-[0.97] tracking-[-0.045em] sm:text-6xl lg:text-[4.4rem];
+    overflow-wrap: break-word;
+    text-wrap: balance; /* evita uma palavra sozinha na última linha */
+  }
+
+  .cf-title-lg {
+    @apply text-[clamp(1.8rem,8.9vw,2.25rem)] font-black leading-[1.04] tracking-[-0.04em] md:text-5xl lg:text-[3.5rem];
+    overflow-wrap: break-word;
+    text-wrap: balance;
+  }
+
+  .cf-title-md {
+    @apply text-2xl font-extrabold leading-tight tracking-[-0.025em] md:text-3xl;
+  }
+
+  /* Números editoriais: leves, grandes, tabulares */
+  .cf-numeral {
+    @apply font-light tabular-nums tracking-[-0.05em];
+    font-feature-settings: 'tnum' 1, 'lnum' 1;
+  }
+
+  /* Texto de apoio */
+  .cf-lead {
+    @apply text-lg leading-8 text-cf-muted md:text-xl md:leading-9;
+  }
+
+  /* Link editorial com sublinhado que cresce */
+  .cf-link {
+    @apply relative inline-flex items-center gap-2 pb-1 text-sm font-extrabold;
+  }
+
+  /* Área de toque maior em links de texto, sem mudar o layout
+     (o sublinhado continua colado ao texto). */
+  .cf-link::before {
+    content: '';
+    position: absolute;
+    inset: -12px -6px;
+  }
+
+  .cf-link::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 1px;
+    background: currentColor;
+    transform-origin: left;
+    transform: scaleX(0.35);
+    transition: transform 0.45s var(--cf-ease);
+  }
+
+  .cf-link:hover::after,
+  .cf-link:focus-visible::after {
+    transform: scaleX(1);
+  }
+}
+
+/* Mantidos porque páginas antigas ainda utilizam estas classes. */
 .cf-depth-card {
   position: relative;
   overflow: hidden;
-  box-shadow: 0 18px 45px rgba(19, 31, 57, 0.11);
-}
-
-.cf-depth-card::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.72), rgba(255, 255, 255, 0) 36%),
-    radial-gradient(circle at top right, rgba(0, 95, 147, 0.08), transparent 34%);
-  opacity: 0.85;
 }
 
 .cf-depth-card > * {
@@ -65,36 +187,11 @@ a {
   overflow: hidden;
 }
 
-.cf-shine::after {
-  content: '';
-  position: absolute;
-  top: -40%;
-  bottom: -40%;
-  left: -90%;
-  width: 55%;
-  transform: rotate(18deg);
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.28), transparent);
-  transition: left 0.75s ease;
-}
-
-.cf-shine:hover::after {
-  left: 125%;
-}
-
 .cf-subtle-grid {
   background-image:
-    linear-gradient(rgba(19, 31, 57, 0.07) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(19, 31, 57, 0.07) 1px, transparent 1px);
-  background-size: 38px 38px;
-}
-
-@keyframes cf-soft-float {
-  0%, 100% { transform: translate3d(0, 0, 0); }
-  50% { transform: translate3d(0, -8px, 0); }
-}
-
-.cf-soft-float {
-  animation: cf-soft-float 7s ease-in-out infinite;
+    linear-gradient(rgba(19, 31, 57, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(19, 31, 57, 0.045) 1px, transparent 1px);
+  background-size: 42px 42px;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -106,4 +203,11 @@ a {
     scroll-behavior: auto !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+/* Seções abaixo da dobra não precisam ser renderizadas antes de entrarem perto da tela.
+   Não usar em seções com sticky ou com movimento ligado ao scroll. */
+.cf-defer {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 700px;
 }

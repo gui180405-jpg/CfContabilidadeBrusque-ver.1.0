@@ -1,0 +1,41 @@
+CF CONTABILIDADE BRUSQUE — REVISÃO DE CORES V8
+
+Escopo: somente cores. Layout, textos, espaçamentos, tipografia, componentes, animações e responsividade foram mantidos.
+
+PALETA CENTRALIZADA
+- Navy: #071225
+- Azul CF: #005F93
+- Azul intermediário: #07385F
+- Fundo: #F6F7F5
+- Superfície: #FFFFFF
+- Fundo suave: #EFF3F5
+- Texto: #334155
+- Texto secundário: #475569
+- Bordas: #DCE5EA
+- Texto sobre fundo escuro: #DCE5EA
+
+O QUE FOI NORMALIZADO
+- cores centralizadas em src/index.css e tailwind.config.js;
+- azuis paralelos/cyan removidos e consolidados na paleta CF;
+- verdes visuais do WhatsApp interno convertidos para a paleta CF;
+- grandes superfícies escuras padronizadas em Navy;
+- CTA primário padronizado em Azul CF, com hover Azul intermediário;
+- fundos claros reduzidos a branco, off-white e fundo suave;
+- cinzas reduzidos a duas funções principais: texto e texto secundário;
+- bordas normalizadas;
+- opacidades de cor inválidas/inconsistentes corrigidas;
+- gradientes decorativos de cores diferentes eliminados ou reduzidos à própria família azul/navy;
+- sombras coloridas normalizadas para Navy neutro.
+
+CONTRASTE DA PALETA (aprox.)
+- Navy em #F6F7F5: 17.41:1
+- Texto #334155 em #F6F7F5: 9.64:1
+- Texto secundário #475569 em #F6F7F5: 7.05:1
+- Azul CF em #F6F7F5: 6.39:1
+- Branco em Azul CF: 6.87:1
+- Branco em Azul intermediário: 12.07:1
+- Texto claro #DCE5EA em Navy: 14.65:1
+
+VALIDAÇÃO
+- Tailwind processou o CSS e as classes novas com sucesso.
+- ESLint continua mostrando apenas os 4 erros que já existiam antes desta revisão: 3 usos de process nas rotas API e 1 variável phoneLabel não utilizada na página de contato. A revisão de cores não introduziu novos erros de lint.

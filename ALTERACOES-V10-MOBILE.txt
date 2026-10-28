@@ -1,0 +1,78 @@
+CF CONTABILIDADE BRUSQUE — V10 EXPERIÊNCIA MOBILE + SCROLL STORYTELLING
+
+Base: V9 editorial. Textos, imagens, rotas, CTAs, dados e funcionalidades
+preservados. O desktop foi mantido; as mudanças visuais nele se limitam
+à seção de serviços.
+
+------------------------------------------------------------
+1. SERVIÇOS — SCROLL CONTROLA, HOVER SÓ DÁ FEEDBACK (prioridade 1)
+------------------------------------------------------------
+Arquivo: src/components/editorial/ServiceIndex.jsx (mesmo componente,
+reescrito; usado na Home e em /servicos).
+
+- A seção virou um trilho com um palco sticky: cada serviço tem uma
+  etapa de rolagem (62% da tela no mobile, 75% no desktop).
+- O ÚNICO lugar que muda o serviço ativo é a posição do scroll
+  (useScroll + useMotionValueEvent). Removidos onMouseEnter/onFocus que
+  trocavam o estado.
+- Hover: só contraste e uma linha sob o título (feedback visual).
+- Toque/clique num número ou título ROLA até a etapa daquele serviço
+  (o scroll continua sendo o controle).
+- Desktop: índice vertical com linha de progresso + conteúdo do serviço
+  ativo à direita, com troca na direção do scroll.
+- Mobile: barra de etapas (01 02 03 04) que enche conforme o scroll,
+  conteúdo centralizado, indicação "A seguir — próximo serviço" e
+  "Role para percorrer" que some depois do início.
+- Telas muito baixas (celular deitado, altura < 560px): lista estática
+  completa, sem sticky.
+- Âncoras mantidas (/servicos#abertura, #rotina, #impostos…), agora
+  apontando para a etapa certa do trilho.
+- Na Home, o link "Ver todos os serviços" passou para dentro do palco.
+- Desempenho: um único listener de scroll do Framer; o React só
+  re-renderiza quando o serviço muda; barras de progresso são
+  MotionValues.
+
+------------------------------------------------------------
+2. HERO MOBILE (prioridade 2)
+------------------------------------------------------------
+- Ordem: identificação → título → mensagem → CTA principal → prova → imagem.
+- Mobile: um CTA principal (botão) + "Conhecer a CF" como link leve
+  (no tablet/desktop continua o botão contorno).
+- Título fluido (não estoura em 320px), espaçamentos menores.
+- Foto da Rose em 5:4 no mobile, enquadrada no rosto.
+
+------------------------------------------------------------
+3. MENOS CARDS NO MOBILE (prioridade 3)
+------------------------------------------------------------
+- Blog: posts viram linhas editoriais (miniatura + texto); jornadas
+  viram abas roláveis com a descrição só da jornada escolhida.
+- Diagnóstico: o quiz perde a caixa no mobile; opções viram linhas com
+  letra (área de toque ≥ 60px).
+- Contato: o "celular" da conversa não força altura mínima no mobile.
+- Timeline do método mais compacta no mobile.
+
+------------------------------------------------------------
+4. NÚMEROS (prioridade 4)
+------------------------------------------------------------
+- StatRow: no mobile o primeiro número ganha a linha inteira (17+ / 4
+  em destaque, com legenda ao lado); os outros ficam lado a lado.
+
+------------------------------------------------------------
+5. ESPAÇAMENTO E TIPOGRAFIA MOBILE (prioridades 5–6)
+------------------------------------------------------------
+- Seções: py-16 no mobile (antes py-24); desktop igual.
+- Topos internos (PageHero) mais compactos; imagens 4:3 no mobile.
+- cf-title-xl / cf-title-lg com tamanho fluido para 320–430px.
+
+------------------------------------------------------------
+VALIDAÇÃO
+------------------------------------------------------------
+- npm run build OK. eslint src sem erros (os 3 erros de `process` em
+  api/ já existiam).
+- Sem rolagem horizontal em 320, 375, 390 e 430px, em todas as rotas.
+- Testes automáticos da seção de serviços: o scroll percorre 01→04
+  (Home) e 01→05 (/servicos); passar o mouse em todos os títulos NÃO
+  muda o serviço ativo; o clique rola até a etapa; a âncora #impostos
+  cai no serviço 03; com prefers-reduced-motion funciona sem animação;
+  celular deitado usa a lista estática.
+- Bauer Bodoni não existe no projeto e não foi instalada.

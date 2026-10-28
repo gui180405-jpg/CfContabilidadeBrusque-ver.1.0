@@ -1,0 +1,56 @@
+CF CONTABILIDADE BRUSQUE — V13 FLUIDEZ DO SCROLL NA SEÇÃO DE SERVIÇOS
+
+Arquivo alterado: src/components/editorial/ServiceIndex.jsx (só ele).
+Sticky, storytelling, indicadores, cliques nas etapas e âncoras mantidos.
+Nenhum interceptador de wheel, nenhum scroll simulado.
+
+CAUSA
+1. Etapas longas demais: STEP 75 (desktop) / 62 (mobile) = 75% da tela
+   por serviço. Num monitor de 900px eram ~675px por etapa → 6–7 cliques
+   de roda por serviço e ~27 para atravessar a seção da Home.
+2. O progresso começava ~70px antes de o palco grudar no header
+   (offset 'start start' com sticky em top-16/top-[4.5rem]) — rolagem
+   "morta" no começo de cada travessia.
+3. Troca de conteúdo em modo "wait": o novo serviço só aparecia depois
+   da saída do anterior (~0,7 s) → sensação de atraso/resistência.
+
+AJUSTES
+- STEP: desktop 75 → 36, mobile 62 → 40 (~300–340px por serviço).
+- Altura do trilho = palco (tela − header) + 1 etapa por serviço, e o
+  progresso vai de 0 a 1 exatamente enquanto o palco está preso
+  (offset começa no header). O cálculo da etapa ativa continua o mesmo.
+- Clique na etapa e âncoras (#abertura, #impostos…) recalculados com o
+  header, caindo no meio da etapa certa.
+- Transição: AnimatePresence "popLayout" (crossfade), entrada 0,38 s,
+  saída 0,18 s, deslocamento 16px; itens com stagger menor.
+- "Role para percorrer" some um pouco depois (10% do progresso).
+
+MEDIÇÃO (eventos reais de roda no Chromium)
+- Home, 1440x900, roda (100px por clique): ~27 → 13 cliques para
+  atravessar; troca de serviço a cada 3 cliques.
+- Home, touchpad (40px por evento): troca a cada ~8 eventos.
+- /servicos (5 serviços): 17 cliques no total, troca a cada 3.
+- Notebook 1366x768: troca a cada ~3 cliques.
+- Mobile 390x844: troca a cada ~3 deslizes curtos (120px).
+- Clique nas etapas 4, 1, 5, 2 → ativa a etapa certa.
+- Âncoras #abertura/#impostos/#regularizacao → 01/03/05.
+- Celular deitado continua com lista estática; movimento reduzido ok.
+- npm run build OK • eslint src sem erros • sem rolagem horizontal
+  em 320 e 390px.
+
+V13.1 — AJUSTE DE ENQUADRAMENTO
+- Home / "Como trabalhamos" (foto equipe-trabalhando, faixa larga):
+  foco vertical 40% → 85% (src/pages/HomePage.jsx). A foto "sobe" no quadro
+  e passa a mostrar os monitores e as mãos no computador, mantendo os rostos.
+  Conferido em 1440, 1024 e 390px.
+
+V13.2 — NOVA FOTO NO DIAGNÓSTICO
+- Nova foto: public/fotos/emilly-atendimento.jpg (1025x1534, Emilly no
+  computador, enviada pela Ka) + versões WebP em public/fotos/otimizadas/
+  (640 px = 40 KB, 1025 px = 78 KB). Adicionada ao scripts/otimizar_fotos.py.
+- Diagnóstico / "Atendimento consultivo" (src/pages/DiagnosticPage.jsx):
+  troca cf-diagnostico-consultivo.webp → emilly-atendimento.jpg.
+  A foto antiga continua no projeto e virou fallback.
+- Enquadramento por tela: celular 1:1 com foco no rosto e cabelo; tablet/desktop
+  vertical. Texto alternativo atualizado.
+- Conferido em 1440, 768 e 390 px, sem erro de carregamento; build e lint OK.

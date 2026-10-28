@@ -8,9 +8,9 @@ const stepIcons = [ClipboardCheck, SearchCheck, MessageCircle, ShieldCheck];
 
 export default function HowItWorksSection() {
   return (
-    <section id="como-funciona" className="relative overflow-hidden bg-[#F5F4F1] px-5 py-20 md:px-8 md:py-24">
+    <section id="como-funciona" className="relative overflow-hidden bg-cf-background px-5 py-20 md:px-8 md:py-24">
       <div className="absolute inset-0 cf-subtle-grid opacity-55" />
-      <div className="absolute -bottom-28 left-1/3 h-72 w-72 rounded-full bg-[#005F93]/20 blur-3xl" />
+      <div className="absolute -bottom-28 left-1/3 h-72 w-72 rounded-full bg-cf-blue/10 blur-3xl" />
 
       <div className="relative mx-auto max-w-7xl">
         <Reveal>
@@ -29,18 +29,18 @@ export default function HowItWorksSection() {
                 <motion.div
                   whileHover={{ y: -6 }}
                   transition={{ type: 'spring', stiffness: 210, damping: 20 }}
-                  className="relative h-full rounded-2xl border border-white/80 bg-white/82 p-6 shadow-xl shadow-slate-900/6 backdrop-blur"
+                  className="relative h-full rounded-2xl border border-white/80 bg-white p-6 shadow-xl shadow-cf-navy/5 backdrop-blur"
                 >
                   <div className="mb-5 flex items-center justify-between">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#005F93] text-white shadow-lg shadow-[#131F39]/20">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-cf-blue-dark text-white shadow-lg shadow-cf-navy/20">
                       <Icon className="h-6 w-6" />
                     </div>
-                    <span className="text-sm font-extrabold text-[#131F39]/35">0{index + 1}</span>
+                    <span className="text-sm font-extrabold text-cf-muted">0{index + 1}</span>
                   </div>
-                  <h3 className="text-lg font-bold text-slate-950">{step.title}</h3>
-                  <p className="mt-3 text-sm leading-relaxed text-slate-600">{step.description}</p>
+                  <h3 className="text-lg font-bold text-cf-navy">{step.title}</h3>
+                  <p className="mt-3 text-sm leading-relaxed text-cf-muted">{step.description}</p>
                   {index < processSteps.length - 1 && (
-                    <ArrowRight className="absolute -right-4 top-1/2 hidden h-6 w-6 -translate-y-1/2 text-[#005F93]/35 lg:block" />
+                    <ArrowRight className="absolute -right-4 top-1/2 hidden h-6 w-6 -translate-y-1/2 text-cf-muted lg:block" />
                   )}
                 </motion.div>
               </Reveal>

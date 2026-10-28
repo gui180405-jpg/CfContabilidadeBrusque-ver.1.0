@@ -1,0 +1,30 @@
+# Publicação agendada do blog da CF.
+# O site é gerado no build: um artigo com data futura só aparece quando a Vercel
+# gera o site de novo naquele dia. Este agendamento pede um novo build todo dia
+# às 06:05 (horário de Brasília).
+#
+# Configuração (uma vez):
+# 1. Vercel → Project → Settings → Git → Deploy Hooks → criar hook para "main".
+# 2. GitHub → Settings → Secrets and variables → Actions → New repository secret
+#    Nome: VERCEL_DEPLOY_HOOK_URL   Valor: a URL do hook criado no passo 1.
+# Sem o segredo, o job apenas avisa e termina sem erro.
+name: Blog — publicação agendada
+
+on:
+  schedule:
+    - cron: '5 9 * * *' # 09:05 UTC = 06:05 em Brasília
+  workflow_dispatch: {}
+
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Pedir novo build na Vercel
+        env:
+          HOOK: ${{ secrets.VERCEL_DEPLOY_HOOK_URL }}
+        run: |
+          if [ -z "$HOOK" ]; then
+            echo "VERCEL_DEPLOY_HOOK_URL não configurado — nada a fazer."
+            exit 0
+          fi
+          curl -fsS -X POST "$HOOK"

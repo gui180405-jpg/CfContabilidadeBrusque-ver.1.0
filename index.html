@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#131F39" />
 
     <title>CF Contabilidade Brusque SC | Contabilidade para Empresas</title>
     <meta
@@ -20,15 +21,47 @@
     />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://cfcontabilidadebrusque.com/" />
-    <meta property="og:image" content="/cf-recepcao.webp" />
+    <meta property="og:image" content="https://cfcontabilidadebrusque.com/og-cf-contabilidade.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Rose Michei na recepção da CF Contabilidade Brusque" />
     <meta name="twitter:card" content="summary_large_image" />
 
     <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <!-- Dados da empresa para buscadores (somente informações reais do site). -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "AccountingService",
+        "name": "CF Contabilidade Brusque",
+        "url": "https://cfcontabilidadebrusque.com/",
+        "logo": "https://cfcontabilidadebrusque.com/logo-cf-azul.png",
+        "image": "https://cfcontabilidadebrusque.com/og-cf-contabilidade.jpg",
+        "telephone": "+55-47-3351-3630",
+        "email": "contato@cfbrusque.com.br",
+        "foundingDate": "2009",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "R. Felipe Schmidt, 172 — 5º andar, sala 502 (CRF Prime)",
+          "addressLocality": "Brusque",
+          "addressRegion": "SC",
+          "addressCountry": "BR"
+        },
+        "areaServed": { "@type": "City", "name": "Brusque" }
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>
+    <noscript>
+      <p style="font-family: system-ui, sans-serif; padding: 24px; color: #131f39">
+        CF Contabilidade Brusque — (47) 3351-3630 · contato@cfbrusque.com.br · R. Felipe Schmidt, 172, sala 502,
+        Brusque-SC. Ative o JavaScript para navegar pelo site.
+      </p>
+    </noscript>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

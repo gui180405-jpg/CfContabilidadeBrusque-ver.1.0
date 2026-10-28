@@ -4,7 +4,7 @@ import { site } from '../../content/siteContent';
 
 export default function LocationSection({ compact = false }) {
   return (
-    <section className={`${compact ? 'bg-[#F5F4F1]' : 'bg-[#F5F4F1]'} px-5 py-20 md:px-8 md:py-24`}>
+    <section className={`${compact ? 'bg-cf-soft' : 'bg-cf-soft'} px-5 py-20 md:px-8 md:py-24`}>
       <div className="mx-auto max-w-7xl">
         <SectionHeader
           eyebrow="Localização"
@@ -13,22 +13,22 @@ export default function LocationSection({ compact = false }) {
         />
 
         <div className="grid gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
-          <div className="rounded-2xl border border-white/70 bg-white/82 p-7 shadow-xl shadow-slate-900/6">
-            <MapPin className="mb-5 h-9 w-9 text-[#005F93]" />
-            <h3 className="text-2xl font-bold text-slate-950">{site.companyName}</h3>
-            <p className="mt-4 leading-relaxed text-slate-600">{site.address}</p>
+          <div className="rounded-2xl border border-white/70 bg-white p-7 shadow-xl shadow-cf-navy/5">
+            <MapPin className="mb-5 h-9 w-9 text-cf-blue" />
+            <h3 className="text-2xl font-bold text-cf-navy">{site.companyName}</h3>
+            <p className="mt-4 leading-relaxed text-cf-muted">{site.address}</p>
             <a
               href="https://www.google.com/maps/search/?api=1&query=R.+Felipe+Schmidt,+172,+Brusque,+SC"
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-6 inline-flex items-center gap-2 rounded-xl border border-[#005F93] bg-[#F5F4F1] px-5 py-3 text-sm font-bold text-[#005F93] shadow-sm hover:bg-[#F5F4F1]"
+              className="mt-6 inline-flex items-center gap-2 rounded-xl border border-cf-border bg-cf-background px-5 py-3 text-sm font-bold text-cf-blue shadow-sm hover:bg-cf-soft"
             >
               Abrir no Google Maps
               <ExternalLink className="h-4 w-4" />
             </a>
           </div>
 
-          <div className="overflow-hidden rounded-2xl border border-white/70 bg-white/86 shadow-2xl shadow-slate-900/10">
+          <div className="overflow-hidden rounded-2xl border border-white/70 bg-white/90 shadow-2xl shadow-cf-navy/10">
             <iframe
               title="Mapa da CF Contabilidade Brusque"
               src="https://www.google.com/maps?q=R.%20Felipe%20Schmidt%20172%20Brusque%20SC&output=embed"

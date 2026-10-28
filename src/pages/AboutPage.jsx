@@ -1,19 +1,26 @@
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import {
   ArrowRight,
   Building2,
-  CheckCircle2,
   ClipboardCheck,
   Eye,
   MessageCircle,
   ShieldCheck,
-  UsersRound,
 } from 'lucide-react';
 import PageHero from '../components/common/PageHero';
 import PrimaryButton from '../components/common/PrimaryButton';
 import FounderSection from '../components/landing/FounderSection';
 import CTASection from '../components/landing/CTASection';
+import PillarIndex from '../components/editorial/PillarIndex';
 import { site } from '../content/siteContent';
+import {
+  Eyebrow,
+  MaskText,
+  ParallaxImage,
+  Stagger,
+  StaggerItem,
+} from '../components/motion/primitives';
+import { EASE, VIEWPORT, stagger, variants } from '../components/motion/motionConfig';
 
 const culturePoints = [
   'Rotina contábil acompanhada de perto',
@@ -42,181 +49,156 @@ const workPillars = [
   },
 ];
 
-function TeamCultureSection() {
+/* Foto da equipe com legenda "Estrutura real" encostada no canto. */
+function TeamImage() {
   return (
-    <section className="relative overflow-hidden bg-[#F5F4F1] px-5 py-18 md:px-8 md:py-24">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_8%,rgba(14,116,144,0.09),transparent_34%)]" />
-      <div className="absolute inset-0 cf-subtle-grid opacity-[0.035]" />
+    <div className="relative">
+      <ParallaxImage
+        mount
+        src={site.photos.aboutTeam}
+        fallback="/cf-equipe-escritorio.webp"
+        imgClassName="object-cover object-[50%_20%] lg:object-[50%_35%]"
+        sizes="(min-width: 1024px) 40vw, 100vw"
+        alt="Equipe da CF Contabilidade reunida na recepção do escritório"
+        loading="eager"
+        className="aspect-[4/3] w-full bg-cf-soft sm:aspect-[16/11] lg:aspect-[4/5]"
+      />
+      <m.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0, transition: { duration: 0.7, ease: EASE, delay: 1 } }}
+        className="relative -mt-16 ml-6 bg-cf-navy p-6 text-white sm:absolute sm:-bottom-10 sm:-left-10 sm:ml-0 sm:mt-0 sm:max-w-sm"
+      >
+        <p className="cf-label flex items-center gap-2 text-cf-on-dark">
+          <Building2 className="h-3.5 w-3.5" />
+          Estrutura real
+        </p>
+        <p className="mt-3 text-base font-semibold leading-7 text-white/90">
+          Atendimento próximo, ambiente organizado e equipe presente para acompanhar a rotina da sua empresa.
+        </p>
+      </m.div>
+    </div>
+  );
+}
 
-      <div className="relative mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.92fr_1.08fr] lg:items-center">
-        <motion.div
-          initial={{ opacity: 0, y: 18 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+function CulturePoints() {
+  return (
+    <m.ol
+      initial="hidden"
+      animate="visible"
+      variants={stagger(0.12, 1.1)}
+      className="grid border-t border-cf-border md:grid-cols-3"
+    >
+      {culturePoints.map((point, index) => (
+        <m.li
+          key={point}
+          variants={variants.up}
+          className="flex gap-5 border-b border-cf-border py-6 md:border-b-0 md:py-8 md:pr-8 md:[&:not(:first-child)]:border-l md:[&:not(:first-child)]:pl-8"
         >
-          <div className="inline-flex items-center gap-2 rounded-full border border-[#131F39]/10 bg-white/80 px-4 py-2 text-sm font-bold text-[#131F39] shadow-sm backdrop-blur">
-            <UsersRound className="h-4 w-4" />
-            A CF por dentro
-          </div>
+          <span className="cf-numeral pt-1 text-sm text-cf-blue">{String(index + 1).padStart(2, '0')}</span>
+          <p className="text-lg font-semibold leading-7 tracking-[-0.01em] text-cf-navy">{point}</p>
+        </m.li>
+      ))}
+    </m.ol>
+  );
+}
 
-          <h2 className="mt-6 text-3xl font-extrabold leading-tight tracking-tight text-slate-950 md:text-4xl lg:text-5xl">
-            Uma contabilidade que acontece na rotina, não só no vencimento.
-          </h2>
-
-          <p className="mt-5 text-lg leading-relaxed text-slate-650 md:text-xl">
-            Por trás de cada guia, folha, obrigação e orientação existe uma equipe
-            acompanhando detalhes, conferindo informações e organizando o caminho para
-            que a empresa tenha mais segurança no dia a dia.
-          </p>
-
-          <div className="mt-7 space-y-3">
-            {culturePoints.map((point) => (
-              <div
-                key={point}
-                className="flex items-start gap-3 rounded-2xl border border-white/70 bg-white/78 p-4 shadow-lg shadow-slate-900/5 backdrop-blur"
-              >
-                <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-[#005F93]" />
-                <p className="font-semibold leading-relaxed text-slate-750">
-                  {point}
-                </p>
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <PrimaryButton onClick={() => window.location.assign('/diagnostico')}>
-              Analisar minha empresa
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </PrimaryButton>
-
-            <a
-              href="/servicos"
-              className="inline-flex items-center justify-center rounded-xl border border-slate-200 bg-white/80 px-6 py-3.5 text-sm font-bold text-slate-800 shadow-lg shadow-slate-900/5 backdrop-blur transition duration-300 hover:-translate-y-0.5 hover:border-[#005F93] hover:text-[#005F93] md:text-base"
-            >
-              Conhecer serviços
-            </a>
-          </div>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 22, scale: 0.985 }}
-          whileInView={{ opacity: 1, y: 0, scale: 1 }}
-          viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          className="relative"
-        >
-          <div className="absolute -inset-4 rounded-[2.25rem] bg-[#131F39]/8 blur-2xl" />
-
-          <div className="relative overflow-hidden rounded-[2rem] border border-white/80 bg-white/80 p-3 shadow-2xl shadow-slate-900/12 backdrop-blur">
-            <img
-              src="/cf-equipe-escritorio.webp"
-              alt="Equipe da CF Contabilidade trabalhando no escritório"
-              className="h-[360px] w-full rounded-[1.55rem] object-cover object-center md:h-[500px]"
-            />
-
-            <div className="absolute inset-x-6 bottom-6 rounded-2xl border border-white/18 bg-slate-950/72 p-5 text-white shadow-2xl shadow-black/20 backdrop-blur-md">
-              <div className="flex items-start gap-3">
-                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#005F93]/16 text-[#005F93]">
-                  <Building2 className="h-5 w-5" />
-                </div>
-
-                <div>
-                  <p className="text-sm font-bold uppercase tracking-[0.18em] text-[#005F93]">
-                    Estrutura real
-                  </p>
-                  <p className="mt-1 text-base font-semibold leading-relaxed text-white/92">
-                    Atendimento próximo, ambiente organizado e equipe presente para acompanhar a rotina da sua empresa.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </motion.div>
+function InteractionSection() {
+  return (
+    <section className="bg-white px-5 py-16 md:px-8 md:py-32">
+      <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-12 lg:items-end lg:gap-10">
+        <ParallaxImage
+          src={site.photos.aboutInteraction}
+          fallback={site.teamImage}
+          sizes="(min-width: 1024px) 58vw, 100vw"
+          alt="Equipe da CF Contabilidade em reunião, trocando informações sobre a rotina dos clientes"
+          className="aspect-[3/2] w-full bg-cf-soft lg:col-span-7"
+        />
+        <div className="lg:col-span-4 lg:col-start-9 lg:pb-4">
+          <Eyebrow>Trabalho em equipe</Eyebrow>
+          <MaskText
+            as="h2"
+            className="mt-6 text-3xl font-black leading-[1.06] tracking-[-0.035em] text-cf-navy md:text-4xl"
+            lines={['A proximidade também aparece na forma de trabalhar.']}
+          />
+          <Stagger delay={0.25}>
+            <StaggerItem as="p" className="mt-6 leading-7 text-cf-muted">
+              Troca de informações, conferência e conversa fazem parte de uma rotina contábil que precisa acompanhar o negócio de perto.
+            </StaggerItem>
+          </Stagger>
+        </div>
       </div>
     </section>
   );
 }
 
 function WorkPillarsSection() {
+  const whatsappHref = `https://wa.me/${site.phoneWhats}?text=${encodeURIComponent(site.whatsappDefaultMessage)}`;
+
   return (
-    <section className="relative bg-[#e7edf2] px-5 py-16 md:px-8 md:py-20">
+    <section className="bg-cf-soft px-5 py-16 md:px-8 md:py-32">
       <div className="mx-auto max-w-7xl">
-        <div className="grid gap-5 md:grid-cols-3">
-          {workPillars.map((pillar, index) => {
-            const Icon = pillar.icon;
+        <PillarIndex items={workPillars} indicatorId="cf-about-pillars" />
 
-            return (
-              <motion.article
-                key={pillar.title}
-                initial={{ opacity: 0, y: 18 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-80px' }}
-                transition={{ duration: 0.55, delay: index * 0.08 }}
-                className="rounded-[1.5rem] border border-white/80 bg-white/82 p-6 shadow-xl shadow-slate-900/7 backdrop-blur transition duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-slate-900/10"
-              >
-                <div className="flex h-13 w-13 items-center justify-center rounded-2xl bg-[#F5F4F1] text-[#005F93]">
-                  <Icon className="h-6 w-6" />
-                </div>
-
-                <h3 className="mt-5 text-xl font-extrabold text-slate-950">
-                  {pillar.title}
-                </h3>
-
-                <p className="mt-3 leading-relaxed text-slate-600">
-                  {pillar.description}
-                </p>
-              </motion.article>
-            );
-          })}
-        </div>
-
-        <div className="mt-8 rounded-[1.75rem] border border-[#131F39]/10 bg-gradient-to-r from-[#131F39] to-[#005F93] p-7 text-white shadow-2xl shadow-slate-900/12 md:p-8">
-          <div className="grid gap-6 md:grid-cols-[1fr_auto] md:items-center">
-            <div>
-              <p className="text-sm font-bold uppercase tracking-[0.2em] text-[#005F93]">
-                Nosso jeito de trabalhar
-              </p>
-              <h2 className="mt-3 text-2xl font-extrabold md:text-3xl">
-                Contabilidade com presença, responsabilidade e acompanhamento.
-              </h2>
-              <p className="mt-3 max-w-3xl leading-relaxed text-slate-200">
+        <m.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={VIEWPORT}
+          variants={stagger(0.12)}
+          className="mt-14 grid gap-10 border-t border-cf-navy pt-10 md:mt-28 md:pt-16 lg:grid-cols-12 lg:gap-10"
+        >
+          <m.p variants={variants.fade} className="cf-label text-cf-blue lg:col-span-3">
+            Nosso jeito de trabalhar
+          </m.p>
+          <div className="lg:col-span-9">
+            <MaskText
+              as="h2"
+              className="cf-title-lg max-w-4xl text-cf-navy"
+              lines={['Contabilidade com presença, responsabilidade e acompanhamento.']}
+            />
+            <div className="mt-8 grid gap-8 md:grid-cols-[1fr_auto] md:items-end">
+              <m.p variants={variants.up} className="max-w-2xl text-lg leading-8 text-cf-muted">
                 A CF une experiência, rotina bem definida e atendimento próximo para transformar obrigações contábeis em uma base mais segura para a gestão da empresa.
-              </p>
+              </m.p>
+              <m.div variants={variants.cta}>
+                <PrimaryButton href={whatsappHref} external>
+                  <MessageCircle className="h-4 w-4" />
+                  Falar com a CF
+                </PrimaryButton>
+              </m.div>
             </div>
-
-            <a
-              href={`https://wa.me/${site.phoneWhats}?text=${encodeURIComponent(site.whatsappDefaultMessage)}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center rounded-xl bg-white px-6 py-3.5 text-sm font-bold text-[#131F39] shadow-xl shadow-black/15 transition duration-300 hover:-translate-y-0.5 hover:bg-[#F5F4F1] md:text-base"
-            >
-              <MessageCircle className="mr-2 h-5 w-5" />
-              Falar com a CF
-            </a>
           </div>
-        </div>
+        </m.div>
       </div>
     </section>
   );
 }
 
-export default function AboutPage({ onStartQuiz }) {
+export default function AboutPage() {
   return (
     <>
       <PageHero
-        eyebrow="Sobre a CF"
-        title="Contabilidade próxima, organizada e comprometida com a rotina da sua empresa."
-        description="A CF Contabilidade Brusque atua com foco em clareza, responsabilidade e acompanhamento próximo para empresas que precisam manter obrigações em dia e tomar decisões com segurança."
-        image={site.officeImage}
+        eyebrow="A CF por dentro"
+        title="Uma contabilidade que acontece na rotina, não só no vencimento."
+        description="Por trás de cada guia, folha, obrigação e orientação existe uma equipe acompanhando detalhes, conferindo informações e organizando o caminho para que a empresa tenha mais segurança no dia a dia."
+        aside={<TeamImage />}
+        bottom={<CulturePoints />}
       >
-        <PrimaryButton onClick={onStartQuiz}>Conversar sobre minha empresa</PrimaryButton>
+        <PrimaryButton href="/diagnostico">
+          Analisar minha empresa
+          <ArrowRight className="h-4 w-4" />
+        </PrimaryButton>
+        <PrimaryButton
+          variant="outline"
+          href="/servicos"
+        >
+          Conhecer serviços
+        </PrimaryButton>
       </PageHero>
 
-      <TeamCultureSection />
+      <InteractionSection />
       <WorkPillarsSection />
       <FounderSection />
-      <CTASection onStartQuiz={onStartQuiz} />
+      <CTASection />
     </>
   );
 }

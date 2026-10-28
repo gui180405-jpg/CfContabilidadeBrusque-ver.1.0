@@ -1,0 +1,54 @@
+V15 — AUDITORIA FINAL (segurança, fluidez, acessibilidade, SEO, performance)
+==========================================================================
+
+CRÍTICO — corrigido
+- api/callback.js: XSS refletido (o parâmetro ?error= da URL ia direto para o HTML) e
+  token do GitHub enviado por postMessage para QUALQUER site ("*"), sem conferir "state".
+  Uma página maliciosa podia abrir /api/auth e receber o token (escopo "repo user") de
+  quem tivesse autorizado o app. Reescrito em api/_oauth.js + api/auth.js + api/callback.js:
+  state com cookie HttpOnly, token só para a mesma origem, tudo escapado, CSP com nonce,
+  escopo sem "user". 17 testes automáticos passando.
+
+ALTO — corrigido
+- Painel: Sveltia carregado do CDN sem versão (qualquer versão nova/alterada rodava com o
+  token do GitHub no navegador). Agora versão fixa 0.235.0 + integrity (SRI). Script embutido
+  movido para public/admin/preview.js.
+- Sem Content-Security-Policy nem proteção contra iframe (clickjacking). vercel.json com CSP
+  no site, X-Frame-Options, COOP, cache longo para /assets, no-store no painel/API.
+- Todas as páginas tinham o mesmo título, descrição e canonical apontando para a Home.
+  Agora cada página tem os seus (src/content/pageMeta.js) no navegador e no HTML gerado no build.
+- Endereço inexistente mostrava a página 404 genérica da Vercel. Agora 404.html com o visual
+  do site, status 404, noindex, links para as páginas e WhatsApp.
+- Links internos feitos com <button>: não abriam em nova aba (Ctrl/⌘+clique), não eram lidos
+  pelo Google. Viraram <a href> com navegação sem recarregar (interceptação central no App).
+- Dependências com 8 avisos (6 altos, ferramentas de build): `npm audit fix` → 0.
+
+MÉDIO — corrigido
+- "Voltar" do navegador não restaurava a rolagem; /servicos#ancora aberto direto não rolava.
+- Troca de página sem foco/aviso para teclado e leitor de tela; sem "Pular para o conteúdo".
+- Vídeo da Rose: foco não ia para a janela, Tab escapava, fundo rolava, foco não voltava;
+  <h2> dentro de <button>. Componente único VideoDialog (Home e Sobre) + youtube-nocookie.
+- Diagnóstico: ao responder, o foco se perdia (teclado/leitor de tela). Agora vai para a
+  próxima pergunta; opções com aria-pressed; aviso de que nada é salvo no site.
+- Contato: "online agora" sempre ligado (informação falsa de madrugada) → "atendimento pelo
+  WhatsApp"; conversa ilustrativa escondida de leitores de tela; horários fora de ordem;
+  telefone e link do mapa adicionados aos canais.
+- Contraste abaixo de AA em dezenas de textos (cinza #6B7280 sobre off-white = 4,39:1). Texto passa
+  a usar #636977 (mesmo cinza, um tom abaixo) e tons claros sobre navy/azul ajustados.
+  Foco visível branco sobre fundos escuros. axe-core: 0 violações em 7 páginas × 2 larguras.
+- Menu mobile: Esc fecha, fecha ao trocar de página, rola em tela deitada, aria-controls.
+- Markdown dos artigos aceitava links javascript:. Agora só http(s)/mailto/tel/caminhos do site.
+- Google Fonts → Inter hospedada no site (@fontsource-variable/inter): sem envio de IP a
+  terceiros e CSP mais restrita.
+- Recursos de animação (chunk "features") pré-carregados em paralelo; atrasos do topo da Home
+  encurtados. LCP simulado (celular, 4G lento, CPU 4×): 3,54 s → 2,75 s (mediana de 5).
+- robots.txt bloqueia /admin e /api; JSON-LD com os dados reais da empresa.
+
+LIMPEZA
+- Removidos 6 componentes sem uso (landing/HeroSection, JourneySection, LocationSection,
+  HowItWorksSection, SpecialtiesSection, CFOperatingSystemSection) — sem nenhuma referência.
+- Removida public/blog/Persona-5-Royal-Mona.jpg (imagem de teste, sem relação com a CF).
+- typescript removido (não usado); vite/plugin-react em devDependencies; .gitignore ampliado.
+- ESLint configurado para o código Node (api/, scripts/): `npm run lint` sem erros.
+
+PENDENTE (depende de você / serviços externos) — ver SECURITY_NOTES.md

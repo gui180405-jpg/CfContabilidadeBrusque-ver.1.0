@@ -1,34 +1,29 @@
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
+import { VIEWPORT, variants } from '../motion/motionConfig';
 
 /*
 ============================================================
-REVEAL — ANIMAÇÃO PADRÃO DO SITE
+REVEAL — ENTRADA PADRÃO DO SITE
 ============================================================
-Componente pequeno para manter o site com movimento suave,
-evitando animações exageradas em cada arquivo.
-
-Use para fazer blocos entrarem com leveza quando aparecem na tela.
+Mantém a API antiga (children, className, delay, as) e ganha
+`variant` para escolher o comportamento do sistema de motion:
+'up' (padrão) | 'fade' | 'number' | 'image' | 'cta'.
 ============================================================
 */
 
-const variants = {
-  hidden: { opacity: 0, y: 22 },
-  visible: { opacity: 1, y: 0 },
-};
-
-export default function Reveal({ children, className = '', delay = 0, as = 'div' }) {
-  const MotionTag = motion[as] || motion.div;
+export default function Reveal({ children, className = '', delay = 0, as = 'div', variant = 'up', mount = false }) {
+  const Tag = m[as] || m.div;
+  const trigger = mount ? { animate: 'visible' } : { whileInView: 'visible', viewport: VIEWPORT };
 
   return (
-    <MotionTag
+    <Tag
       initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, amount: 0.18 }}
-      variants={variants}
-      transition={{ duration: 0.62, ease: [0.22, 1, 0.36, 1], delay }}
+      {...trigger}
+      variants={variants[variant] || variants.up}
+      custom={delay}
       className={className}
     >
       {children}
-    </MotionTag>
+    </Tag>
   );
 }

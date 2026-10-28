@@ -3,13 +3,28 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Admin | CF Contabilidade</title>
-
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="referrer" content="same-origin" />
+    <title>Administrar blog | CF Contabilidade</title>
+    <link rel="icon" href="/favicon.ico" sizes="any" />
     <link href="/admin/config.yml" type="text/yaml" rel="cms-config-url" />
   </head>
 
   <body>
-    <!-- PAINEL CF - SVELTIA CMS -->
-    <script src="https://unpkg.com/@sveltia/cms/dist/sveltia-cms.js"></script>
+    <!--
+      PAINEL DO BLOG — Sveltia CMS
+      Login com conta do GitHub (permissão de escrita no repositório).
+      Configuração dos campos: /admin/config.yml
+
+      Segurança: a versão do Sveltia está FIXA e o arquivo é conferido pelo
+      hash (integrity). Uma versão nova ou alterada no CDN não roda aqui.
+      Para atualizar: veja "Atualizar o Sveltia CMS" em GUIA-PAINEL-BLOG.md.
+    -->
+    <script
+      src="https://unpkg.com/@sveltia/cms@0.235.0/dist/sveltia-cms.js"
+      integrity="sha384-If5TbzShP3s2h939e3J7kBmInvU7kam8ruKiGFbLSKrCo3TooLjHIh8u8GD7JTni"
+      crossorigin="anonymous"
+    ></script>
+    <script src="/admin/preview.js"></script>
   </body>
 </html>

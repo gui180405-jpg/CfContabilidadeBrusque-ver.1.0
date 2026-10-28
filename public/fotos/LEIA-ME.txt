@@ -1,0 +1,22 @@
+FOTOS DA NOVA SESSÃO — CF CONTABILIDADE BRUSQUE
+
+Coloque aqui as fotos finais do fotógrafo com estes nomes:
+
+rose-ambiente-trabalho.webp
+equipe-completa.webp
+equipe-trabalhando.webp
+escritorio-amplo.webp
+equipe-reuniao.webp
+interacao-equipe.webp
+rose-atendimento.webp
+pessoa-computador.webp
+fachada.webp
+
+O site já está preparado para usar os arquivos. Enquanto uma foto nova não existir,
+ele automaticamente mantém a imagem atual como fallback.
+
+Também podem ser adicionadas futuramente:
+- rose-retrato.webp
+- retratos-equipe.webp
+- detalhes-escritorio.webp
+- equipe-espontanea.webp

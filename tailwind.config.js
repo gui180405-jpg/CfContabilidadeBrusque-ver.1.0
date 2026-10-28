@@ -5,17 +5,24 @@ export default {
     extend: {
       colors: {
         cf: {
-          navy: '#131F39',
-          blue: '#005F93',
-          black: '#000000',
-          background: '#F5F4F1',
-          muted: '#6B7280',
-          border: '#E2E6EC',
-          'on-dark': '#F5F4F1',
+          navy: 'rgb(var(--cf-navy-rgb) / <alpha-value>)',
+          blue: 'rgb(var(--cf-blue-rgb) / <alpha-value>)',
+          'blue-dark': 'rgb(var(--cf-blue-dark-rgb) / <alpha-value>)',
+          black: 'rgb(var(--cf-black-rgb) / <alpha-value>)',
+          background: 'rgb(var(--cf-background-rgb) / <alpha-value>)',
+          surface: 'rgb(var(--cf-surface-rgb) / <alpha-value>)',
+          soft: 'rgb(var(--cf-soft-rgb) / <alpha-value>)',
+          text: 'rgb(var(--cf-text-rgb) / <alpha-value>)',
+          muted: 'rgb(var(--cf-muted-rgb) / <alpha-value>)',
+          border: 'rgb(var(--cf-border-rgb) / <alpha-value>)',
+          'on-dark': 'rgb(var(--cf-on-dark-rgb) / <alpha-value>)',
         },
       },
       boxShadow: {
-        soft: '0 24px 80px rgba(19, 31, 57, 0.20)',
+        soft: '0 24px 80px rgba(19, 31, 57, 0.14)',
+      },
+      transitionTimingFunction: {
+        cf: 'cubic-bezier(0.22, 1, 0.36, 1)',
       },
     },
   },

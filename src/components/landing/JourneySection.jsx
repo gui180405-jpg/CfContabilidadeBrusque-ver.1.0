@@ -38,8 +38,8 @@ const journeys = [
 
 export default function JourneySection({ onStartQuiz }) {
   return (
-    <section className="relative overflow-hidden bg-[#F5F4F1] px-5 py-20 md:px-8 md:py-24">
-      <div className="absolute -left-28 top-16 h-80 w-80 rounded-full bg-[#005F93]/8 blur-3xl" />
+    <section className="relative overflow-hidden bg-cf-background px-5 py-20 md:px-8 md:py-24">
+      <div className="absolute -left-28 top-16 h-80 w-80 rounded-full bg-cf-blue/10 blur-3xl" />
 
       <div className="relative mx-auto max-w-7xl">
         <Reveal>
@@ -50,27 +50,27 @@ export default function JourneySection({ onStartQuiz }) {
           />
         </Reveal>
 
-        <div className="overflow-hidden rounded-[2rem] border border-white/80 bg-white/78 shadow-xl shadow-slate-900/7 backdrop-blur">
+        <div className="overflow-hidden rounded-[2rem] border border-white/80 bg-white shadow-xl shadow-cf-navy/10 backdrop-blur">
           {journeys.map((item, index) => {
             const Icon = item.icon;
             const isLast = index === journeys.length - 1;
 
             const content = (
-              <div className={`grid gap-4 p-5 transition duration-300 hover:bg-[#F5F4F1] md:grid-cols-[auto_1fr_auto] md:items-center md:p-6 ${!isLast ? 'border-b border-slate-200/70' : ''}`}>
-                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#F5F4F1] text-[#005F93]">
+              <div className={`grid gap-4 p-5 transition duration-300 hover:bg-cf-background md:grid-cols-[auto_1fr_auto] md:items-center md:p-6 ${!isLast ? 'border-b border-cf-border' : ''}`}>
+                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-cf-soft text-cf-blue">
                   <Icon className="h-6 w-6" />
                 </div>
 
                 <div>
-                  <h3 className="text-lg font-extrabold text-[#000000]">
+                  <h3 className="text-lg font-extrabold text-cf-navy">
                     {item.title}
                   </h3>
-                  <p className="mt-1 leading-relaxed text-[#6B7280]">
+                  <p className="mt-1 leading-relaxed text-cf-muted">
                     {item.description}
                   </p>
                 </div>
 
-                <div className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-[#F5F4F1] text-[#005F93]">
+                <div className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-cf-background text-cf-blue">
                   <ArrowRight className="h-5 w-5" />
                 </div>
               </div>

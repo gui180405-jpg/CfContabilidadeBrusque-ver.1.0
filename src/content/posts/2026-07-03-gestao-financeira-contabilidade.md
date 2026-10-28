@@ -1,16 +1,22 @@
 ---
-title: "Por que separar conta pessoal e conta da empresa?"
-slug: "separar-conta-pessoal-e-empresa"
-category: "Gestão financeira"
-type: "Orientação"
-date: "2026-07-09"
-readTime: "4 min de leitura"
-excerpt: "Misturar dinheiro pessoal com dinheiro da empresa dificulta a leitura do lucro, aumenta a confusão financeira e prejudica decisões."
+title: Por que separar conta pessoal e conta da empresa?
+slug: separar-conta-pessoal-e-empresa
+status: published
+date: 2026-07-09
+author: Equipe CF Contabilidade
+category: Gestão financeira
+type: Orientação
+tags: []
+excerpt: Misturar dinheiro pessoal com dinheiro da empresa dificulta a leitura do lucro, aumenta a confusão financeira e prejudica decisões.
 image: ""
-link: "#"
+image_alt: ""
 featured: false
-published: true
-draft: false
+readTime: 4 min de leitura
+link: "#"
+seo:
+  title: ""
+  description: ""
+redirect_from: []
 ---
 
 ## Por que separar conta pessoal e conta da empresa?

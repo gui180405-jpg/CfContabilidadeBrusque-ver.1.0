@@ -1,0 +1,49 @@
+CF CONTABILIDADE BRUSQUE — V14 TOPO DO DIAGNÓSTICO + PAINEL DO BLOG
+
+1. TOPO DAS PÁGINAS SEM IMAGEM (Diagnóstico, Blog, 404)
+- src/components/common/PageHero.jsx: título mais largo (sem "CF." sozinho)
+  e, abaixo de uma linha, texto à esquerda + pontos numerados à direita.
+  Fim do vazio à esquerda. Páginas com imagem não mudaram.
+- src/index.css: text-wrap: balance nos títulos grandes (evita palavra órfã).
+
+2. PAINEL DO BLOG (evolução do Sveltia CMS já existente — guia: GUIA-PAINEL-BLOG.md)
+- public/admin/config.yml: campos de status (rascunho/publicado), data
+  (futura = agendado), autor, tags, capa + texto alternativo, slug validado,
+  SEO (título/descrição), endereços antigos, tempo de leitura automático;
+  filtros por status e jornada, agrupamento por status/ano, ordenação;
+  editor com títulos 2–4, listas, citação, links e imagem no corpo;
+  upload de imagem com conversão para WebP (1600 px, até 8 MB);
+  mensagens de commit em português. Validado contra o schema do Sveltia.
+- public/admin/index.html: título, noindex e pré-visualização com o estilo da CF
+  (public/admin/preview.css).
+- public/admin/blog/index.html: atalho /admin/blog → lista de artigos.
+- scripts/vite-plugin-cf-blog.js (NOVO): lê os .md com YAML de verdade; só
+  publicados com data ≤ hoje entram no site (rascunhos/agendados não vazam
+  no JavaScript); gera /blog/<slug>.html com meta tags e Open Graph,
+  redirecionamentos de endereços antigos e sitemap.xml com os artigos.
+- vite.config.js: registra o plugin.
+- src/content/blogPosts.js: usa os dados do plugin; findRedirect().
+- src/components/blog/ArticleContent.jsx (NOVO): renderização do Markdown do
+  painel (parágrafos corretos, listas numeradas, imagem com legenda, _itálico_,
+  escapes) sem dangerouslySetInnerHTML.
+- src/components/blog/useDocumentMeta.js (NOVO): título/descrição/OG no navegador.
+- src/pages/BlogPostPage.jsx: autor, tags, alt da capa, redirecionamento de slug.
+- src/pages/BlogPage.jsx: alt da capa.
+- src/content/posts/*.md: cabeçalhos migrados para o formato novo (status,
+  autor, tags, SEO…). Textos intactos (conferido por diff).
+- vercel.json: cleanUrls (serve /blog/<slug>.html em /blog/<slug>).
+- .github/workflows/blog-publicacao-agendada.yml (NOVO): build diário 06:05
+  para os agendados (precisa do segredo VERCEL_DEPLOY_HOOK_URL).
+- package.json: js-yaml (só no build, não vai para o navegador).
+
+VALIDAÇÃO
+- Simulação do que o painel grava (cópia separada do projeto):
+  rascunho → não aparece e o texto não está em nenhum arquivo do dist/;
+  agendado (2099) → não aparece; artigo editado → título novo na lista;
+  artigo publicado com capa, tags, SEO, imagem no corpo com legenda,
+  listas, citação, títulos 2–4 → tudo renderizado; endereço antigo →
+  redireciona; título/descrição SEO aplicados; mobile sem rolagem lateral.
+- Painel carregado localmente: lê a configuração e mostra a tela de login.
+  (Login real e gravação no GitHub não puderam ser testados aqui — precisam
+  do token da conta.)
+- npm run build OK · eslint sem erros · imagens sem erro 404.

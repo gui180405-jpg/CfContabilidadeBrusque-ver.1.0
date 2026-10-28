@@ -1,15 +1,17 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import { AnimatePresence, m } from 'framer-motion';
 import {
   ArrowLeft,
   ArrowRight,
   BriefcaseBusiness,
   Building2,
   CheckCircle2,
-  ClipboardList,
   MessageCircle,
   WalletCards,
 } from 'lucide-react';
 import PrimaryButton from '../common/PrimaryButton';
+import { Eyebrow } from '../motion/primitives';
+import { EASE } from '../motion/motionConfig';
 import { site } from '../../content/siteContent';
 
 const questions = [
@@ -43,6 +45,16 @@ export default function QuizSection() {
   const [currentStep, setCurrentStep] = useState(0);
   const [answers, setAnswers] = useState({});
   const [finished, setFinished] = useState(false);
+  const headingRef = useRef(null);
+  const interacted = useRef(false);
+
+  // Ao trocar de etapa, o foco vai para a nova pergunta (teclado e leitor de tela
+  // não "se perdem" quando os botões da etapa anterior somem).
+  useEffect(() => {
+    if (!interacted.current) return undefined;
+    const timer = window.setTimeout(() => headingRef.current?.focus({ preventScroll: true }), 260);
+    return () => window.clearTimeout(timer);
+  }, [currentStep, finished]);
 
   const question = questions[currentStep];
   const progress = Math.round(((currentStep + (finished ? 1 : 0)) / questions.length) * 100);
@@ -54,6 +66,7 @@ export default function QuizSection() {
   }, [answers]);
 
   function handleAnswer(option) {
+    interacted.current = true;
     const nextAnswers = { ...answers, [question.id]: option };
     setAnswers(nextAnswers);
 
@@ -66,6 +79,7 @@ export default function QuizSection() {
   }
 
   function handleBack() {
+    interacted.current = true;
     if (finished) {
       setFinished(false);
       setCurrentStep(questions.length - 1);
@@ -75,109 +89,146 @@ export default function QuizSection() {
     setCurrentStep((step) => Math.max(0, step - 1));
   }
 
+  const stepKey = finished ? 'done' : question.id;
+
   return (
-    <section
-      id="diagnostico"
-      className="relative overflow-hidden bg-[#F5F4F1] px-5 pb-12 pt-2 md:px-8 md:pb-16"
-    >
-      <div className="absolute inset-0 cf-subtle-grid opacity-35" />
-      <div className="absolute left-1/2 top-0 h-72 w-[42rem] -translate-x-1/2 rounded-full bg-[#005F93]/18 blur-3xl" />
-
-      <div className="relative z-10 mx-auto max-w-4xl">
-        <div className="mb-6 text-center">
-          <div className="mx-auto inline-flex items-center gap-2 rounded-full border border-[#131F39]/10 bg-white/80 px-4 py-2 text-sm font-bold text-[#131F39] shadow-sm backdrop-blur">
-            <ClipboardList className="h-4 w-4" />
-            Diagnóstico gratuito
-          </div>
-
-          <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-slate-600">
+    <section id="diagnostico" className="scroll-mt-24 bg-cf-background px-5 py-16 md:px-8 md:py-32">
+      <div className="mx-auto max-w-5xl">
+        <div className="mb-10 grid gap-6 md:grid-cols-2 md:items-end">
+          <Eyebrow>Diagnóstico gratuito</Eyebrow>
+          <p className="max-w-md text-base leading-7 text-cf-muted md:justify-self-end md:text-right">
             Responda 4 perguntas e chegue ao WhatsApp com as informações principais já organizadas.
           </p>
         </div>
 
-        <div className="rounded-[1.9rem] border border-white/80 bg-white/90 p-6 shadow-2xl shadow-slate-900/10 backdrop-blur md:p-9">
-          <div className="mb-7 flex items-center justify-between gap-4 text-sm text-slate-500">
-            <span>{finished ? 'Concluído' : `Etapa ${currentStep + 1} de ${questions.length}`}</span>
-            <span className="font-bold text-[#005F93]">{progress}% concluído</span>
+        <div className="border-y border-cf-border md:border md:bg-white">
+          {/* cabeçalho: etapa + progresso */}
+          <div className="flex items-end justify-between gap-4 pt-6 md:px-10 md:pt-9">
+            <p className="flex items-baseline gap-2 text-cf-navy">
+              <span className="cf-numeral text-4xl leading-none md:text-5xl">
+                {finished ? '04' : String(currentStep + 1).padStart(2, '0')}
+              </span>
+              <span className="cf-numeral text-sm text-cf-muted">/ {String(questions.length).padStart(2, '0')}</span>
+              <span className="sr-only">{finished ? 'Concluído' : `Etapa ${currentStep + 1} de ${questions.length}`}</span>
+            </p>
+            <span className="cf-label text-cf-blue">{finished ? 'Concluído' : `${progress}% concluído`}</span>
           </div>
 
-          <div className="mb-9 h-2 rounded-full bg-slate-100">
-            <div
-              className="h-2 rounded-full bg-gradient-to-r from-[#005F93] to-[#005F93] transition-all duration-300"
-              style={{ width: `${progress}%` }}
+          <div className="relative mt-6 h-px bg-cf-border md:mx-10">
+            <m.span
+              aria-hidden="true"
+              className="absolute inset-y-0 left-0 block w-full origin-left bg-cf-blue"
+              style={{ height: 2, top: -0.5 }}
+              initial={false}
+              animate={{ scaleX: progress / 100 }}
+              transition={{ duration: 0.6, ease: EASE }}
             />
           </div>
 
-          {finished ? (
-            <div className="text-center">
-              <CheckCircle2 className="mx-auto mb-5 h-14 w-14 text-[#005F93]" />
-              <h3 className="text-2xl font-extrabold text-slate-950 md:text-3xl">
-                Pronto, seu contexto foi organizado.
-              </h3>
-              <p className="mx-auto mt-4 max-w-2xl text-slate-600">
-                Agora você pode enviar suas respostas para a CF e iniciar uma conversa mais objetiva com um contador.
-              </p>
-              <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
-                <PrimaryButton href={whatsappUrl} external>
-                  Receber orientação no WhatsApp
-                  <MessageCircle className="ml-2 h-5 w-5" />
-                </PrimaryButton>
-                <button
-                  type="button"
-                  onClick={handleBack}
-                  className="text-sm font-bold text-slate-500 hover:text-slate-900"
-                >
-                  Voltar uma etapa
-                </button>
-              </div>
-              <p className="mt-5 text-xs text-slate-500">
-                Sem compromisso • Atendimento direto com contador
-              </p>
-            </div>
-          ) : (
-            <>
-              <div className="mb-7 flex items-center gap-4">
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#F5F4F1]/70 text-[#005F93]">
-                  <question.icon className="h-6 w-6" />
-                </div>
-                <h3 className="text-xl font-extrabold text-slate-950 md:text-2xl">
-                  {question.question}
-                </h3>
-              </div>
+          <div className="pb-8 pt-8 md:px-10 md:pb-10 md:pt-12">
+            <AnimatePresence mode="wait" initial={false}>
+              <m.div
+                key={stepKey}
+                initial={{ opacity: 0, x: 24 }}
+                animate={{ opacity: 1, x: 0, transition: { duration: 0.45, ease: EASE } }}
+                exit={{ opacity: 0, x: -16, transition: { duration: 0.2, ease: EASE } }}
+              >
+                {finished ? (
+                  <div className="text-center">
+                    <CheckCircle2 className="mx-auto mb-6 h-12 w-12 text-cf-blue" strokeWidth={1.5} />
+                    <h3 ref={headingRef} tabIndex={-1} className="text-3xl font-black tracking-[-0.035em] text-cf-navy outline-none md:text-4xl">
+                      Pronto, seu contexto foi organizado.
+                    </h3>
+                    <p className="mx-auto mt-4 max-w-2xl leading-7 text-cf-muted">
+                      Agora você pode enviar suas respostas para a CF e iniciar uma conversa mais objetiva com um contador.
+                    </p>
+                    <div className="mt-9 flex flex-col items-center justify-center gap-4 sm:flex-row">
+                      <PrimaryButton href={whatsappUrl} external>
+                        Receber orientação no WhatsApp
+                        <MessageCircle className="h-4 w-4" />
+                      </PrimaryButton>
+                      <button
+                        type="button"
+                        onClick={handleBack}
+                        className="cf-link text-cf-muted hover:text-cf-navy"
+                      >
+                        Voltar uma etapa
+                      </button>
+                    </div>
+                    <p className="cf-label mt-8 text-cf-muted">Sem compromisso • Atendimento direto com contador</p>
+                    <p className="mx-auto mt-4 max-w-xl text-xs leading-5 text-cf-muted">
+                      Suas respostas não são salvas no site. Elas só chegam à CF se você tocar no botão e enviar a mensagem pelo WhatsApp.
+                    </p>
+                  </div>
+                ) : (
+                  <>
+                    <div className="mb-6 flex items-start gap-3 md:mb-8 md:gap-4">
+                      <question.icon aria-hidden="true" className="mt-1.5 h-6 w-6 shrink-0 text-cf-blue" strokeWidth={1.75} />
+                      <h3
+                        ref={headingRef}
+                        tabIndex={-1}
+                        className="text-[1.6rem] font-black leading-tight tracking-[-0.03em] text-cf-navy outline-none md:text-[2rem]"
+                      >
+                        <span className="sr-only">{`Pergunta ${currentStep + 1} de ${questions.length}: `}</span>
+                        {question.question}
+                      </h3>
+                    </div>
 
-              <div className="grid gap-4 md:grid-cols-2">
-                {question.options.map((option) => (
-                  <button
-                    key={option}
-                    type="button"
-                    onClick={() => handleAnswer(option)}
-                    className="rounded-2xl border border-slate-200 bg-[#F5F4F1] p-5 text-left text-sm font-bold text-slate-900 transition duration-200 hover:-translate-y-0.5 hover:border-[#005F93] hover:bg-[#F5F4F1]/70 hover:shadow-lg hover:shadow-[#131F39]/8"
-                  >
-                    {option}
-                    <span className="mt-1 block text-xs font-medium text-slate-500">
-                      Clique para avançar
-                    </span>
-                  </button>
-                ))}
-              </div>
+                    <div className="grid border-t border-cf-border md:gap-3 md:border-t-0 md:grid-cols-2">
+                      {question.options.map((option, index) => {
+                        const selected = answers[question.id] === option;
 
-              <div className="mt-7 flex items-center justify-between">
-                <button
-                  type="button"
-                  onClick={handleBack}
-                  disabled={currentStep === 0}
-                  className="inline-flex items-center gap-2 text-sm font-bold text-slate-500 transition hover:text-slate-900 disabled:cursor-not-allowed disabled:opacity-30"
-                >
-                  <ArrowLeft className="h-4 w-4" />
-                  Voltar
-                </button>
-                <span className="inline-flex items-center gap-2 text-xs text-slate-500">
-                  Avanço automático
-                  <ArrowRight className="h-4 w-4" />
-                </span>
-              </div>
-            </>
-          )}
+                        return (
+                          <m.button
+                            key={option}
+                            type="button"
+                            onClick={() => handleAnswer(option)}
+                            aria-pressed={selected}
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0, transition: { duration: 0.35, ease: EASE, delay: 0.05 + index * 0.04 } }}
+                            className={`group flex min-h-[60px] items-center gap-4 border-b py-3.5 text-left transition-colors duration-300 md:border md:p-5 ${
+                              selected ? 'border-cf-blue md:bg-cf-blue/5' : 'border-cf-border md:bg-white md:hover:border-cf-navy'
+                            }`}
+                          >
+                            <span
+                              className={`flex h-9 w-9 shrink-0 items-center justify-center border text-xs font-bold transition-colors duration-300 ${
+                                selected
+                                  ? 'border-cf-blue bg-cf-blue text-white'
+                                  : 'border-cf-border text-cf-muted group-hover:border-cf-navy group-hover:bg-cf-navy group-hover:text-white'
+                              }`}
+                            >
+                              {String.fromCharCode(65 + index)}
+                            </span>
+                            <span className="flex-1">
+                              <span className="block text-sm font-bold text-cf-navy md:text-base">{option}</span>
+                              <span aria-hidden="true" className="mt-0.5 hidden text-xs text-cf-muted md:block">Clique para avançar</span>
+                            </span>
+                            <ArrowRight className="h-4 w-4 shrink-0 -translate-x-1 text-cf-navy opacity-0 transition duration-300 group-hover:translate-x-0 group-hover:opacity-100" />
+                          </m.button>
+                        );
+                      })}
+                    </div>
+
+                    <div className="mt-8 flex items-center justify-between border-t border-cf-border pt-6">
+                      <button
+                        type="button"
+                        onClick={handleBack}
+                        disabled={currentStep === 0}
+                        className="inline-flex min-h-[44px] items-center gap-2 text-sm font-bold text-cf-muted transition hover:text-cf-navy disabled:cursor-not-allowed disabled:opacity-30"
+                      >
+                        <ArrowLeft className="h-4 w-4" />
+                        Voltar
+                      </button>
+                      <span className="inline-flex items-center gap-2 text-xs text-cf-muted">
+                        Avanço automático
+                        <ArrowRight className="h-4 w-4" />
+                      </span>
+                    </div>
+                  </>
+                )}
+              </m.div>
+            </AnimatePresence>
+          </div>
         </div>
       </div>
     </section>

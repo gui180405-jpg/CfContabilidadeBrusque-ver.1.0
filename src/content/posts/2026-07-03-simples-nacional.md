@@ -1,16 +1,22 @@
 ---
 title: "Simples Nacional: quando ele realmente vale a pena?"
-slug: "simples-nacional"
-category: "Simples Nacional"
-type: "Artigo"
-date: "2026-07-03"
-readTime: "4 min de leitura"
-excerpt: "O Simples Nacional pode ser vantajoso, mas nem sempre é automaticamente a melhor opção para todos os tipos de empresa."
+slug: simples-nacional
+status: draft
+date: 2026-07-03
+author: Equipe CF Contabilidade
+category: Simples Nacional
+type: Artigo
+tags: []
+excerpt: O Simples Nacional pode ser vantajoso, mas nem sempre é automaticamente a melhor opção para todos os tipos de empresa.
 image: ""
-link: "#"
+image_alt: ""
 featured: false
-published: true
-draft: true
+readTime: 4 min de leitura
+link: "#"
+seo:
+  title: ""
+  description: ""
+redirect_from: []
 ---
 
 Texto modelo para conteúdo sobre Simples Nacional.

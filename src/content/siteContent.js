@@ -31,7 +31,7 @@ export const site = {
   // IMAGENS DO SITE.
   // Todas precisam estar dentro da pasta public/.
   heroImage: '/cf-recepcao-brasil.webp',
-  teamImage: '/EquipeCfcontabilidade.jpg',
+  teamImage: '/cf-equipe-grupo-otimizada.webp',
   receptionImage: '/cf-recepcao-brasil.webp',
   officeImage: '/cf-escritorio-vista.webp',
   chatLogo: '/cf-chat-logo.webp',
@@ -39,8 +39,24 @@ export const site = {
   // FOTO DA ROSE COM VÍDEO
   // Se quiser deixar 100% local no futuro, salve a foto em public/rose-michei.png
   // e troque o caminho abaixo para '/rose-michei.png'.
-  founderImage: '/rose-michei-nova.jpg',
-  founderVideoEmbed: 'https://www.youtube.com/embed/RNDuFxzAX9A?autoplay=1',
+  founderImage: '/fotos/rose-retrato.jpg',
+
+  // FOTOS DA NOVA SESSÃO — caminhos definitivos.
+  // Enquanto as fotos não forem colocadas em public/fotos/, cada ponto usa
+  // uma imagem atual como fallback e o layout permanece intacto.
+  photos: {
+    homeHero: '/fotos/rose-ambiente-trabalho.jpg',
+    homeTeam: '/fotos/equipe-completa.jpg',
+    homeProcess: '/fotos/equipe-trabalhando.jpg',
+    homeOffice: '/fotos/fachada.jpg', // V12: recepção com o logo (antes: equipe-reuniao, escura)
+    aboutHero: '/cf-recepcao-brasil.webp',
+    aboutTeam: '/fotos/equipena fachada.jpg', // V12: equipe uniformizada na recepção (vertical)
+    aboutInteraction: '/fotos/equipe-reuniao.jpg', // V12: reunião = troca de informações (3:2 nativo)
+    aboutRose: '/fotos/rose-retrato.jpg',
+    servicesWork: '/fotos/Emilly e rose.jpg', // V12: atendimento, vertical e nítida
+    contactFacade: '/fotos/fachada.jpg',
+  },
+  founderVideoEmbed: 'https://www.youtube-nocookie.com/embed/RNDuFxzAX9A?autoplay=1&rel=0',
 
   whatsappDefaultMessage:
     'Olá! Vim pelo site da CF Contabilidade Brusque e gostaria de conversar sobre a organização contábil da minha empresa.',

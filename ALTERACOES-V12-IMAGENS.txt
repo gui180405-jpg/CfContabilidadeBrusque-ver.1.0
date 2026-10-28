@@ -1,0 +1,132 @@
+CF CONTABILIDADE BRUSQUE — V12 AUDITORIA E REDISTRIBUIÇÃO DAS IMAGENS
+
+Base: o zip enviado (V10 + 2 fotos novas) + V11 (conversa do Contato) reaplicada.
+Textos comerciais, rotas, links, animações e funcionalidades não foram alterados.
+Nenhuma foto original foi apagada, renomeada ou sobrescrita.
+
+============================================================
+1. INVENTÁRIO — public/fotos/
+============================================================
+(dimensões em px · proporção · peso original)
+
+rose-ambiente-trabalho.jpg · 1025x1534 · 2:3 vertical · 277 KB
+  Rose no computador, janela com a cidade ao fundo. Nítida, boa luz.
+  Uso: Home/topo. Mantida. Ajuste: foco no rosto no mobile (5:4).
+
+rose-retrato.jpg · 1026x1533 · 2:3 vertical · 226 KB
+  Retrato da Rose com certificados ao fundo. Nítida, ótima para autoridade.
+  Uso: Sobre/"Conheça a contadora". Mantida (agora com WebP responsivo).
+
+equipe-completa.jpg · 1616x1080 · 3:2 horizontal · 318 KB
+  Rose conduzindo a equipe nas estações de trabalho. Nítida e clara.
+  Uso: Home/"Uma empresa feita de pessoas". Mantida.
+
+equipe-trabalhando.jpg · 1616x1080 · 3:2 horizontal · 921 KB
+  Duas colaboradoras no computador. Foco um pouco suave; arquivo pesado.
+  Antes: usada 3x (Home/método, Serviços/topo, Sobre/trabalho em equipe).
+  Agora: só Home/"Como trabalhamos" (faixa 21:9), foco ajustado.
+
+equipe-reuniao.jpg · 1616x1080 · 3:2 horizontal · 898 KB
+  Reunião na sala com TV do logo. Mais escura e suave que as demais.
+  Antes: Home/"tem endereço" e Sobre/topo (recorte vertical apertado).
+  Agora: Sobre/"Trabalho em equipe" — combina com "troca de informações,
+  conferência e conversa" e usa a proporção nativa 3:2, sem corte.
+
+fachada.jpg · 1534x1025 · 3:2 horizontal · 253 KB
+  Rose na recepção com o logo CF. Nítida.
+  Uso: Contato/"Onde estamos" (mantida) + Home/"tem endereço" (nova).
+  Repetição intencional: as duas seções falam do mesmo lugar físico.
+
+Emilly e rose.jpg · 1025x1534 · 2:3 vertical · 1081 KB   [NOVA]
+  Emilly e Rose revisando algo no computador. Nítida, iluminada, calorosa.
+  Agora: Serviços/topo (recorte vertical 4:5 quase nativo).
+
+equipena fachada.jpg · 1080x1616 · 2:3 vertical · 1289 KB   [NOVA]
+  Equipe completa uniformizada diante do logo da recepção.
+  Agora: Sobre/topo ("A CF por dentro"), recorte vertical 4:5.
+
+Outras imagens verificadas (fora de /fotos):
+- cf-diagnostico-consultivo.webp · 941x1672 · Diagnóstico. Mantida; no
+  mobile o recorte 5:4 escondia o rosto de uma das pessoas → agora quadrado.
+- cf-recepcao-brasil, cf-escritorio-vista, cf-equipe-grupo-otimizada,
+  cf-equipe-escritorio: seguem só como fallback (não aparecem se as fotos
+  principais carregarem). rose-michei-nova.jpg não é usada.
+- cf-recepcao.webp (382x510) era a imagem de compartilhamento (og:image):
+  pequena e vertical demais para WhatsApp/LinkedIn → substituída.
+
+============================================================
+2. PROBLEMAS ENCONTRADOS
+============================================================
+- equipe-trabalhando repetida em 3 seções de 3 páginas.
+- equipe-reuniao (a mais escura) no topo da página Sobre, cortada em 4:5.
+- Fotos JPG de até 1,3 MB carregadas em espaços de ~500 px.
+- Fotos novas com nomes com espaço/erro ("equipena") — originais mantidos;
+  as versões otimizadas usam nomes limpos.
+- Diagnóstico no mobile: rosto cortado/encoberto pela legenda.
+- Rodapé da conversa e outras imagens sem width/height (risco de "pulo").
+- og:image com 382x510 px.
+- Textos alternativos que não descreviam mais a foto exibida (atualizados
+  só onde a foto mudou).
+
+============================================================
+3. OTIMIZAÇÃO
+============================================================
+- scripts/otimizar_fotos.py (Python + Pillow, rodado uma vez; não entra no
+  build) gera public/fotos/otimizadas/*.webp em 640 px, 1024 px e na
+  largura original, e o manifesto src/content/responsiveImages.js.
+- PhotoImage passou a usar WebP com srcSet/sizes + width/height quando a
+  foto está no manifesto. Se algo falhar: cai para o JPG original e depois
+  para o fallback. Nenhuma dependência nova no projeto.
+- Comparação visual WebP x original: sem perda perceptível (rosto, cabelo,
+  paredes escuras sem banding).
+
+Peso das fotos baixadas (desktop 1440px):
+- Home:     ~2,4 MB → ~0,21 MB
+- Sobre:    ~2,0 MB → ~0,11 MB
+- Serviços: ~0,9 MB → ~0,04 MB
+- Contato:  ~0,25 MB → ~0,04 MB
+(no celular com tela 2x o navegador escolhe a versão 1024 px)
+
+- Nova imagem de compartilhamento: public/og-cf-contabilidade.jpg
+  (1200x630, 90 KB, a partir de fachada.jpg) + og:image:width/height/alt.
+
+============================================================
+4. ARQUIVOS ALTERADOS
+============================================================
+- src/content/siteContent.js ............ redistribuição das fotos
+- src/content/responsiveImages.js ....... NOVO (gerado)
+- src/components/common/PhotoImage.jsx .. srcSet/sizes/width/height + fallback em cadeia
+- src/components/motion/primitives.jsx .. ParallaxImage repassa `sizes`
+- src/components/common/PageHero.jsx .... `sizes` da imagem do topo
+- src/components/common/ServicesPageHero.jsx .. enquadramento + alt da foto nova
+- src/components/landing/FounderSection.jsx ... retrato via PhotoImage
+- src/pages/HomePage.jsx, AboutPage.jsx, ContactPage.jsx, DiagnosticPage.jsx
+  ..................................... enquadramentos (object-position), sizes, alts
+- index.html ............................ og:image
+- public/fotos/otimizadas/ ............... NOVO
+- public/og-cf-contabilidade.jpg ......... NOVO
+- scripts/otimizar_fotos.py .............. NOVO
+- src/pages/ContactPage.jsx .............. V11 (conversa) reaplicada
+
+============================================================
+5. LIMITAÇÕES QUE PERMANECEM
+============================================================
+- equipe-trabalhando tem foco suave e 1616 px de largura: na faixa larga da
+  Home em telas 2x fica no limite da nitidez. Uma foto horizontal mais
+  nítida resolveria.
+- equipe-reuniao continua mais escura que o resto do conjunto (não apliquei
+  filtro). Se houver outra foto de reunião, vale substituir.
+- Não há foto horizontal da equipe uniformizada completa; por isso a Home
+  mantém equipe-completa.
+- Imagens do Blog vêm do CMS e não passam pelo script.
+
+============================================================
+6. VALIDAÇÃO
+============================================================
+- npm run build OK • eslint src sem erros.
+- Todas as imagens carregam (nenhuma resposta 404) em 1440, 768 e 390 px,
+  nas rotas /, /servicos, /sobre, /contato, /diagnostico, /blog.
+- Enquadramentos conferidos por captura de cada contêiner de imagem em
+  1440 e 390 px (rostos preservados).
+- Sem rolagem horizontal em 320, 390 e 768 px.
+- Originais intactos (mesmo hash dos arquivos enviados).

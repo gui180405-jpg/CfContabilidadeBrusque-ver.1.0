@@ -1,16 +1,22 @@
 ---
-title: "Como saber se sua empresa está pagando impostos corretamente?"
-slug: "impostos-corretamente"
-category: "Impostos"
-type: "Artigo"
-date: "2026-07-03"
-readTime: "4 min de leitura"
-excerpt: "Antes de pensar em pagar menos, é preciso entender se a empresa está enquadrada corretamente, com documentos organizados e rotina fiscal em dia."
+title: Como saber se sua empresa está pagando impostos corretamente?
+slug: impostos-corretamente
+status: draft
+date: 2026-07-03
+author: Equipe CF Contabilidade
+category: Impostos
+type: Artigo
+tags: []
+excerpt: Antes de pensar em pagar menos, é preciso entender se a empresa está enquadrada corretamente, com documentos organizados e rotina fiscal em dia.
 image: ""
-link: "#"
+image_alt: ""
 featured: true
-published: true
-draft: true
+readTime: 4 min de leitura
+link: "#"
+seo:
+  title: ""
+  description: ""
+redirect_from: []
 ---
 
 Este conteúdo está preparado como modelo para o futuro painel administrativo do Blog da CF.

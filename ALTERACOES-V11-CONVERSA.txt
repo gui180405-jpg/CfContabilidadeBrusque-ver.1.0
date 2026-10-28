@@ -1,0 +1,32 @@
+CF CONTABILIDADE BRUSQUE — V11 CONVERSA DO CONTATO
+
+Arquivo alterado: src/pages/ContactPage.jsx (componente ChatPhone e
+auxiliares). O restante do site não foi tocado.
+
+VISUAL
+- Aparelho reduzido ao mínimo: moldura fina, cantos suaves, sombra quase
+  imperceptível, sem notch, sem ícone de telefone e sem barra de digitação.
+- Cabeçalho: logo da CF + nome + "online agora". Horários e "vistos" saíram.
+- Cliente: balão leve, sem borda nem sombra.
+- CF: sem balão — texto com uma linha azul à esquerda e o rótulo
+  "CF Contabilidade" na primeira resposta.
+- Rodapé: "Enviar mensagem →" como linha simples, ainda abrindo o WhatsApp.
+- Mobile: sem aparelho — vira um painel plano integrado ao fundo,
+  mais baixo e com texto maior.
+- Textos da conversa não mudaram.
+
+MOTION
+- Ao entrar na tela: aparelho surge → cliente → "digitando…" → CF responde
+  → cliente → "digitando…" → CF responde. Total de ~5 s.
+- Todas as mensagens usam o mesmo movimento (opacidade + 8px + escala 0,99).
+- O espaço das mensagens já fica reservado: nada empurra o layout.
+- Toca uma vez por entrada. Só repete se o componente sair totalmente da
+  tela e voltar. Rolar um pouco não interrompe nem reinicia.
+- Os pontinhos de digitação só existem enquanto a CF "digita".
+- prefers-reduced-motion: conversa completa, sem sequência.
+
+VALIDAÇÃO
+- npm run build OK • eslint src sem erros.
+- Sem rolagem horizontal em 320, 375 e 430px.
+- Testado: sequência completa, digitação com espaço reservado, rolagem
+  parcial sem reinício, replay após sair/voltar, movimento reduzido.
