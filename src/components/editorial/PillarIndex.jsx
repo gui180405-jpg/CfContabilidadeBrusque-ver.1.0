@@ -29,7 +29,7 @@ export default function PillarIndex({ items, tone = 'light', indicatorId = 'cf-p
       viewport={VIEWPORT}
       variants={stagger(0.12)}
       onMouseLeave={() => setActive(null)}
-      className={`grid border-t ${COLS[items.length] || 'md:grid-cols-3'} ${isDark ? 'border-white/15' : 'border-cf-border'} ${className}`}
+      className={`grid border-t ${COLS[items.length] || 'md:grid-cols-3'} ${isDark ? 'border-cf-offwhite/15' : 'border-cf-border'} ${className}`}
     >
       {items.map((item, index) => {
         const Icon = item.icon;
@@ -45,7 +45,7 @@ export default function PillarIndex({ items, tone = 'light', indicatorId = 'cf-p
             onFocus={() => setActive(index)}
             onBlur={() => setActive(null)}
             className={`relative border-b py-9 outline-none transition-opacity duration-500 ease-cf md:border-b-0 md:px-8 md:py-12 md:first:pl-0 md:[&:not(:first-child)]:border-l ${
-              isDark ? 'border-white/15' : 'border-cf-border'
+              isDark ? 'border-cf-offwhite/15' : 'border-cf-border'
             } ${dimmed ? 'md:opacity-[0.45]' : 'opacity-100'}`}
           >
             {isActive && (
@@ -60,7 +60,7 @@ export default function PillarIndex({ items, tone = 'light', indicatorId = 'cf-p
             <div className="flex items-start justify-between gap-6">
               <span
                 className={`cf-numeral text-6xl leading-none transition-colors duration-500 md:text-7xl ${
-                  isActive ? 'text-cf-blue' : isDark ? 'text-white' : 'text-cf-navy'
+                  isActive ? 'text-cf-blue' : isDark ? 'text-cf-offwhite' : 'text-cf-black'
                 }`}
               >
                 {String(index + 1).padStart(2, '0')}
@@ -73,7 +73,7 @@ export default function PillarIndex({ items, tone = 'light', indicatorId = 'cf-p
               )}
             </div>
 
-            <h3 className={`mt-10 text-2xl font-black tracking-[-0.03em] ${isDark ? 'text-white' : 'text-cf-navy'}`}>{item.title}</h3>
+            <h3 className={`mt-10 text-2xl font-black tracking-[-0.03em] ${isDark ? 'text-cf-offwhite' : 'text-cf-black'}`}>{item.title}</h3>
             <p className={`mt-3 max-w-sm leading-7 ${isDark ? 'text-cf-on-dark' : 'text-cf-muted'}`}>{item.description}</p>
           </m.li>
         );

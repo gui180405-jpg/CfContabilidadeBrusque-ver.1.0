@@ -32,7 +32,7 @@ function Statement({ text, index, isActive, onActivate }) {
       <span className={`cf-numeral pt-2 text-sm md:text-base ${isActive ? 'text-cf-blue' : 'text-cf-muted'}`}>
         {String(index + 1).padStart(2, '0')}
       </span>
-      <p className="max-w-2xl text-[1.6rem] font-semibold leading-[1.25] tracking-[-0.025em] text-cf-navy md:text-[2.25rem] md:leading-[1.2]">
+      <p className="max-w-2xl text-[1.6rem] font-semibold leading-[1.25] tracking-[-0.025em] text-cf-black md:text-[2.25rem] md:leading-[1.2]">
         {text}
       </p>
     </li>

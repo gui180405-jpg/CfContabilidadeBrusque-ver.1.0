@@ -29,14 +29,14 @@ export default function FounderSection() {
   const closeVideo = useCallback(() => setShowVideo(false), []);
 
   return (
-    <section id="sobre" className="bg-white px-5 py-16 md:px-8 md:py-32">
+    <section id="sobre" className="bg-cf-soft px-5 py-16 md:px-8 md:py-32">
       <div className="mx-auto max-w-7xl">
         <div className="grid gap-8 lg:grid-cols-12 lg:items-end lg:gap-10">
           <div className="lg:col-span-7">
             <Eyebrow>Quem está à frente</Eyebrow>
             <MaskText
               as="h2"
-              className="mt-6 cf-title-lg text-cf-navy"
+              className="mt-6 cf-title-lg text-cf-black"
               lines={['Conheça a contadora', 'por trás da CF']}
             />
           </div>
@@ -75,14 +75,14 @@ export default function FounderSection() {
               </m.div>
               <div className="absolute inset-0 bg-gradient-to-t from-cf-navy/75 via-transparent to-transparent" />
 
-              <span className="cf-label absolute right-0 top-0 bg-cf-blue px-4 py-2.5 text-white">CEO & Fundadora</span>
+              <span className="cf-label absolute right-0 top-0 bg-cf-blue px-4 py-2.5 text-cf-offwhite">CEO & Fundadora</span>
 
               <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 p-6">
                 <div>
                   <p className="cf-label text-cf-on-dark">Assistir apresentação</p>
-                  <p className="mt-1 text-lg font-extrabold text-white">Clique na foto</p>
+                  <p className="mt-1 text-lg font-extrabold text-cf-offwhite">Clique na foto</p>
                 </div>
-                <span className="flex h-14 w-14 shrink-0 items-center justify-center bg-white text-cf-navy transition-colors duration-300 group-hover:bg-cf-blue group-hover:text-white">
+                <span className="flex h-14 w-14 shrink-0 items-center justify-center bg-cf-offwhite text-cf-black transition-colors duration-300 group-hover:bg-cf-blue group-hover:text-cf-offwhite">
                   <Play className="ml-0.5 h-5 w-5" />
                 </span>
               </div>
@@ -97,11 +97,11 @@ export default function FounderSection() {
           <div className="lg:col-span-6 lg:col-start-7 lg:pt-6">
             <Stagger gap={0.12}>
               <StaggerItem as="p" className="cf-label text-cf-blue">Rose Michei</StaggerItem>
-              <StaggerItem as="h3" className="mt-5 text-3xl font-black leading-[1.08] tracking-[-0.035em] text-cf-navy md:text-[2.6rem]">
+              <StaggerItem as="h3" className="mt-5 text-3xl font-black leading-[1.08] tracking-[-0.035em] text-cf-black md:text-[2.6rem]">
                 Experiência, clareza e proximidade na rotina contábil.
               </StaggerItem>
               <StaggerItem as="p" className="mt-6 max-w-2xl text-lg leading-8 text-cf-muted">
-                Com mais de <span className="font-semibold text-cf-navy">17 anos de experiência</span> na área contábil, Rose Michei lidera a CF Contabilidade Brusque com foco em organização, orientação responsável e suporte próximo para empresas que querem crescer com segurança.
+                Com mais de <span className="font-semibold text-cf-black">17 anos de experiência</span> na área contábil, Rose Michei lidera a CF Contabilidade Brusque com foco em organização, orientação responsável e suporte próximo para empresas que querem crescer com segurança.
               </StaggerItem>
             </Stagger>
 
@@ -113,7 +113,7 @@ export default function FounderSection() {
               className="relative mt-12 grid grid-cols-[2px_1fr] gap-6"
             >
               <m.span aria-hidden="true" variants={variants.lineY} className="block origin-top bg-cf-blue" />
-              <m.p variants={variants.up} className="text-xl font-medium italic leading-9 tracking-[-0.01em] text-cf-navy md:text-2xl md:leading-10">
+              <m.p variants={variants.up} className="text-xl font-medium italic leading-9 tracking-[-0.01em] text-cf-black md:text-2xl md:leading-10">
                 “A contabilidade vai muito além dos números. Ela precisa ajudar o empresário a tomar decisões com mais clareza.”
               </m.p>
             </m.blockquote>
@@ -133,7 +133,7 @@ export default function FounderSection() {
                 >
                   <point.icon aria-hidden="true" className="mt-0.5 h-5 w-5 shrink-0 text-cf-blue transition-transform duration-500 ease-cf group-hover:-translate-y-0.5" />
                   <div>
-                    <p className="font-extrabold text-cf-navy">{point.title}</p>
+                    <p className="font-extrabold text-cf-black">{point.title}</p>
                     <p className="mt-1 text-sm text-cf-muted">{point.text}</p>
                   </div>
                 </m.li>

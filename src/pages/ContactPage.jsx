@@ -205,7 +205,7 @@ function ChatMessage({ message, shown, typing, firstFromCF }) {
   if (isClient) {
     return (
       <m.div initial="hidden" animate={shown ? 'shown' : 'hidden'} variants={MESSAGE_MOTION} className="flex justify-end">
-        <p className="max-w-[82%] rounded-2xl rounded-br-md bg-white px-4 py-2.5 sm:bg-cf-soft text-[0.875rem] leading-6 text-cf-navy">
+        <p className="max-w-[82%] rounded-2xl rounded-br-md bg-cf-soft px-4 py-2.5 text-[0.875rem] leading-6 text-cf-black">
           {message.text}
         </p>
       </m.div>
@@ -222,7 +222,7 @@ function ChatMessage({ message, shown, typing, firstFromCF }) {
         className="max-w-[88%] border-l-2 border-cf-blue pl-3.5"
       >
         {firstFromCF && <p className="cf-label mb-1.5 text-[0.625rem] text-cf-blue">CF Contabilidade</p>}
-        <p className="text-[0.875rem] font-medium leading-6 text-cf-navy">{message.text}</p>
+        <p className="text-[0.875rem] font-medium leading-6 text-cf-black">{message.text}</p>
       </m.div>
 
       <m.div
@@ -250,9 +250,9 @@ function ChatPhone() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.3 }}
         transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-        className="relative border-y border-cf-border sm:rounded-[2.25rem] sm:bg-white sm:border sm:border-cf-navy/10 sm:p-2 sm:shadow-[0_40px_80px_-48px_rgba(19,31,57,0.35)]"
+        className="relative border-y border-cf-border sm:rounded-[2.25rem] sm:bg-cf-offwhite sm:border sm:border-cf-navy/10 sm:p-2 sm:shadow-[0_40px_80px_-48px_rgb(14_32_52/0.35)]"
       >
-        <div className="sm:overflow-hidden sm:rounded-[1.75rem] sm:bg-white">
+        <div className="sm:overflow-hidden sm:rounded-[1.75rem] sm:bg-cf-offwhite">
           {/* referência mínima de aparelho (só tablet/desktop) */}
           <span aria-hidden="true" className="mx-auto mt-2 hidden h-1 w-12 rounded-full bg-cf-navy/10 sm:block" />
 
@@ -262,7 +262,7 @@ function ChatPhone() {
               <img src={site.chatLogo} alt="" className="h-5 w-5 object-contain" />
             </span>
             <div className="min-w-0">
-              <p className="truncate text-[0.8125rem] font-bold leading-tight text-cf-navy">CF Contabilidade Brusque</p>
+              <p className="truncate text-[0.8125rem] font-bold leading-tight text-cf-black">CF Contabilidade Brusque</p>
               <p className="mt-0.5 flex items-center gap-1.5 text-[0.6875rem] leading-none text-cf-muted">
                 <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-cf-blue" />
                 atendimento pelo WhatsApp
@@ -292,7 +292,7 @@ function ChatPhone() {
             href={whatsappHref}
             target="_blank"
             rel="noopener noreferrer"
-            className="group flex items-center justify-between border-t border-cf-border px-1 py-4 text-sm font-bold text-cf-navy transition-colors duration-300 hover:text-cf-blue sm:px-5"
+            className="group flex items-center justify-between border-t border-cf-border px-1 py-4 text-sm font-bold text-cf-black transition-colors duration-300 hover:text-cf-blue sm:px-5"
           >
             Enviar mensagem
             <ArrowUpRight className="h-4 w-4 transition-transform duration-300 ease-cf group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
@@ -305,14 +305,14 @@ function ChatPhone() {
 
 function ContactIndex() {
   return (
-    <section className="bg-white px-5 py-16 md:px-8 md:py-32">
+    <section className="bg-cf-soft px-5 py-16 md:px-8 md:py-32">
       <div className="mx-auto max-w-7xl">
         <div className="grid gap-12 lg:grid-cols-12 lg:gap-10">
           <div className="lg:col-span-4">
             <Eyebrow>Canais</Eyebrow>
             <MaskText
               as="h2"
-              className="mt-6 text-4xl font-black leading-[1.04] tracking-[-0.04em] text-cf-navy md:text-5xl"
+              className="mt-6 text-4xl font-black leading-[1.04] tracking-[-0.04em] text-cf-black md:text-5xl"
               lines={['Fale com a CF', 'do jeito que preferir.']}
             />
           </div>
@@ -344,7 +344,7 @@ function ContactIndex() {
                     }`}
                   >
                     <span className="cf-numeral text-sm text-cf-muted">{String(index + 1).padStart(2, '0')}</span>
-                    <h3 className="flex items-center gap-3 text-xl font-black tracking-[-0.025em] text-cf-navy md:text-2xl">
+                    <h3 className="flex items-center gap-3 text-xl font-black tracking-[-0.025em] text-cf-black md:text-2xl">
                       <Icon className="h-5 w-5 text-cf-blue transition-transform duration-500 ease-cf group-hover:-translate-y-0.5" />
                       {card.title}
                     </h3>
@@ -352,7 +352,7 @@ function ContactIndex() {
                       {card.description}
                     </p>
                     {card.href ? (
-                      <ArrowUpRight className="row-start-1 col-start-3 h-5 w-5 text-cf-navy transition-transform duration-300 ease-cf group-hover:-translate-y-0.5 group-hover:translate-x-0.5 md:col-start-4" />
+                      <ArrowUpRight className="row-start-1 col-start-3 h-5 w-5 text-cf-black transition-transform duration-300 ease-cf group-hover:-translate-y-0.5 group-hover:translate-x-0.5 md:col-start-4" />
                     ) : (
                       <span className="hidden md:block" />
                     )}
@@ -385,12 +385,12 @@ function AddressSection() {
           <Eyebrow>Onde estamos</Eyebrow>
           <MaskText
             as="h2"
-            className="mt-6 text-4xl font-black leading-[1.04] tracking-[-0.04em] text-cf-navy md:text-5xl"
+            className="mt-6 text-4xl font-black leading-[1.04] tracking-[-0.04em] text-cf-black md:text-5xl"
             lines={['Atendimento próximo também tem endereço.']}
           />
           <Stagger as="address" gap={0.1} delay={0.25} className="mt-9 border-t border-cf-border not-italic">
             {addressLines.map((line) => (
-              <StaggerItem key={line} className="border-b border-cf-border py-3.5 text-base font-semibold text-cf-navy">
+              <StaggerItem key={line} className="border-b border-cf-border py-3.5 text-base font-semibold text-cf-black">
                 {line}
               </StaggerItem>
             ))}

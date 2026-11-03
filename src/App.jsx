@@ -242,7 +242,7 @@ export default function App() {
           mainRef.current?.focus();
           mainRef.current?.scrollIntoView();
         }}
-        className="sr-only z-[200] bg-cf-navy px-5 py-3 text-sm font-bold text-white focus:not-sr-only focus:fixed focus:left-4 focus:top-4"
+        className="sr-only z-[200] bg-cf-navy px-5 py-3 text-sm font-bold text-cf-offwhite focus:not-sr-only focus:fixed focus:left-4 focus:top-4"
       >
         Pular para o conteúdo
       </a>

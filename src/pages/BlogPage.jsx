@@ -155,7 +155,7 @@ function FeaturedPost({ post }) {
           {post.type && <span className="text-cf-muted">• {post.type}</span>}
         </m.p>
 
-        <m.h2 variants={variants.up} className="mt-6 text-3xl font-black leading-[1.08] tracking-[-0.035em] text-cf-navy md:text-[2.6rem]">
+        <m.h2 variants={variants.up} className="mt-6 text-3xl font-black leading-[1.08] tracking-[-0.035em] text-cf-black md:text-[2.6rem]">
           {post.title}
         </m.h2>
 
@@ -194,7 +194,7 @@ function JourneyFilters({ selectedJourney, onSelectJourney }) {
           <Eyebrow>Conteúdos por jornada</Eyebrow>
           <MaskText
             as="h2"
-            className="mt-6 text-3xl font-black leading-[1.06] tracking-[-0.035em] text-cf-navy md:text-4xl"
+            className="mt-6 text-3xl font-black leading-[1.06] tracking-[-0.035em] text-cf-black md:text-4xl"
             lines={['Encontre conteúdos pelo momento da sua empresa.']}
           />
         </div>
@@ -202,7 +202,7 @@ function JourneyFilters({ selectedJourney, onSelectJourney }) {
         <button
           type="button"
           onClick={() => onSelectJourney('Todos')}
-          className={`cf-link shrink-0 self-start md:self-auto ${selectedJourney === 'Todos' ? 'text-cf-navy' : 'text-cf-blue hover:text-cf-blue-dark'}`}
+          className={`cf-link shrink-0 self-start md:self-auto ${selectedJourney === 'Todos' ? 'text-cf-black' : 'text-cf-blue hover:text-cf-blue-dark'}`}
         >
           Ver todos
         </button>
@@ -221,7 +221,7 @@ function JourneyFilters({ selectedJourney, onSelectJourney }) {
                   type="button"
                   onClick={() => onSelectJourney(journey.name)}
                   aria-pressed={active}
-                  className={`relative whitespace-nowrap py-3.5 text-sm font-bold transition-colors ${active ? 'text-cf-navy' : 'text-cf-muted'}`}
+                  className={`relative whitespace-nowrap py-3.5 text-sm font-bold transition-colors ${active ? 'text-cf-black' : 'text-cf-muted'}`}
                 >
                   {journey.name}
                   {active && (
@@ -260,7 +260,7 @@ function JourneyFilters({ selectedJourney, onSelectJourney }) {
               onClick={() => onSelectJourney(journey.name)}
               aria-pressed={active}
               className={`group relative border-b border-cf-border p-5 text-left transition-colors duration-300 sm:[&:nth-child(2n)]:border-l lg:[&:not(:nth-child(4n+1))]:border-l ${
-                active ? 'bg-white' : 'hover:bg-white/60'
+                active ? 'bg-cf-soft' : 'hover:bg-cf-soft/60'
               }`}
             >
               {active && (
@@ -274,7 +274,7 @@ function JourneyFilters({ selectedJourney, onSelectJourney }) {
               <span className={`cf-numeral block text-sm ${active ? 'text-cf-blue' : 'text-cf-muted'}`}>
                 {String(index + 1).padStart(2, '0')}
               </span>
-              <p className="mt-3 font-extrabold text-cf-navy">{journey.name}</p>
+              <p className="mt-3 font-extrabold text-cf-black">{journey.name}</p>
               <p className="mt-2 text-sm leading-relaxed text-cf-muted">{journey.description}</p>
             </m.button>
           );
@@ -302,7 +302,7 @@ function BlogCard({ post, index }) {
           {post.type && <span className="text-cf-muted">• {post.type}</span>}
         </p>
 
-        <h3 className="mt-2 text-lg font-black leading-snug tracking-[-0.02em] text-cf-navy sm:mt-4 sm:text-xl md:text-2xl">
+        <h3 className="mt-2 text-lg font-black leading-snug tracking-[-0.02em] text-cf-black sm:mt-4 sm:text-xl md:text-2xl">
           {post.title}
         </h3>
 
@@ -370,7 +370,7 @@ export default function BlogPage() {
               ))
             ) : (
               <div className="col-span-full border-y border-cf-border py-14 text-center">
-                <p className="text-lg font-bold text-cf-navy">
+                <p className="text-lg font-bold text-cf-black">
                   Ainda não existem conteúdos nessa jornada.
                 </p>
                 <p className="mt-2 text-cf-muted">
@@ -387,10 +387,10 @@ export default function BlogPage() {
           <Eyebrow tone="light">Precisa de orientação?</Eyebrow>
           <MaskText
             as="h2"
-            className="mt-7 max-w-4xl text-3xl font-black leading-[1.06] tracking-[-0.035em] text-white md:text-5xl"
+            className="mt-7 max-w-4xl text-3xl font-black leading-[1.06] tracking-[-0.035em] text-cf-offwhite md:text-5xl"
             lines={['Leu algum conteúdo e percebeu que sua empresa precisa de mais organização?']}
           />
-          <RevealLine className="mt-10 bg-white/20" />
+          <RevealLine className="mt-10 bg-cf-offwhite/20" />
           <div className="mt-10 grid gap-8 lg:grid-cols-12 lg:items-end">
             <p className="max-w-2xl text-lg leading-8 text-cf-on-dark lg:col-span-6">
               A CF pode analisar sua situação contábil e indicar os próximos passos com clareza.

@@ -48,7 +48,7 @@ const services = [
 
 function DiagnosticLink() {
   return (
-    <a href="/diagnostico" className="cf-link text-white hover:text-cf-on-dark">
+    <a href="/diagnostico" className="cf-link text-cf-offwhite hover:text-cf-on-dark">
       Entender minha situação
       <ArrowRight className="h-4 w-4" />
     </a>
@@ -57,7 +57,7 @@ function DiagnosticLink() {
 
 export default function ServicesSection() {
   return (
-    <section id="servicos" className="scroll-mt-20 bg-cf-navy px-5 py-16 text-white md:px-8 md:py-32">
+    <section id="servicos" className="scroll-mt-20 bg-cf-navy px-5 py-16 text-cf-offwhite md:px-8 md:py-32">
       <div className="mx-auto max-w-7xl">
         <SectionHeader
           theme="dark"
@@ -73,7 +73,7 @@ export default function ServicesSection() {
           cta={<DiagnosticLink />}
         />
 
-        <div className="mt-16 grid gap-8 border-t border-white/15 pt-10 md:mt-32 md:pt-16 lg:grid-cols-12 lg:gap-10">
+        <div className="mt-16 grid gap-8 border-t border-cf-offwhite/15 pt-10 md:mt-32 md:pt-16 lg:grid-cols-12 lg:gap-10">
           <div className="lg:col-span-4">
             <Eyebrow tone="light">Antes da urgência</Eyebrow>
           </div>
@@ -81,7 +81,7 @@ export default function ServicesSection() {
           <div className="flex flex-col items-start justify-between gap-10 lg:col-span-8">
             <MaskText
               as="p"
-              className="max-w-3xl text-[1.75rem] font-bold leading-[1.2] tracking-[-0.03em] text-white md:text-[2.5rem]"
+              className="max-w-3xl text-[1.75rem] font-bold leading-[1.2] tracking-[-0.03em] text-cf-offwhite md:text-[2.5rem]"
               lines={['Contabilidade funciona melhor quando acompanha a rotina — não apenas quando a guia vence.']}
             />
           </div>

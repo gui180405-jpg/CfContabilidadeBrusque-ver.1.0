@@ -10,7 +10,7 @@ export default {
           'blue-dark': 'rgb(var(--cf-blue-dark-rgb) / <alpha-value>)',
           black: 'rgb(var(--cf-black-rgb) / <alpha-value>)',
           background: 'rgb(var(--cf-background-rgb) / <alpha-value>)',
-          surface: 'rgb(var(--cf-surface-rgb) / <alpha-value>)',
+          offwhite: 'rgb(var(--cf-offwhite-rgb) / <alpha-value>)',
           soft: 'rgb(var(--cf-soft-rgb) / <alpha-value>)',
           text: 'rgb(var(--cf-text-rgb) / <alpha-value>)',
           muted: 'rgb(var(--cf-muted-rgb) / <alpha-value>)',
@@ -19,7 +19,7 @@ export default {
         },
       },
       boxShadow: {
-        soft: '0 24px 80px rgba(19, 31, 57, 0.14)',
+        soft: '0 24px 80px rgb(14 32 52 / 0.14)', // sombra em azul escuro
       },
       transitionTimingFunction: {
         cf: 'cubic-bezier(0.22, 1, 0.36, 1)',

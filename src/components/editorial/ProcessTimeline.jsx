@@ -22,8 +22,8 @@ export default function ProcessTimeline({ steps, tone = 'light', className = '',
   const Heading = headingAs === 'h2' ? m.h2 : m.h3;
   const isDark = tone === 'dark';
   const count = steps.length;
-  const track = isDark ? 'bg-white/15' : 'bg-cf-border';
-  const titleColor = isDark ? 'text-white' : 'text-cf-navy';
+  const track = isDark ? 'bg-cf-offwhite/15' : 'bg-cf-border';
+  const titleColor = isDark ? 'text-cf-offwhite' : 'text-cf-black';
   const textColor = isDark ? 'text-cf-on-dark' : 'text-cf-muted';
 
   return (

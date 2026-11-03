@@ -66,13 +66,13 @@ function TeamImage() {
       <m.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0, transition: { duration: 0.7, ease: EASE, delay: 1 } }}
-        className="relative -mt-16 ml-6 bg-cf-navy p-6 text-white sm:absolute sm:-bottom-10 sm:-left-10 sm:ml-0 sm:mt-0 sm:max-w-sm"
+        className="relative -mt-16 ml-6 bg-cf-navy p-6 text-cf-offwhite sm:absolute sm:-bottom-10 sm:-left-10 sm:ml-0 sm:mt-0 sm:max-w-sm"
       >
         <p className="cf-label flex items-center gap-2 text-cf-on-dark">
           <Building2 className="h-3.5 w-3.5" />
           Estrutura real
         </p>
-        <p className="mt-3 text-base font-semibold leading-7 text-white/90">
+        <p className="mt-3 text-base font-semibold leading-7 text-cf-offwhite/90">
           Atendimento próximo, ambiente organizado e equipe presente para acompanhar a rotina da sua empresa.
         </p>
       </m.div>
@@ -95,7 +95,7 @@ function CulturePoints() {
           className="flex gap-5 border-b border-cf-border py-6 md:border-b-0 md:py-8 md:pr-8 md:[&:not(:first-child)]:border-l md:[&:not(:first-child)]:pl-8"
         >
           <span className="cf-numeral pt-1 text-sm text-cf-blue">{String(index + 1).padStart(2, '0')}</span>
-          <p className="text-lg font-semibold leading-7 tracking-[-0.01em] text-cf-navy">{point}</p>
+          <p className="text-lg font-semibold leading-7 tracking-[-0.01em] text-cf-black">{point}</p>
         </m.li>
       ))}
     </m.ol>
@@ -104,7 +104,7 @@ function CulturePoints() {
 
 function InteractionSection() {
   return (
-    <section className="bg-white px-5 py-16 md:px-8 md:py-32">
+    <section className="bg-cf-soft px-5 py-16 md:px-8 md:py-32">
       <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-12 lg:items-end lg:gap-10">
         <ParallaxImage
           src={site.photos.aboutInteraction}
@@ -117,7 +117,7 @@ function InteractionSection() {
           <Eyebrow>Trabalho em equipe</Eyebrow>
           <MaskText
             as="h2"
-            className="mt-6 text-3xl font-black leading-[1.06] tracking-[-0.035em] text-cf-navy md:text-4xl"
+            className="mt-6 text-3xl font-black leading-[1.06] tracking-[-0.035em] text-cf-black md:text-4xl"
             lines={['A proximidade também aparece na forma de trabalhar.']}
           />
           <Stagger delay={0.25}>
@@ -135,7 +135,7 @@ function WorkPillarsSection() {
   const whatsappHref = `https://wa.me/${site.phoneWhats}?text=${encodeURIComponent(site.whatsappDefaultMessage)}`;
 
   return (
-    <section className="bg-cf-soft px-5 py-16 md:px-8 md:py-32">
+    <section className="bg-cf-background px-5 py-16 md:px-8 md:py-32">
       <div className="mx-auto max-w-7xl">
         <PillarIndex items={workPillars} indicatorId="cf-about-pillars" />
 
@@ -152,7 +152,7 @@ function WorkPillarsSection() {
           <div className="lg:col-span-9">
             <MaskText
               as="h2"
-              className="cf-title-lg max-w-4xl text-cf-navy"
+              className="cf-title-lg max-w-4xl text-cf-black"
               lines={['Contabilidade com presença, responsabilidade e acompanhamento.']}
             />
             <div className="mt-8 grid gap-8 md:grid-cols-[1fr_auto] md:items-end">

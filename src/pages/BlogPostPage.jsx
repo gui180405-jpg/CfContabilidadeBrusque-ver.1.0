@@ -55,7 +55,7 @@ export default function BlogPostPage({ navigate }) {
           <p className="cf-label text-cf-blue">
             Conteúdo não encontrado
           </p>
-          <h1 className="mt-5 text-4xl font-black tracking-[-0.04em] text-cf-navy">
+          <h1 className="mt-5 text-4xl font-black tracking-[-0.04em] text-cf-black">
             Esse artigo não foi encontrado.
           </h1>
           <p className="mt-4 text-cf-muted">
@@ -77,7 +77,7 @@ export default function BlogPostPage({ navigate }) {
         <div className="mx-auto max-w-4xl">
           <a
             href="/blog"
-            className="group inline-flex min-h-[44px] items-center text-sm font-bold text-cf-on-dark transition hover:text-white"
+            className="group inline-flex min-h-[44px] items-center text-sm font-bold text-cf-on-dark transition hover:text-cf-offwhite"
           >
             <ArrowLeft aria-hidden="true" className="mr-2 h-4 w-4 transition-transform duration-300 group-hover:-translate-x-1" />
             Voltar para o Blog
@@ -92,7 +92,7 @@ export default function BlogPostPage({ navigate }) {
             mount
             delay={0.1}
             lines={[post.title]}
-            className="mt-6 text-4xl font-black leading-[1.04] tracking-[-0.045em] text-white md:text-6xl"
+            className="mt-6 text-4xl font-black leading-[1.04] tracking-[-0.045em] text-cf-offwhite md:text-6xl"
           />
 
           <m.div initial="hidden" animate="visible" variants={variants.up} custom={0.5}>
@@ -100,7 +100,7 @@ export default function BlogPostPage({ navigate }) {
               {post.excerpt}
             </p>
 
-            <div className="mt-8 flex flex-wrap items-center gap-x-5 gap-y-2 border-t border-white/15 pt-5 text-sm text-cf-on-dark">
+            <div className="mt-8 flex flex-wrap items-center gap-x-5 gap-y-2 border-t border-cf-offwhite/15 pt-5 text-sm text-cf-on-dark">
               <span className="inline-flex items-center gap-1.5">
                 <CalendarDays className="h-4 w-4" />
                 {formatPostDate(post.date)}
@@ -167,7 +167,7 @@ export default function BlogPostPage({ navigate }) {
             <RevealLine className="bg-cf-navy" />
             <div className="pt-10">
               <p className="cf-label text-cf-blue">Próximo passo</p>
-              <h2 className="mt-4 text-3xl font-black leading-[1.08] tracking-[-0.035em] text-cf-navy md:text-4xl">
+              <h2 className="mt-4 text-3xl font-black leading-[1.08] tracking-[-0.035em] text-cf-black md:text-4xl">
                 Esse conteúdo fez sentido para a realidade da sua empresa?
               </h2>
               <p className="mt-4 max-w-2xl leading-7 text-cf-muted">

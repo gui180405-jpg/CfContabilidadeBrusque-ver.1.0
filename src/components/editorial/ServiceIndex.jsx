@@ -71,7 +71,7 @@ function StepFill({ progress, index, total, axis = 'x' }) {
     <m.span
       aria-hidden="true"
       style={axis === 'x' ? { scaleX: fill } : { scaleY: fill }}
-      className={`absolute inset-0 block bg-white ${axis === 'x' ? 'origin-left' : 'origin-top'}`}
+      className={`absolute inset-0 block bg-cf-offwhite ${axis === 'x' ? 'origin-left' : 'origin-top'}`}
     />
   );
 }
@@ -100,7 +100,7 @@ function ServiceDetail({ service, total, direction, size }) {
         <div className="flex items-end gap-5">
           <span
             aria-hidden="true"
-            className={`cf-numeral leading-[0.8] text-white ${
+            className={`cf-numeral leading-[0.8] text-cf-offwhite ${
               isDesktop ? 'text-[8rem] xl:text-[9.5rem]' : 'text-[4.5rem] [@media(max-height:700px)]:text-[3.5rem]'
             }`}
           >
@@ -112,7 +112,7 @@ function ServiceDetail({ service, total, direction, size }) {
         </div>
 
         <h3
-          className={`font-black tracking-[-0.035em] text-white ${
+          className={`font-black tracking-[-0.035em] text-cf-offwhite ${
             isDesktop ? 'mt-10 text-4xl leading-[1.05] xl:text-[2.75rem]' : 'mt-5 text-[1.85rem] leading-[1.05] [@media(max-height:700px)]:mt-4 [@media(max-height:700px)]:text-[1.6rem]'
           }`}
         >
@@ -130,8 +130,8 @@ function ServiceDetail({ service, total, direction, size }) {
         <ul
           className={
             isDesktop
-              ? 'mt-9 grid max-w-xl grid-cols-2 border-t border-white/15'
-              : 'mt-5 flex flex-wrap gap-x-4 gap-y-2 border-t border-white/15 pt-4'
+              ? 'mt-9 grid max-w-xl grid-cols-2 border-t border-cf-offwhite/15'
+              : 'mt-5 flex flex-wrap gap-x-4 gap-y-2 border-t border-cf-offwhite/15 pt-4'
           }
         >
           {service.items.map((item, index) => (
@@ -141,8 +141,8 @@ function ServiceDetail({ service, total, direction, size }) {
               animate={{ opacity: 1, y: 0, transition: { duration: 0.32, ease: EASE, delay: 0.06 + index * 0.03 } }}
               className={
                 isDesktop
-                  ? 'flex items-baseline gap-3 border-b border-white/15 py-3.5 pr-4 text-sm font-semibold text-white/90'
-                  : 'inline-flex items-center gap-2 text-[0.7rem] font-bold uppercase tracking-[0.1em] text-white/85'
+                  ? 'flex items-baseline gap-3 border-b border-cf-offwhite/15 py-3.5 pr-4 text-sm font-semibold text-cf-offwhite/90'
+                  : 'inline-flex items-center gap-2 text-[0.7rem] font-bold uppercase tracking-[0.1em] text-cf-offwhite/85'
               }
             >
               {isDesktop ? (
@@ -163,15 +163,15 @@ function ServiceDetail({ service, total, direction, size }) {
 function StaticList({ services, total, cta }) {
   return (
     <div>
-      <ol className="border-t border-white/15">
+      <ol className="border-t border-cf-offwhite/15">
         {services.map((service) => (
-          <li key={service.number} id={service.id} className="scroll-mt-24 border-b border-white/15 py-7">
+          <li key={service.number} id={service.id} className="scroll-mt-24 border-b border-cf-offwhite/15 py-7">
             <p className="cf-numeral text-sm text-cf-on-dark">
               {service.number}/{String(total).padStart(2, '0')}
             </p>
-            <h3 className="mt-2 text-2xl font-black tracking-[-0.03em] text-white">{service.title}</h3>
+            <h3 className="mt-2 text-2xl font-black tracking-[-0.03em] text-cf-offwhite">{service.title}</h3>
             <p className="mt-3 leading-7 text-cf-on-dark">{service.description}</p>
-            <p className="mt-3 text-xs font-bold uppercase tracking-[0.1em] text-white/80">{service.items.join(' · ')}</p>
+            <p className="mt-3 text-xs font-bold uppercase tracking-[0.1em] text-cf-offwhite/80">{service.items.join(' · ')}</p>
           </li>
         ))}
       </ol>
@@ -271,7 +271,7 @@ export default function ServiceIndex({ services, cta, className = '' }) {
           <div className="grid h-full grid-cols-12 items-center gap-10 py-10">
             <nav className="relative col-span-5 self-center" aria-label="Serviços">
               {/* trilho de progresso */}
-              <span aria-hidden="true" className="absolute bottom-0 left-0 top-0 w-px bg-white/15" />
+              <span aria-hidden="true" className="absolute bottom-0 left-0 top-0 w-px bg-cf-offwhite/15" />
               <m.span
                 aria-hidden="true"
                 style={{ scaleY: scrollYProgress }}
@@ -289,7 +289,7 @@ export default function ServiceIndex({ services, cta, className = '' }) {
                         onClick={() => scrollToStep(index)}
                         aria-current={isActive ? 'step' : undefined}
                         className={`group flex w-full items-baseline gap-5 py-3 text-left transition-colors duration-500 ease-cf ${
-                          isActive ? 'text-white' : 'text-white/50 hover:text-white/80'
+                          isActive ? 'text-cf-offwhite' : 'text-cf-offwhite/50 hover:text-cf-offwhite/80'
                         }`}
                       >
                         <span className="cf-numeral w-8 shrink-0 text-sm">{item.number}</span>
@@ -310,7 +310,7 @@ export default function ServiceIndex({ services, cta, className = '' }) {
               </ol>
             </nav>
 
-            <div className="relative col-span-7 border-l border-white/15 pl-12 xl:pl-16">
+            <div className="relative col-span-7 border-l border-cf-offwhite/15 pl-12 xl:pl-16">
               <div aria-hidden="true">
                 <ServiceDetail service={service} total={total} direction={direction} size="desktop" />
               </div>
@@ -334,12 +334,12 @@ export default function ServiceIndex({ services, cta, className = '' }) {
                         aria-label={`${item.number} — ${item.title}`}
                         className="block w-full pb-2 pt-3 text-left"
                       >
-                        <span className="relative block h-[2px] overflow-hidden bg-white/20">
+                        <span className="relative block h-[2px] overflow-hidden bg-cf-offwhite/20">
                           <StepFill progress={scrollYProgress} index={index} total={total} />
                         </span>
                         <span
                           className={`cf-numeral mt-2.5 block text-xs transition-colors duration-300 ${
-                            isActive ? 'text-white' : 'text-cf-on-dark/75'
+                            isActive ? 'text-cf-offwhite' : 'text-cf-on-dark/75'
                           }`}
                         >
                           {item.number}

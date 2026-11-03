@@ -36,13 +36,13 @@ function DiagnosticSupportSection() {
   const whatsappUrl = `https://wa.me/${site.phoneWhats}?text=${encodeURIComponent(site.whatsappDefaultMessage)}`;
 
   return (
-    <section className="bg-white px-5 py-16 md:px-8 md:py-32">
+    <section className="bg-cf-soft px-5 py-16 md:px-8 md:py-32">
       <div className="mx-auto grid max-w-7xl gap-14 lg:grid-cols-12 lg:items-center lg:gap-10">
         <div className="lg:col-span-6">
           <Eyebrow>Atendimento consultivo</Eyebrow>
           <MaskText
             as="h2"
-            className="mt-6 text-4xl font-black leading-[1.04] tracking-[-0.04em] text-cf-navy md:text-5xl"
+            className="mt-6 text-4xl font-black leading-[1.04] tracking-[-0.04em] text-cf-black md:text-5xl"
             lines={['Você não precisa chegar na conversa sem saber por onde começar.']}
           />
 
@@ -56,7 +56,7 @@ function DiagnosticSupportSection() {
               {consultivePoints.map((point, index) => (
                 <m.li key={point} variants={variants.up} className="flex gap-5 border-b border-cf-border py-5">
                   <span className="cf-numeral pt-0.5 text-sm text-cf-blue">{String(index + 1).padStart(2, '0')}</span>
-                  <p className="font-semibold leading-7 text-cf-navy">{point}</p>
+                  <p className="font-semibold leading-7 text-cf-black">{point}</p>
                 </m.li>
               ))}
             </m.ol>
@@ -89,7 +89,7 @@ function DiagnosticSupportSection() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={VIEWPORT}
             transition={{ duration: 0.6, delay: 0.6 }}
-            className="cf-label absolute bottom-0 left-0 bg-cf-navy px-5 py-3 text-white"
+            className="cf-label absolute bottom-0 left-0 bg-cf-navy px-5 py-3 text-cf-offwhite"
           >
             Orientação mais clara
           </m.p>
@@ -128,7 +128,7 @@ export default function DiagnosticPage() {
             >
               <note.icon className="mt-0.5 h-5 w-5 shrink-0 text-cf-blue" />
               <div>
-                <h2 className="font-extrabold text-cf-navy">{note.title}</h2>
+                <h2 className="font-extrabold text-cf-black">{note.title}</h2>
                 <p className="mt-1 text-sm leading-relaxed text-cf-muted">{note.text}</p>
               </div>
             </m.div>

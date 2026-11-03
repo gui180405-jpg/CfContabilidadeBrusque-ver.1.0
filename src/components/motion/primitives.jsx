@@ -120,13 +120,13 @@ export function Eyebrow({ children, tone = 'blue', className = '', mount = false
   const colors = {
     blue: 'text-cf-blue',
     light: 'text-cf-on-dark',
-    white: 'text-white', // sobre o azul CF (o cinza-claro não tem contraste suficiente ali)
+    white: 'text-cf-offwhite', // sobre o azul CF (o cinza-claro não tem contraste suficiente ali)
     muted: 'text-cf-muted',
   };
   const lineColors = {
     blue: 'bg-cf-blue',
     light: 'bg-cf-on-dark/60',
-    white: 'bg-white/70',
+    white: 'bg-cf-offwhite/70',
     muted: 'bg-cf-muted/60',
   };
   const trigger = mount ? { animate: 'visible' } : { whileInView: 'visible', viewport: VIEWPORT };

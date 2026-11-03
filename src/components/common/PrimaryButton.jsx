@@ -21,10 +21,10 @@ const base =
   'focus:outline-none focus-visible:ring-2 focus-visible:ring-cf-blue focus-visible:ring-offset-2 focus-visible:ring-offset-cf-background';
 
 const variantClasses = {
-  primary: 'border-cf-blue bg-cf-blue text-white hover:border-cf-blue-dark hover:bg-cf-blue-dark',
-  light: 'border-white bg-white text-cf-navy hover:bg-transparent hover:text-white',
+  primary: 'border-cf-blue bg-cf-blue text-cf-offwhite hover:border-cf-blue-dark hover:bg-cf-blue-dark',
+  light: 'border-cf-offwhite bg-cf-offwhite text-cf-navy hover:bg-transparent hover:text-cf-offwhite',
   outline: 'border-cf-border bg-transparent text-cf-navy hover:border-cf-navy',
-  'outline-light': 'border-white/30 bg-transparent text-white hover:border-white',
+  'outline-light': 'border-cf-offwhite/30 bg-transparent text-cf-offwhite hover:border-cf-offwhite',
 };
 
 export default function PrimaryButton({

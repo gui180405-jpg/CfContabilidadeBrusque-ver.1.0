@@ -46,8 +46,8 @@ function StatValue({ value, tone }) {
 
 export default function StatRow({ items, tone = 'light', size = 'md', mount = false, delay = 0, className = '' }) {
   const isDark = tone === 'dark';
-  const lineTrack = isDark ? 'bg-white/15' : 'bg-cf-border';
-  const lineFill = isDark ? 'bg-white/70' : 'bg-cf-navy';
+  const lineTrack = isDark ? 'bg-cf-offwhite/15' : 'bg-cf-border';
+  const lineFill = isDark ? 'bg-cf-offwhite/70' : 'bg-cf-navy';
   const trigger = mount ? { animate: 'visible' } : { whileInView: 'visible', viewport: VIEWPORT };
 
   return (
@@ -75,7 +75,7 @@ export default function StatRow({ items, tone = 'light', size = 'md', mount = fa
           <dd className={`pt-4 md:pt-5 ${lead ? 'flex items-end gap-4 sm:block' : ''}`}>
             <m.span
               variants={variants.number}
-              className={`block leading-none ${lead ? (size === 'lg' ? sizes.leadLg : sizes.lead) : sizes[size]} ${isDark ? 'text-white' : 'text-cf-navy'}`}
+              className={`block leading-none ${lead ? (size === 'lg' ? sizes.leadLg : sizes.lead) : sizes[size]} ${isDark ? 'text-cf-offwhite' : 'text-cf-black'}`}
             >
               <StatValue value={item.value} tone={tone} />
             </m.span>

@@ -24,7 +24,7 @@ export default function WhatsButton() {
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Falar com a CF Contabilidade pelo WhatsApp"
-      className="group fixed bottom-5 right-5 z-50 inline-flex items-center gap-2 rounded-full bg-cf-blue px-4 py-4 text-white shadow-soft transition-colors duration-300 hover:bg-cf-navy md:px-5"
+      className="group fixed bottom-5 right-5 z-50 inline-flex items-center gap-2 rounded-full bg-cf-blue px-4 py-4 text-cf-offwhite shadow-soft transition-colors duration-300 hover:bg-cf-navy md:px-5"
     >
       <MessageCircle aria-hidden="true" className="h-6 w-6 transition-transform duration-300 group-hover:-rotate-6" />
       <span className="hidden text-sm font-bold md:inline">Falar com contador</span>

@@ -58,7 +58,7 @@ export default function PageHero({
             mount
             delay={0.15}
             lines={lines || [title]}
-            className={`mt-6 cf-title-xl md:mt-7 ${hasAside ? 'max-w-5xl' : 'max-w-6xl'} ${isDark ? 'text-white' : 'text-cf-navy'}`}
+            className={`mt-6 cf-title-xl md:mt-7 ${hasAside ? 'max-w-5xl' : 'max-w-6xl'} ${isDark ? 'text-cf-offwhite' : 'text-cf-black'}`}
           />
 
           {hasAside ? (
@@ -76,7 +76,7 @@ export default function PageHero({
               )}
 
               {points?.length > 0 && (
-                <StaggerItem as="ul" variant="fade" className={`mt-8 flex flex-wrap gap-x-6 gap-y-3 border-t pt-5 md:mt-10 ${isDark ? 'border-white/15' : 'border-cf-border'}`}>
+                <StaggerItem as="ul" variant="fade" className={`mt-8 flex flex-wrap gap-x-6 gap-y-3 border-t pt-5 md:mt-10 ${isDark ? 'border-cf-offwhite/15' : 'border-cf-border'}`}>
                   {points.map((point) => (
                     <li key={point} className={`inline-flex items-center gap-2.5 text-sm font-semibold ${isDark ? 'text-cf-on-dark' : 'text-cf-muted'}`}>
                       <span aria-hidden="true" className="h-1.5 w-1.5 bg-cf-blue" />
@@ -92,7 +92,7 @@ export default function PageHero({
               mount
               delay={0.55}
               gap={0.08}
-              className={`mt-8 grid gap-8 border-t pt-8 md:mt-12 md:pt-10 lg:grid-cols-12 lg:gap-10 ${isDark ? 'border-white/15' : 'border-cf-border'}`}
+              className={`mt-8 grid gap-8 border-t pt-8 md:mt-12 md:pt-10 lg:grid-cols-12 lg:gap-10 ${isDark ? 'border-cf-offwhite/15' : 'border-cf-border'}`}
             >
               <div className="lg:col-span-7">
                 {description && (
@@ -114,7 +114,7 @@ export default function PageHero({
                     <li
                       key={point}
                       className={`flex items-baseline gap-4 border-b py-3 text-sm font-semibold first:pt-0 last:border-b-0 md:text-base ${
-                        isDark ? 'border-white/15 text-cf-on-dark' : 'border-cf-border text-cf-navy'
+                        isDark ? 'border-cf-offwhite/15 text-cf-on-dark' : 'border-cf-border text-cf-black'
                       }`}
                     >
                       <span className={`cf-numeral text-xs ${isDark ? 'text-cf-on-dark/75' : 'text-cf-blue'}`}>{String(index + 1).padStart(2, '0')}</span>

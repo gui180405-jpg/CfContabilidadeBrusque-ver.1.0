@@ -97,7 +97,7 @@ function HeroSection({ onPlay }) {
             mount
             keepLines
             delay={0.12}
-            className="mt-6 text-[clamp(2.3rem,11.2vw,2.75rem)] font-black leading-[0.95] tracking-[-0.05em] text-cf-navy sm:text-6xl md:mt-7 lg:text-[4.1rem] xl:text-[4.5rem]"
+            className="mt-6 text-[clamp(2.3rem,11.2vw,2.75rem)] font-black leading-[0.95] tracking-[-0.05em] text-cf-black sm:text-6xl md:mt-7 lg:text-[4.1rem] xl:text-[4.5rem]"
             lines={[
               'Empresas crescem.',
               <span key="b" className="text-cf-blue">A contabilidade precisa acompanhar.</span>,
@@ -117,7 +117,7 @@ function HeroSection({ onPlay }) {
               <PrimaryButton variant="outline" href="/sobre" className="hidden sm:inline-flex">
                 Conhecer a CF <ArrowUpRight className="h-4 w-4" />
               </PrimaryButton>
-              <a href="/sobre" className="cf-link self-start text-cf-navy sm:hidden">
+              <a href="/sobre" className="cf-link self-start text-cf-black sm:hidden">
                 Conhecer a CF <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
               </a>
             </StaggerItem>
@@ -176,7 +176,7 @@ function HeroSection({ onPlay }) {
 
             <m.span
               variants={{ hidden: { x: '-100%' }, visible: { x: 0, transition: { duration: 0.7, ease: EASE, delay: 1.1 } } }}
-              className="cf-label absolute left-0 top-0 bg-cf-blue px-5 py-3 text-white"
+              className="cf-label absolute left-0 top-0 bg-cf-blue px-5 py-3 text-cf-offwhite"
             >
               Desde 2009
             </m.span>
@@ -184,12 +184,12 @@ function HeroSection({ onPlay }) {
             <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 p-6 md:p-8">
               <m.div variants={{ hidden: { opacity: 0, y: 16 }, visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: EASE, delay: 1.2 } } }}>
                 <p className="cf-label text-cf-on-dark">CEO • CF Contabilidade Brusque</p>
-                <span className="mt-2 block text-3xl font-black tracking-[-0.03em] text-white md:text-4xl">Rose Michei</span>
+                <span className="mt-2 block text-3xl font-black tracking-[-0.03em] text-cf-offwhite md:text-4xl">Rose Michei</span>
               </m.div>
 
               <m.span
                 variants={{ hidden: { opacity: 0, scale: 0.9 }, visible: { opacity: 1, scale: 1, transition: { duration: 0.5, ease: EASE, delay: 1.35 } } }}
-                className="flex h-14 shrink-0 items-center overflow-hidden bg-white text-cf-navy"
+                className="flex h-14 shrink-0 items-center overflow-hidden bg-cf-offwhite text-cf-black"
               >
                 <span className="grid max-w-0 overflow-hidden whitespace-nowrap text-sm font-bold transition-[max-width,padding] duration-500 ease-cf group-hover:max-w-[12rem] group-hover:pl-5 group-focus-visible:max-w-[12rem] group-focus-visible:pl-5">
                   Assistir apresentação
@@ -208,14 +208,14 @@ function HeroSection({ onPlay }) {
 
 function IntroSection() {
   return (
-    <section className="bg-white px-5 py-16 md:px-8 md:py-36">
+    <section className="bg-cf-soft px-5 py-16 md:px-8 md:py-36">
       <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-12 lg:gap-10">
         <div className="lg:col-span-5">
           <div className="lg:sticky lg:top-36">
             <Eyebrow>Estrutura antes da urgência</Eyebrow>
             <MaskText
               as="h2"
-              className="mt-6 cf-title-lg text-cf-navy"
+              className="mt-6 cf-title-lg text-cf-black"
               lines={['Sua empresa cresceu.', 'Sua estrutura acompanhou?']}
             />
           </div>
@@ -230,7 +230,7 @@ function IntroSection() {
 
 function ServicesSection() {
   return (
-    <section className="bg-cf-navy px-5 py-16 text-white md:px-8 md:py-32">
+    <section className="bg-cf-navy px-5 py-16 text-cf-offwhite md:px-8 md:py-32">
       <div className="mx-auto max-w-7xl">
         <SectionHeader
           theme="dark"
@@ -244,7 +244,7 @@ function ServicesSection() {
           className="mt-10 md:mt-20"
           services={serviceLines}
           cta={
-            <a href="/servicos" className="cf-link text-white">
+            <a href="/servicos" className="cf-link text-cf-offwhite">
               Ver todos os serviços <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
             </a>
           }
@@ -312,7 +312,7 @@ function PeopleSection() {
             viewport={VIEWPORT}
             variants={variants.number}
             custom={0.3}
-            className="absolute -bottom-6 left-4 bg-cf-blue px-5 py-4 text-white md:-bottom-10 md:left-8 md:px-8 md:py-7"
+            className="absolute -bottom-6 left-4 bg-cf-blue px-5 py-4 text-cf-offwhite md:-bottom-10 md:left-8 md:px-8 md:py-7"
           >
             <strong className="cf-numeral block text-4xl leading-none md:text-6xl">
               <CountUp value="17" />
@@ -326,7 +326,7 @@ function PeopleSection() {
           <Eyebrow>Uma empresa feita de pessoas</Eyebrow>
           <MaskText
             as="h2"
-            className="mt-6 text-4xl font-black leading-[1.04] tracking-[-0.04em] text-cf-navy md:text-5xl"
+            className="mt-6 text-4xl font-black leading-[1.04] tracking-[-0.04em] text-cf-black md:text-5xl"
             lines={['Contabilidade também é uma relação de confiança.']}
           />
 
@@ -338,7 +338,7 @@ function PeopleSection() {
             <StaggerItem className="mt-10 flex items-stretch gap-5">
               <RevealLine axis="y" className="bg-cf-blue" delay={0.4} />
               <div>
-                <p className="text-lg font-bold text-cf-navy">Rose Michei</p>
+                <p className="text-lg font-bold text-cf-black">Rose Michei</p>
                 <p className="mt-1 text-sm text-cf-muted">CEO — CF Contabilidade Brusque</p>
               </div>
             </StaggerItem>
@@ -357,18 +357,18 @@ function PeopleSection() {
 
 function DiagnosticCta() {
   return (
-    <section className="cf-defer bg-cf-blue px-5 py-16 text-white md:px-8 md:py-32">
+    <section className="cf-defer bg-cf-blue px-5 py-16 text-cf-offwhite md:px-8 md:py-32">
       <div className="mx-auto max-w-7xl">
         <Eyebrow tone="white">4 perguntas • menos de 2 minutos</Eyebrow>
         <MaskText
           as="h2"
-          className="mt-7 max-w-5xl cf-title-xl text-white"
+          className="mt-7 max-w-5xl cf-title-xl text-cf-offwhite"
           lines={['Como está a contabilidade', 'da sua empresa hoje?']}
         />
 
-        <div className="mt-12 grid gap-10 border-t border-white/25 pt-10 lg:grid-cols-12 lg:items-end">
+        <div className="mt-12 grid gap-10 border-t border-cf-offwhite/25 pt-10 lg:grid-cols-12 lg:items-end">
           <Reveal className="lg:col-span-6">
-            <p className="max-w-2xl text-lg leading-8 text-white/85">
+            <p className="max-w-2xl text-lg leading-8 text-cf-offwhite/85">
               Conte um pouco do seu momento. A ideia é iniciar a conversa com contexto, sem formulário interminável e sem promessa pronta.
             </p>
           </Reveal>
@@ -406,13 +406,13 @@ function LocationSection({ whatsappHref }) {
           </Eyebrow>
           <MaskText
             as="h2"
-            className="mt-6 text-4xl font-black leading-[1.04] tracking-[-0.04em] text-cf-navy md:text-5xl"
+            className="mt-6 text-4xl font-black leading-[1.04] tracking-[-0.04em] text-cf-black md:text-5xl"
             lines={['Contabilidade próxima também tem endereço.']}
           />
 
           <Stagger as="address" gap={0.1} delay={0.25} className="mt-9 border-t border-cf-border not-italic">
             {addressLines.map((line) => (
-              <StaggerItem key={line} className="border-b border-cf-border py-3.5 text-base font-semibold text-cf-navy">
+              <StaggerItem key={line} className="border-b border-cf-border py-3.5 text-base font-semibold text-cf-black">
                 {line}
               </StaggerItem>
             ))}

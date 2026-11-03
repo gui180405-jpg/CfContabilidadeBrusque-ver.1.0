@@ -52,7 +52,7 @@ export default function FAQSection() {
                   <span className={`cf-numeral text-sm ${isOpen ? 'text-cf-blue' : 'text-cf-muted'}`}>
                     {String(index + 1).padStart(2, '0')}
                   </span>
-                  <span className="text-lg font-bold leading-snug tracking-[-0.015em] text-cf-navy md:text-xl">{item.question}</span>
+                  <span className="text-lg font-bold leading-snug tracking-[-0.015em] text-cf-black md:text-xl">{item.question}</span>
                   <Plus
                     aria-hidden="true"
                     className={`h-5 w-5 self-center text-cf-blue transition-transform duration-500 ease-cf ${isOpen ? 'rotate-45' : 'group-hover:rotate-90'}`}

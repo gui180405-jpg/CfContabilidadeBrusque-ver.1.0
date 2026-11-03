@@ -85,7 +85,7 @@ function renderInline(text, keyPrefix = 'i') {
       );
     } else if (token.startsWith('**') || token.startsWith('__')) {
       parts.push(
-        <strong key={key} className="font-extrabold text-cf-navy">
+        <strong key={key} className="font-extrabold text-cf-black">
           {renderInline(restore(token.slice(2, -2)), key)}
         </strong>,
       );
@@ -225,20 +225,20 @@ export default function ArticleContent({ content }) {
       case 'heading': {
         if (block.level === 2) {
           return (
-            <h2 key={key} className="mt-14 text-3xl font-black leading-tight tracking-[-0.03em] text-cf-navy first:mt-0">
+            <h2 key={key} className="mt-14 text-3xl font-black leading-tight tracking-[-0.03em] text-cf-black first:mt-0">
               {renderInline(block.text, key)}
             </h2>
           );
         }
         if (block.level === 3) {
           return (
-            <h3 key={key} className="mt-12 text-2xl font-black tracking-[-0.025em] text-cf-navy">
+            <h3 key={key} className="mt-12 text-2xl font-black tracking-[-0.025em] text-cf-black">
               {renderInline(block.text, key)}
             </h3>
           );
         }
         return (
-          <h4 key={key} className="mt-10 text-xl font-extrabold tracking-[-0.02em] text-cf-navy">
+          <h4 key={key} className="mt-10 text-xl font-extrabold tracking-[-0.02em] text-cf-black">
             {renderInline(block.text, key)}
           </h4>
         );
@@ -247,7 +247,7 @@ export default function ArticleContent({ content }) {
         return <hr key={key} className="my-12 border-cf-border" />;
       case 'quote':
         return (
-          <blockquote key={key} className="my-10 border-l-2 border-cf-blue pl-6 text-xl font-semibold leading-8 tracking-[-0.01em] text-cf-navy">
+          <blockquote key={key} className="my-10 border-l-2 border-cf-blue pl-6 text-xl font-semibold leading-8 tracking-[-0.01em] text-cf-black">
             {renderParagraphLines(block.lines, key)}
           </blockquote>
         );

@@ -27,7 +27,7 @@ export default function NotFoundPage() {
         <ul className="mx-auto grid max-w-7xl border-t border-cf-border sm:grid-cols-2 lg:grid-cols-3">
           {navItems.map((item) => (
             <li key={item.href} className="border-b border-cf-border">
-              <a href={item.href} className="flex min-h-[56px] items-center justify-between py-4 pr-4 font-bold text-cf-navy hover:text-cf-blue">
+              <a href={item.href} className="flex min-h-[56px] items-center justify-between py-4 pr-4 font-bold text-cf-black hover:text-cf-blue">
                 {item.label}
                 <ArrowRight aria-hidden="true" className="h-4 w-4" />
               </a>

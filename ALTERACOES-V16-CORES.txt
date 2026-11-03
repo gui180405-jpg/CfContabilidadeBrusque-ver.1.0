@@ -1,0 +1,40 @@
+V16 — PADRONIZAÇÃO DA PALETA DE CORES
+=====================================
+
+PALETA OFICIAL (valores não alterados)
+- Azul escuro  #0E2034  (antes o site usava #131F39)
+- Azul CF      #194BAC  (antes o site usava #005F93)
+- Preto        #000000
+- Off-white    #F5F4F1
+
+ONDE AS CORES FICAM
+- src/index.css: --color-primary, --color-accent, --color-black, --color-off-white
+  + papéis usados pelos componentes (--cf-navy, --cf-blue, --cf-text…), todos apontando
+  para a paleta. Tailwind (tailwind.config.js) lê só essas variáveis.
+- Tons derivados (misturas da paleta, documentados no topo do index.css):
+  #16408E hover do azul CF · #ECEAE5 off-white −1 · #5D5D5C texto de apoio ·
+  #DCDCD9 linhas · #C2C5C7 texto claro sobre azul escuro.
+
+INCONSISTÊNCIAS ENCONTRADAS E CORRIGIDAS
+- Azul escuro e azul CF antigos (#131F39, #005F93, #004A73) em tokens, sombras,
+  seleção de texto, theme-color, painel do blog e página de login do painel.
+- Cinza #6B7280 / #636977 (fora da paleta) → texto de apoio derivado do preto (#5D5D5C).
+- Branco puro #FFFFFF: 5 fundos de seção, 8 superfícies (caixa do diagnóstico, moldura do
+  "celular", botão claro, botão do menu…) e ~80 textos/linhas sobre fundo escuro → off-white.
+  Seções brancas viraram #ECEAE5 para manter a alternância claro/escuro.
+- Títulos e textos sobre fundo claro estavam em azul escuro → preto (regra editorial).
+  Azul escuro continua na navegação, botões de contorno, botão "Analisar empresa",
+  header/rodapé e blocos institucionais.
+- Bordas #DDDAD3 e texto sobre escuro #C4C8D0 recalculados a partir da nova paleta.
+- CSS legado sem uso removido (.cf-depth-card, .cf-shine, .cf-subtle-grid).
+
+PÁGINA SOBRE: alternância de fundos ajustada (off-white → #ECEAE5 → off-white → #ECEAE5)
+para não ficarem duas seções iguais seguidas.
+
+NÃO HÁ cores de feedback (sucesso/erro) no site: não existe formulário com validação.
+
+REVISÃO MANUAL
+- Imagens com cor própria não foram recoloridas:
+  logo-cf-azul.png (#043262), favicon/apple-touch-icon/cf-chat-logo (#1C2534),
+  og-cf-contabilidade.jpg. Na foto da recepção, o logo da parede aparece em um azul
+  próximo do #194BAC — confirmar com o manual da marca qual azul o logo usa.

@@ -17,11 +17,11 @@ export default function CTASection() {
 
         <MaskText
           as="h2"
-          className="mt-7 max-w-5xl cf-title-lg text-white"
+          className="mt-7 max-w-5xl cf-title-lg text-cf-offwhite"
           lines={['Vamos entender a situação', 'contábil da sua empresa?']}
         />
 
-        <RevealLine className="mt-12 bg-white/20" delay={0.2} />
+        <RevealLine className="mt-12 bg-cf-offwhite/20" delay={0.2} />
 
         <div className="mt-10 grid gap-10 lg:grid-cols-12 lg:items-end">
           <Reveal delay={0.3} className="lg:col-span-6">

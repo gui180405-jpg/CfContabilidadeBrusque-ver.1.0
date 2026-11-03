@@ -105,7 +105,7 @@ export default function Header({ currentPath }) {
 
         <a
           href="/diagnostico"
-          className="group hidden items-center gap-2 border border-cf-navy bg-cf-navy px-4 py-3 text-sm font-bold text-white transition-colors duration-300 hover:border-cf-blue hover:bg-cf-blue lg:inline-flex"
+          className="group hidden items-center gap-2 border border-cf-navy bg-cf-navy px-4 py-3 text-sm font-bold text-cf-offwhite transition-colors duration-300 hover:border-cf-blue hover:bg-cf-blue lg:inline-flex"
         >
           Analisar empresa
           <ArrowRight aria-hidden="true" className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
@@ -115,7 +115,7 @@ export default function Header({ currentPath }) {
           ref={menuButtonRef}
           type="button"
           onClick={() => setIsOpen((value) => !value)}
-          className="border border-cf-border bg-white p-2.5 text-cf-navy lg:hidden"
+          className="border border-cf-border bg-cf-background p-2.5 text-cf-navy lg:hidden"
           aria-label={isOpen ? 'Fechar menu' : 'Abrir menu'}
           aria-expanded={isOpen}
           aria-controls="cf-mobile-menu"
@@ -160,7 +160,7 @@ export default function Header({ currentPath }) {
                 variants={variants.up}
                 href="/diagnostico"
                 onClick={closeMenu}
-                className="mt-6 inline-flex items-center justify-center gap-2 bg-cf-blue px-5 py-4 font-bold text-white"
+                className="mt-6 inline-flex items-center justify-center gap-2 bg-cf-blue px-5 py-4 font-bold text-cf-offwhite"
               >
                 Analisar empresa
                 <ArrowRight aria-hidden="true" className="h-4 w-4" />

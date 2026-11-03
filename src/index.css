@@ -4,20 +4,23 @@
 
 /*
 ============================================================
-CF CONTABILIDADE — TOKENS DA IDENTIDADE
+CF CONTABILIDADE — TOKENS DE COR (fonte única)
 ============================================================
-Paleta oficial:
-- Navy       #131F39
-- Azul CF    #005F93
-- Preto      #000000
-- Off-white  #F5F4F1
-- Cinza      #6B7280 (texto usa #636977, o mesmo cinza um tom abaixo,
-               para atingir contraste AA sobre os fundos claros)
-- Branco     #FFFFFF
+Paleta oficial (não alterar os HEX):
+- Azul escuro  #0E2034  estrutura: header, rodapé, blocos institucionais, navegação
+- Azul CF      #194BAC  destaque: links, botões principais, indicadores ativos
+- Preto        #000000  títulos, textos e números sobre fundo claro
+- Off-white    #F5F4F1  base das páginas, leitura e textos sobre fundo escuro
 
-As demais variáveis são derivadas dessa paleta (tons do próprio
-navy/azul/off-white) e existem só para hover, bordas e texto
-sobre fundo escuro. Toda classe cf-* do Tailwind lê daqui.
+Tons DERIVADOS (não são cores novas — são misturas das quatro acima,
+usadas só onde a cor pura não funciona):
+- azul CF hover   #16408E = 75% azul CF + 25% azul escuro
+- off-white -1    #ECEAE5 = off-white um tom abaixo (alternar seções)
+- texto apoio     #5D5D5C = preto 62% sobre off-white (contraste 6,0:1 / 5,5:1 no #ECEAE5)
+- linha/borda     #DCDCD9 = preto 10% sobre off-white
+- texto s/ escuro #C2C5C7 = off-white 78% sobre azul escuro (9,5:1 no azul escuro, 4,6:1 no azul CF)
+
+Branco puro (#FFFFFF) não é usado. Toda classe cf-* do Tailwind lê daqui.
 ============================================================
 */
 
@@ -29,31 +32,37 @@ sobre fundo escuro. Toda classe cf-* do Tailwind lê daqui.
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
 
-  --cf-navy: #131F39;
-  --cf-blue: #005F93;
-  --cf-blue-dark: #004A73; /* azul CF escurecido — só hover */
-  --cf-black: #000000;
-  --cf-background: #F5F4F1; /* off-white */
-  --cf-surface: #FFFFFF;
-  --cf-soft: #ECEAE5; /* off-white um tom abaixo, para alternar seções */
-  --cf-text: #131F39; /* texto corrido em navy */
-  --cf-text-muted: #636977; /* cinza oficial #6B7280 levemente escurecido para texto:
-                               garante contraste AA (4,5:1) sobre off-white e #ECEAE5 */
-  --cf-border: #DDDAD3; /* linha editorial sobre off-white */
-  --cf-on-dark: #C4C8D0; /* branco a ~75% sobre navy */
+  /* Paleta oficial */
+  --color-primary: #0E2034; /* azul escuro */
+  --color-accent: #194BAC; /* azul CF */
+  --color-black: #000000;
+  --color-off-white: #F5F4F1;
+
+  /* Papéis usados pelos componentes (apontam para a paleta) */
+  --cf-navy: var(--color-primary);
+  --cf-blue: var(--color-accent);
+  --cf-blue-dark: #16408E; /* derivado — só hover/clique de botões azuis */
+  --cf-black: var(--color-black);
+  --cf-background: var(--color-off-white);
+  --cf-offwhite: var(--color-off-white);
+  --cf-soft: #ECEAE5; /* derivado */
+  --cf-text: var(--color-black);
+  --cf-text-muted: #5D5D5C; /* derivado */
+  --cf-border: #DCDCD9; /* derivado */
+  --cf-on-dark: #C2C5C7; /* derivado */
 
   /* Canais RGB para utilitários Tailwind com opacidade (ex.: bg-cf-blue/10). */
-  --cf-navy-rgb: 19 31 57;
-  --cf-blue-rgb: 0 95 147;
-  --cf-blue-dark-rgb: 0 74 115;
+  --cf-navy-rgb: 14 32 52;
+  --cf-blue-rgb: 25 75 172;
+  --cf-blue-dark-rgb: 22 64 142;
   --cf-black-rgb: 0 0 0;
   --cf-background-rgb: 245 244 241;
-  --cf-surface-rgb: 255 255 255;
+  --cf-offwhite-rgb: 245 244 241;
   --cf-soft-rgb: 236 234 229;
-  --cf-text-rgb: 19 31 57;
-  --cf-muted-rgb: 99 105 119;
-  --cf-border-rgb: 221 218 211;
-  --cf-on-dark-rgb: 196 200 208;
+  --cf-text-rgb: 0 0 0;
+  --cf-muted-rgb: 93 93 92;
+  --cf-border-rgb: 220 220 217;
+  --cf-on-dark-rgb: 194 197 199;
 
   /* Ritmo de movimento compartilhado com src/components/motion/motionConfig.js */
   --cf-ease: cubic-bezier(0.22, 1, 0.36, 1);
@@ -82,7 +91,7 @@ button {
 }
 
 ::selection {
-  background: rgba(0, 95, 147, 0.18);
+  background: rgb(var(--cf-blue-rgb) / 0.18);
 }
 
 :focus-visible {
@@ -94,7 +103,7 @@ button {
 .bg-cf-navy :focus-visible,
 .bg-cf-blue :focus-visible,
 .cf-on-dark-focus :focus-visible {
-  outline-color: #fff;
+  outline-color: var(--cf-offwhite);
 }
 
 /* ------------------------------------------------------------
@@ -169,29 +178,6 @@ button {
   .cf-link:focus-visible::after {
     transform: scaleX(1);
   }
-}
-
-/* Mantidos porque páginas antigas ainda utilizam estas classes. */
-.cf-depth-card {
-  position: relative;
-  overflow: hidden;
-}
-
-.cf-depth-card > * {
-  position: relative;
-  z-index: 1;
-}
-
-.cf-shine {
-  position: relative;
-  overflow: hidden;
-}
-
-.cf-subtle-grid {
-  background-image:
-    linear-gradient(rgba(19, 31, 57, 0.045) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(19, 31, 57, 0.045) 1px, transparent 1px);
-  background-size: 42px 42px;
 }
 
 @media (prefers-reduced-motion: reduce) {

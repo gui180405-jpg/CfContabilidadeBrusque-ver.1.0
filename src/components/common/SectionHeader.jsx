@@ -31,7 +31,7 @@ export default function SectionHeader({
   children,
 }) {
   const isDark = theme === 'dark';
-  const titleColor = isDark ? 'text-white' : 'text-cf-navy';
+  const titleColor = isDark ? 'text-cf-offwhite' : 'text-cf-black';
   const textColor = isDark ? 'text-cf-on-dark' : 'text-cf-muted';
   const centered = align === 'center' && layout === 'stack';
 

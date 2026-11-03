@@ -7,7 +7,7 @@ export default function Footer() {
   return (
     <footer className="bg-cf-navy px-5 pb-10 pt-16 md:px-8 md:pt-24">
       <div className="mx-auto max-w-7xl">
-        <RevealLine className="bg-white/20" />
+        <RevealLine className="bg-cf-offwhite/20" />
 
         <div className="grid gap-12 pt-12 md:grid-cols-12 md:gap-8 md:pt-16">
           <div className="md:col-span-5">
@@ -20,12 +20,12 @@ export default function Footer() {
 
           <nav className="md:col-span-3" aria-label="Rodapé">
             <h2 className="cf-label mb-5 text-cf-on-dark">Navegação</h2>
-            <ul className="border-t border-white/10">
+            <ul className="border-t border-cf-offwhite/10">
               {navItems.map((item) => (
-                <li key={item.href} className="border-b border-white/10">
+                <li key={item.href} className="border-b border-cf-offwhite/10">
                   <a
                     href={item.href}
-                    className="group flex min-h-[44px] items-center justify-between py-2.5 text-sm font-semibold text-cf-on-dark transition-colors hover:text-white"
+                    className="group flex min-h-[44px] items-center justify-between py-2.5 text-sm font-semibold text-cf-on-dark transition-colors hover:text-cf-offwhite"
                   >
                     {item.label}
                     <ArrowUpRight
@@ -41,11 +41,11 @@ export default function Footer() {
           <div className="md:col-span-4">
             <h2 className="cf-label mb-5 text-cf-on-dark">Contato</h2>
             <div className="space-y-5 text-sm text-cf-on-dark">
-              <a href={`tel:+${site.phoneWhats}`} className="flex items-center gap-3 text-2xl font-black tracking-[-0.03em] text-white transition-colors hover:text-cf-on-dark">
+              <a href={`tel:+${site.phoneWhats}`} className="flex items-center gap-3 text-2xl font-black tracking-[-0.03em] text-cf-offwhite transition-colors hover:text-cf-on-dark">
                 <Phone aria-hidden="true" className="h-4 w-4 text-cf-on-dark" />
                 {site.phoneHuman}
               </a>
-              <a href={`mailto:${site.email}`} className="flex min-h-[44px] items-center gap-3 break-all transition-colors hover:text-white">
+              <a href={`mailto:${site.email}`} className="flex min-h-[44px] items-center gap-3 break-all transition-colors hover:text-cf-offwhite">
                 <Mail aria-hidden="true" className="h-4 w-4 shrink-0 text-cf-on-dark" />
                 {site.email}
               </a>
@@ -57,7 +57,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-14 flex flex-col gap-4 border-t border-white/10 pt-6 text-xs text-cf-on-dark/70 md:flex-row md:items-center md:justify-between">
+        <div className="mt-14 flex flex-col gap-4 border-t border-cf-offwhite/10 pt-6 text-xs text-cf-on-dark/70 md:flex-row md:items-center md:justify-between">
           <p>© {new Date().getFullYear()} {site.companyName}. Todos os direitos reservados.</p>
           <p>Serviços: {services.slice(0, 3).map((service) => service.title).join(' • ')}</p>
         </div>

@@ -101,10 +101,10 @@ export default function QuizSection() {
           </p>
         </div>
 
-        <div className="border-y border-cf-border md:border md:bg-white">
+        <div className="border-y border-cf-border md:border md:bg-cf-soft">
           {/* cabeçalho: etapa + progresso */}
           <div className="flex items-end justify-between gap-4 pt-6 md:px-10 md:pt-9">
-            <p className="flex items-baseline gap-2 text-cf-navy">
+            <p className="flex items-baseline gap-2 text-cf-black">
               <span className="cf-numeral text-4xl leading-none md:text-5xl">
                 {finished ? '04' : String(currentStep + 1).padStart(2, '0')}
               </span>
@@ -136,7 +136,7 @@ export default function QuizSection() {
                 {finished ? (
                   <div className="text-center">
                     <CheckCircle2 className="mx-auto mb-6 h-12 w-12 text-cf-blue" strokeWidth={1.5} />
-                    <h3 ref={headingRef} tabIndex={-1} className="text-3xl font-black tracking-[-0.035em] text-cf-navy outline-none md:text-4xl">
+                    <h3 ref={headingRef} tabIndex={-1} className="text-3xl font-black tracking-[-0.035em] text-cf-black outline-none md:text-4xl">
                       Pronto, seu contexto foi organizado.
                     </h3>
                     <p className="mx-auto mt-4 max-w-2xl leading-7 text-cf-muted">
@@ -150,7 +150,7 @@ export default function QuizSection() {
                       <button
                         type="button"
                         onClick={handleBack}
-                        className="cf-link text-cf-muted hover:text-cf-navy"
+                        className="cf-link text-cf-muted hover:text-cf-black"
                       >
                         Voltar uma etapa
                       </button>
@@ -167,7 +167,7 @@ export default function QuizSection() {
                       <h3
                         ref={headingRef}
                         tabIndex={-1}
-                        className="text-[1.6rem] font-black leading-tight tracking-[-0.03em] text-cf-navy outline-none md:text-[2rem]"
+                        className="text-[1.6rem] font-black leading-tight tracking-[-0.03em] text-cf-black outline-none md:text-[2rem]"
                       >
                         <span className="sr-only">{`Pergunta ${currentStep + 1} de ${questions.length}: `}</span>
                         {question.question}
@@ -187,23 +187,23 @@ export default function QuizSection() {
                             initial={{ opacity: 0, y: 10 }}
                             animate={{ opacity: 1, y: 0, transition: { duration: 0.35, ease: EASE, delay: 0.05 + index * 0.04 } }}
                             className={`group flex min-h-[60px] items-center gap-4 border-b py-3.5 text-left transition-colors duration-300 md:border md:p-5 ${
-                              selected ? 'border-cf-blue md:bg-cf-blue/5' : 'border-cf-border md:bg-white md:hover:border-cf-navy'
+                              selected ? 'border-cf-blue md:bg-cf-blue/5' : 'border-cf-border md:bg-cf-offwhite md:hover:border-cf-navy'
                             }`}
                           >
                             <span
                               className={`flex h-9 w-9 shrink-0 items-center justify-center border text-xs font-bold transition-colors duration-300 ${
                                 selected
-                                  ? 'border-cf-blue bg-cf-blue text-white'
-                                  : 'border-cf-border text-cf-muted group-hover:border-cf-navy group-hover:bg-cf-navy group-hover:text-white'
+                                  ? 'border-cf-blue bg-cf-blue text-cf-offwhite'
+                                  : 'border-cf-border text-cf-muted group-hover:border-cf-navy group-hover:bg-cf-navy group-hover:text-cf-offwhite'
                               }`}
                             >
                               {String.fromCharCode(65 + index)}
                             </span>
                             <span className="flex-1">
-                              <span className="block text-sm font-bold text-cf-navy md:text-base">{option}</span>
+                              <span className="block text-sm font-bold text-cf-black md:text-base">{option}</span>
                               <span aria-hidden="true" className="mt-0.5 hidden text-xs text-cf-muted md:block">Clique para avançar</span>
                             </span>
-                            <ArrowRight className="h-4 w-4 shrink-0 -translate-x-1 text-cf-navy opacity-0 transition duration-300 group-hover:translate-x-0 group-hover:opacity-100" />
+                            <ArrowRight className="h-4 w-4 shrink-0 -translate-x-1 text-cf-black opacity-0 transition duration-300 group-hover:translate-x-0 group-hover:opacity-100" />
                           </m.button>
                         );
                       })}
@@ -214,7 +214,7 @@ export default function QuizSection() {
                         type="button"
                         onClick={handleBack}
                         disabled={currentStep === 0}
-                        className="inline-flex min-h-[44px] items-center gap-2 text-sm font-bold text-cf-muted transition hover:text-cf-navy disabled:cursor-not-allowed disabled:opacity-30"
+                        className="inline-flex min-h-[44px] items-center gap-2 text-sm font-bold text-cf-muted transition hover:text-cf-black disabled:cursor-not-allowed disabled:opacity-30"
                       >
                         <ArrowLeft className="h-4 w-4" />
                         Voltar

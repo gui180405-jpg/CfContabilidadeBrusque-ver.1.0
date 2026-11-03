@@ -83,7 +83,7 @@ export default function VideoDialog({ open, onClose, title = 'Apresentação da 
               ref={closeRef}
               type="button"
               onClick={onClose}
-              className="absolute right-3 top-3 z-10 flex h-11 w-11 items-center justify-center bg-cf-navy/80 text-white"
+              className="absolute right-3 top-3 z-10 flex h-11 w-11 items-center justify-center bg-cf-navy/80 text-cf-offwhite"
               aria-label="Fechar vídeo"
             >
               <X aria-hidden="true" className="h-5 w-5" />

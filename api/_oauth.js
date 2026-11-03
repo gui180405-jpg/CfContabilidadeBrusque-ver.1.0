@@ -98,9 +98,9 @@ export function renderResult(res, status, content) {
 <meta name="robots" content="noindex" />
 <title>${ok ? 'Login autorizado' : 'Não foi possível entrar'} | CF Contabilidade</title>
 <style>
-  body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;font-family:system-ui,sans-serif;background:#F5F4F1;color:#131F39}
-  main{max-width:520px;padding:32px;border-top:2px solid #005F93;background:#fff}
-  h1{margin:0 0 12px;font-size:22px} p{margin:0;color:#636977;line-height:1.6} code{color:#005F93}
+  body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;font-family:system-ui,sans-serif;background:#F5F4F1;color:#000000}
+  main{max-width:520px;padding:32px;border-top:2px solid #194BAC;background:#ECEAE5}
+  h1{margin:0 0 12px;font-size:22px} h1{color:#0E2034} p{margin:0;color:#5D5D5C;line-height:1.6} code{color:#194BAC}
 </style>
 </head>
 <body>
