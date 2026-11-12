@@ -1,0 +1,44 @@
+V18 — MEDIÇÃO PARA GOOGLE ADS (Google Tag Manager)
+==================================================
+
+O que mudou
+-----------
+1. src/lib/analytics.js (NOVO)
+   - Carrega o Google Tag Manager só quando site.gtmId estiver preenchido.
+   - Envia para o GTM os eventos: whatsapp_click, phone_click, email_click e diagnostico_concluido.
+   - Cada evento leva link_location (área do botão: diagnostico, rodape, botao-flutuante...) e page_path.
+   - Nenhuma resposta do diagnóstico nem dado pessoal é enviado.
+
+2. src/content/siteContent.js
+   - Novo campo gtmId: '' (vazio). Cole o ID do contêiner no formato 'GTM-XXXXXXX'.
+
+3. src/main.jsx
+   - Chama initAnalytics() ao abrir o site.
+
+4. src/components/landing/QuizSection.jsx
+   - Ao terminar as 4 perguntas, envia o evento diagnostico_concluido (sem as respostas).
+
+5. src/components/WhatsButton.jsx
+   - Botão flutuante identificado como "botao-flutuante" nos relatórios.
+
+6. vercel.json (Content-Security-Policy das páginas do site)
+   - Libera os domínios do Google Tag Manager, Google Analytics 4 e Google Ads
+     (lista da documentação oficial "Use Tag Manager with a Content Security Policy"),
+     incluindo o modo de visualização do Tag Manager.
+   - A área /admin não foi alterada.
+
+Como ativar
+-----------
+1. Crie o contêiner no Tag Manager e copie o ID (GTM-XXXXXXX).
+2. Cole em src/content/siteContent.js → gtmId: 'GTM-XXXXXXX'.
+3. Publique o site pela Vercel como de costume.
+4. Siga o manual de Google Ads (capítulo de medição) para criar as tags no GTM.
+
+Cuidados
+--------
+- Não use tags "HTML personalizado" nem variáveis "JavaScript personalizado" no GTM:
+  a CSP do site bloqueia scripts inline e eval por segurança.
+- Enquanto gtmId estiver vazio, o site funciona exatamente como antes.
+
+Testado: npm run build sem erros; eventos conferidos no navegador (clique no WhatsApp
+flutuante, diagnóstico concluído, clique no telefone do rodapé).

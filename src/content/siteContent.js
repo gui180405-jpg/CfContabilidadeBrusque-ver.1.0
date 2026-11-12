@@ -28,6 +28,12 @@ export const site = {
   address: 'CRF Prime — R. Felipe Schmidt, 172 — 5º Andar, Sala 502 — Brusque, SC',
   crc: 'CRC/SC 011948/O',
 
+  // GOOGLE TAG MANAGER (medição de anúncios e visitas).
+  // Cole aqui o ID do contêiner, no formato 'GTM-XXXXXXX'
+  // (Tag Manager › Administrador › Instalar o Gerenciador de tags).
+  // Vazio = nenhum script do Google é carregado no site.
+  gtmId: '',
+
   // IMAGENS DO SITE.
   // Todas precisam estar dentro da pasta public/.
   heroImage: '/cf-recepcao-brasil.webp',

@@ -16,9 +16,9 @@ export const SITE_NAME = 'CF Contabilidade Brusque';
 
 export const pageMeta = {
   '/': {
-    title: 'CF Contabilidade Brusque SC | Contabilidade para Empresas',
+    title: 'CF Contabilidade Brusque | Contabilidade Empresarial e Consultiva',
     description:
-      'CF Contabilidade Brusque SC. Contabilidade para empresas, prestadores de serviço, comércios e profissionais liberais. Organização fiscal, trabalhista e contábil com segurança.',
+      'Contabilidade em Brusque para empresas que buscam organização, planejamento e segurança. Soluções contábeis, fiscais, trabalhistas e societárias para acompanhar o crescimento do seu negócio.',
   },
   '/servicos': {
     title: 'Serviços contábeis em Brusque | CF Contabilidade',

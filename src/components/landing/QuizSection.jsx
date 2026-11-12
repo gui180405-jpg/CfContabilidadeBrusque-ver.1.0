@@ -10,6 +10,7 @@ import {
   WalletCards,
 } from 'lucide-react';
 import PrimaryButton from '../common/PrimaryButton';
+import { trackEvent } from '../../lib/analytics';
 import { Eyebrow } from '../motion/primitives';
 import { EASE } from '../motion/motionConfig';
 import { site } from '../../content/siteContent';
@@ -72,6 +73,8 @@ export default function QuizSection() {
 
     if (currentStep === questions.length - 1) {
       setFinished(true);
+      // Medição: só avisa que o diagnóstico foi concluído. As respostas NÃO são enviadas.
+      trackEvent('diagnostico_concluido', { link_location: 'diagnostico' });
       return;
     }
 
