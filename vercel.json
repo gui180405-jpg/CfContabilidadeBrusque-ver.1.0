@@ -1,6 +1,57 @@
 {
   "cleanUrls": true,
   "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/proposta/contabilidade-para-imobiliarias",
+      "destination": "/contabilidade-para-imobiliarias",
+      "permanent": true
+    },
+    {
+      "source": "/proposta/troque-de-contador",
+      "destination": "/troque-de-contador",
+      "permanent": true
+    },
+    {
+      "source": "/proposta",
+      "destination": "/contabilidade-para-imobiliarias",
+      "permanent": true
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/sobre",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/servicos",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/diagnostico",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/blog",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/contato",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/admin/blog",
+      "destination": "/admin/blog/index.html"
+    },
+    {
+      "source": "/contabilidade-para-imobiliarias",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/troque-de-contador",
+      "destination": "/index.html"
+    }
+  ],
   "headers": [
     {
       "source": "/((?!api/|admin).*)",
@@ -91,32 +142,6 @@
           "value": "max-age=31536000; includeSubDomains"
         }
       ]
-    }
-  ],
-  "rewrites": [
-    {
-      "source": "/sobre",
-      "destination": "/index.html"
-    },
-    {
-      "source": "/servicos",
-      "destination": "/index.html"
-    },
-    {
-      "source": "/diagnostico",
-      "destination": "/index.html"
-    },
-    {
-      "source": "/blog",
-      "destination": "/index.html"
-    },
-    {
-      "source": "/contato",
-      "destination": "/index.html"
-    },
-    {
-      "source": "/admin/blog",
-      "destination": "/admin/blog/index.html"
     }
   ]
 }

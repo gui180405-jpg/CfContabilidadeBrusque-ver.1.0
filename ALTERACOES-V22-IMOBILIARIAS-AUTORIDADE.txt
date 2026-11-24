@@ -1,0 +1,72 @@
+CF CONTABILIDADE BRUSQUE — V22
+Página de imobiliárias: aprimoramento com base no estudo de autoridade
+=====================================================================
+
+NADA FOI PUBLICADO. A página continua em endereço de demonstração:
+  /proposta/contabilidade-para-imobiliarias
+Fora do menu, fora do mapa do site e com noindex (igual à v21).
+A página "Troque de contador" e o resto do site não mudaram.
+
+O QUE MUDOU NA PÁGINA
+1. Topo: novo subtítulo e textos; foto da Rose no lugar do escritório
+   vazio; botão principal "Solicitar o Diagnóstico Imobiliário".
+   Título "Contabilidade para imobiliárias em Brusque" mantido.
+2. NOVO — Faixa de credenciais: CRC/SC 011948/O, 17+ anos,
+   especialização em reforma tributária, palestras para o setor.
+3. Desafios: reescritos com problemas do setor (valores de terceiros,
+   repasses, comissões e corretores, DIMOB, reforma).
+4. NOVO — Reforma tributária no mercado imobiliário (fundo azul-marinho,
+   4 cartões + botão "Entender o impacto na minha imobiliária").
+5. Serviços: mesmos 5 grupos, reorganizados (entra "Reforma tributária").
+6. NOVO — Quem conduz: Rose Michei, com o VÍDEO DA PALESTRA NA IMOBIA
+   e os botões "Conversar com a Rose" e "Convidar a Rose para uma palestra".
+7. NOVO — Diagnóstico Imobiliário CF em 4 passos, com botão.
+8. Diferencial: texto reescrito ("Mais que obrigações em dia...").
+9. NOVO — Perguntas frequentes (4 perguntas, abre e fecha).
+10. Chamada final: texto novo, botão do diagnóstico + telefone.
+
+VÍDEO
+- public/videos/rose-palestra-imobia.mp4 (16 s, vertical, 2,2 MB)
+- public/videos/rose-palestra-imobia-capa.webp (capa)
+- Hospedado no próprio site (sem YouTube). Só carrega quando a pessoa
+  aperta "Assistir à palestra". A política de segurança (media-src 'self')
+  já permite, sem mudança no vercel.json.
+- Ao dar play, envia o evento "video_play" para o dataLayer (GTM).
+
+WHATSAPP (mensagens prontas diferentes por botão)
+- Diagnóstico (topo, bloco do diagnóstico, chamada final)
+- Reforma tributária
+- Conversar com a Rose
+- Convidar a Rose para uma palestra (área "palestra" na medição)
+- Serviços e Diferencial mantêm a mensagem anterior
+
+ARQUIVOS ALTERADOS
+- src/content/propostaPaginas.js          (textos da página de imobiliárias)
+- src/content/propostaMeta.js             (descrição para o Google)
+- src/pages/proposta/ImobiliariasPage.jsx (ordem dos blocos)
+- src/components/proposta/SectorSections.jsx
+    · novos: CredentialStrip, InsightCards, PortraitVideo, FaqList
+    · StepsRow: aceita 3 a 5 etapas, introdução e botão (opcionais)
+    · StatementWithPhoto: aceita vídeo no lugar da foto (opcional)
+    · Nenhum componente existente foi removido; a página de troca
+      continua igual.
+- public/videos/ (novo)
+
+CONFIRMAR COM A ROSE ANTES DE OFICIALIZAR
+- Forma correta de escrever a especialização em reforma tributária.
+- "17+ anos" (já usado no site) — é da Rose ou da CF?
+- Se o Diagnóstico será gratuito (hoje o texto diz só "sem compromisso
+  de contratação").
+- DIMOB, BPO e orientação sobre corretores para todos os clientes do setor.
+- Percentuais da reforma (70% locação / 50% venda) no texto da LC 214/2025.
+- Autorização de uso do vídeo da palestra (pessoas da plateia aparecem).
+- Quando houver o primeiro encontro com gestores, descomentar a frase
+  pronta no bloco "Diferencial" (propostaPaginas.js).
+
+AJUSTE (18/11/2026) — FOTO DO BLOCO "DIFERENCIAL"
+- A foto da reunião foi trocada pela foto nova da Rose no computador,
+  com os certificados ao fundo: public/fotos/rose-certificados.jpg
+  (+ versões otimizadas em public/fotos/otimizadas/rose-certificados-*.webp).
+- Só na página de imobiliárias. A página "Sobre" continua com a foto
+  da reunião (equipe-reuniao.jpg), que não foi apagada.
+- scripts/otimizar_fotos.py e src/content/responsiveImages.js atualizados.

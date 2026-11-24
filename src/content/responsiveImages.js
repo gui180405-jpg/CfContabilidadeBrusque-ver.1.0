@@ -61,6 +61,12 @@ const responsiveImages = {
     "srcSet": "/fotos/otimizadas/emilly-atendimento-640.webp 640w, /fotos/otimizadas/emilly-atendimento-1025.webp 1025w",
     "width": 1025,
     "height": 1534
+  },
+  "/fotos/rose-certificados.jpg": {
+    "src": "/fotos/otimizadas/rose-certificados-1025.webp",
+    "srcSet": "/fotos/otimizadas/rose-certificados-640.webp 640w, /fotos/otimizadas/rose-certificados-1025.webp 1025w",
+    "width": 1025,
+    "height": 1534
   }
 };
 

@@ -1,0 +1,63 @@
+CF CONTABILIDADE BRUSQUE — V23
+Página de imobiliárias: reanálise de UX, hierarquia e repetições
+=================================================================
+
+NADA FOI PUBLICADO. Endereço de demonstração (fora do menu, noindex):
+  /proposta/contabilidade-para-imobiliarias
+Nenhuma outra página foi alterada (conferido: troca de contador, Sobre e
+Início abrem sem erro).
+
+DIAGNÓSTICO (v22)
+- Reforma tributária citada em 11 pontos da página.
+- Desafios e serviços repetiam os mesmos 4 assuntos (problema e depois solução).
+- Diagnóstico explicado duas vezes (bloco de passos + chamada final).
+- Bloco "Diferencial" genérico, sem informação nova.
+- Credenciais repetiam o bloco da Rose; 2 das 4 perguntas frequentes
+  repetiam conteúdo já mostrado.
+- 10 blocos; o convite para contato aparecia 3 vezes com textos diferentes.
+
+NOVA ARQUITETURA (10 → 6 blocos)
+1 Topo — atenção: título mantido, subtítulo + 1 parágrafo, botão do
+  diagnóstico com "Conversa sem compromisso de contratação"; foto da Rose
+  com os certificados (a mesma escolhida em 18/11).
+2 Credenciais — confiança rápida: CRC, 17+ anos, Brusque e região.
+3 A operação da imobiliária — reconhecimento + solução juntos:
+  4 linhas (desafio do setor | como a CF cuida) + "A CF também cuida de".
+4 Reforma tributária — único lugar onde o tema é detalhado; inclui
+  "Como a CF apoia" (antes era um serviço separado).
+5 Rose e a palestra — vídeo, especialização, artigos, convite para palestra.
+6 Comece pelo Diagnóstico Imobiliário — 4 passos, WhatsApp, telefone e
+  "Já tem contador? Veja como funciona a troca".
+
+O QUE FOI FUNDIDO OU REMOVIDO (nenhuma informação importante perdida)
+- Desafios + Serviços → bloco 3.
+- Diagnóstico + Chamada final → bloco 6.
+- Perguntas frequentes: "troca de contador" foi para o bloco 6;
+  "outras cidades" já está nas credenciais; "reforma" e "DIMOB" repetiam
+  os blocos 3 e 4.
+- Bloco "Diferencial" removido; a ideia ("a CF olha para a operação
+  inteira") virou a introdução do bloco 3.
+- Todos os serviços da lista continuam na página.
+
+RESULTADO
+- Reforma: 4 menções, cada uma com uma função (promessa no topo,
+  explicação, quem conduz, item do diagnóstico).
+- Página ~30% mais curta (computador) e ~23% (celular), sem perder conteúdo.
+- Botões: diagnóstico (topo e final), reforma, Rose, palestra e dúvidas.
+  Mensagens de WhatsApp e medição preservadas.
+
+ARQUIVOS
+- src/content/propostaPaginas.js   (textos da página de imobiliárias)
+- src/pages/proposta/ImobiliariasPage.jsx
+- src/components/proposta/SectorSections.jsx
+    · SectorHero: frase de apoio (note) e enquadramento da foto (opcionais)
+    · ServiceRows: intro, desafio por linha, rótulo e serviços extras (opcionais)
+    · InsightCards: bloco "Como a CF apoia" (opcional)
+    · CredentialStrip: aceita 3 ou 4 itens
+    · Novo: ClosingSteps (fechamento com passos)
+    · RecognitionList, StepsRow, StatementWithPhoto, FinalCall e FaqList
+      continuam disponíveis; a página de troca não muda.
+
+PENDENTE COM A ROSE (igual à v22)
+- Forma de escrever a especialização; "17+ anos"; diagnóstico gratuito?;
+  serviços confirmados; percentuais da LC 214/2025; autorização do vídeo.

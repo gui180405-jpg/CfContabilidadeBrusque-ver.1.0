@@ -17,6 +17,10 @@ const BlogPage = lazy(() => import('./pages/BlogPage'));
 const BlogPostPage = lazy(() => import('./pages/BlogPostPage'));
 const NotFoundPage = lazy(() => import('./pages/NotFoundPage'));
 
+// Páginas por segmento (aprovadas pela Rose — v24).
+const ImobiliariasPage = lazy(() => import('./pages/segmentos/ImobiliariasPage'));
+const TrocaContadorPage = lazy(() => import('./pages/segmentos/TrocaContadorPage'));
+
 const routes = {
   '/': HomePage,
   '/sobre': AboutPage,
@@ -24,6 +28,8 @@ const routes = {
   '/diagnostico': DiagnosticPage,
   '/blog': BlogPage,
   '/contato': ContactPage,
+  '/contabilidade-para-imobiliarias': ImobiliariasPage,
+  '/troque-de-contador': TrocaContadorPage,
 };
 
 /*

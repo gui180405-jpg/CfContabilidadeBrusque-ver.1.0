@@ -1,0 +1,25 @@
+V21 — PÁGINAS DE IMOBILIÁRIAS E TROCA DE CONTADOR (SEM A TELA DE PROPOSTA)
+==========================================================================
+Base: V19. Foi retirada só a tela de apresentação /proposta; as duas páginas ficam.
+
+Endereços (ainda fora do menu, fora do sitemap e com noindex):
+- /proposta/contabilidade-para-imobiliarias
+- /proposta/troque-de-contador
+
+Removido em relação à V19:
+- src/pages/proposta/PropostaIndexPage.jsx (tela /proposta)
+- selo "Proposta para aprovação" nas duas páginas
+- rota e rewrite de /proposta (o endereço agora mostra "Página não encontrada")
+- lista de pendências em src/content/propostaPaginas.js
+
+Mantido:
+- src/content/propostaPaginas.js (textos das páginas)
+- src/content/propostaMeta.js (título e descrição para o Google)
+- src/components/proposta/SectorSections.jsx
+- src/pages/proposta/ImobiliariasPage.jsx e TrocaContadorPage.jsx
+- rotas das duas páginas em src/App.jsx e rewrites/noindex em vercel.json
+
+Para deixá-las oficiais (no menu, no Google e nos endereços definitivos
+/contabilidade-para-imobiliarias e /troque-de-contador) é preciso mais um ajuste.
+
+Testado: lint e build sem erros; as duas páginas abrem; /proposta mostra a página 404.

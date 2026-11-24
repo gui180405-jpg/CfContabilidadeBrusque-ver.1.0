@@ -36,6 +36,8 @@ const STATIC_PAGES = [
   { loc: '/diagnostico', changefreq: 'monthly', priority: '0.9' },
   { loc: '/blog', changefreq: 'weekly', priority: '0.7' },
   { loc: '/contato', changefreq: 'monthly', priority: '0.8' },
+  { loc: '/contabilidade-para-imobiliarias', changefreq: 'monthly', priority: '0.8' },
+  { loc: '/troque-de-contador', changefreq: 'monthly', priority: '0.7' },
 ];
 
 export function slugify(value = '') {

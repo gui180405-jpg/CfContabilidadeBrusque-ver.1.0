@@ -35,6 +35,7 @@ FOTOS = {
     '/fotos/equipena fachada.jpg': 80,
     '/cf-diagnostico-consultivo.webp': 80,
     '/fotos/emilly-atendimento.jpg': 80,
+    '/fotos/rose-certificados.jpg': 80,
 }
 LARGURAS = [640, 1024]
 

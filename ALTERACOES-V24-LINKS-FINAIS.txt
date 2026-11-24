@@ -1,0 +1,45 @@
+CF CONTABILIDADE BRUSQUE — V24
+Páginas por segmento nos endereços definitivos
+================================================
+
+ENDEREÇOS NOVOS (oficiais, liberados para o Google)
+- https://cfcontabilidadebrusque.com/contabilidade-para-imobiliarias
+- https://cfcontabilidadebrusque.com/troque-de-contador
+
+O QUE MUDOU
+- Rotas definitivas no site (src/App.jsx); noindex removido.
+- Título, descrição e canonical em src/content/pageMeta.js; o build
+  gera contabilidade-para-imobiliarias.html e troque-de-contador.html
+  com essas tags (para Google, WhatsApp e LinkedIn).
+- As duas páginas entraram no sitemap.xml.
+- Endereços antigos redirecionam (301) no vercel.json:
+    /proposta/contabilidade-para-imobiliarias → /contabilidade-para-imobiliarias
+    /proposta/troque-de-contador             → /troque-de-contador
+    /proposta                                → /contabilidade-para-imobiliarias
+  O cabeçalho noindex de /proposta foi retirado.
+- Página de Serviços: novo bloco "Atendimento por segmento", logo depois
+  da lista de serviços, com link para a página de imobiliárias.
+- Página de imobiliárias: o link "Já tem contador?" aponta para
+  /troque-de-contador.
+- Organização do código (sem mudar o visual):
+    src/pages/proposta/       → src/pages/segmentos/
+    src/components/proposta/  → src/components/segmentos/
+    src/content/propostaPaginas.js → src/content/paginasSegmento.js
+    src/content/propostaMeta.js    → removido (meta foi para pageMeta.js)
+    novo: src/components/segmentos/SegmentosServicos.jsx
+
+NÃO MUDOU
+- Conteúdo e visual das duas páginas (iguais à v23).
+- Menu e rodapé.
+- Landing page antiga e campanha antiga.
+
+AINDA FALTA PARA LIGAR O GOOGLE ADS
+- ID do Google Tag Manager em src/content/siteContent.js (campo gtmId,
+  hoje vazio). Sem ele, os cliques no WhatsApp não chegam ao Google Ads.
+
+DEPOIS DE PUBLICAR, CONFERIR
+1. Os dois endereços novos abrem.
+2. /proposta/contabilidade-para-imobiliarias redireciona para o novo.
+3. https://cfcontabilidadebrusque.com/sitemap.xml lista as duas páginas.
+4. No Google Search Console: enviar o sitemap de novo e pedir a
+   indexação das duas páginas (Inspeção de URL > Solicitar indexação).

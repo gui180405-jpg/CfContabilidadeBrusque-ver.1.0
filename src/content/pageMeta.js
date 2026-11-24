@@ -47,6 +47,18 @@ export const pageMeta = {
   },
 };
 
+// Páginas por segmento
+pageMeta['/contabilidade-para-imobiliarias'] = {
+  title: 'Contabilidade para imobiliárias em Brusque | CF Contabilidade',
+  description:
+    'Contabilidade, tributação e gestão para imobiliárias de Brusque e região: repasses, DIMOB e reforma tributária na locação e na venda. Solicite o Diagnóstico Imobiliário CF.',
+};
+pageMeta['/troque-de-contador'] = {
+  title: 'Trocar de contador em Brusque | CF Contabilidade',
+  description:
+    'Está pensando em trocar de contador? Entenda como funciona a mudança de contabilidade e converse com a CF Contabilidade Brusque.',
+};
+
 export const notFoundMeta = {
   title: 'Página não encontrada | CF Contabilidade Brusque',
   description: 'O endereço acessado não existe ou mudou. Volte para o início do site da CF Contabilidade Brusque.',

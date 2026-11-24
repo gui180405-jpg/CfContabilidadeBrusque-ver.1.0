@@ -2,6 +2,7 @@ import ServicesPageHero from '../components/common/ServicesPageHero';
 import ServicesSection from '../components/landing/ServicesSection';
 import FAQSection from '../components/landing/FAQSection';
 import CTASection from '../components/landing/CTASection';
+import SegmentosServicos from '../components/segmentos/SegmentosServicos';
 
 export default function ServicesPage() {
   return (
@@ -13,6 +14,7 @@ export default function ServicesPage() {
       />
 
       <ServicesSection />
+      <SegmentosServicos />
       <FAQSection />
       <CTASection />
     </>
