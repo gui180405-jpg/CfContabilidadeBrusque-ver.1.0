@@ -32,7 +32,7 @@ export const site = {
   // Cole aqui o ID do contêiner, no formato 'GTM-XXXXXXX'
   // (Tag Manager › Administrador › Instalar o Gerenciador de tags).
   // Vazio = nenhum script do Google é carregado no site.
-  GTM-PT8N452R: '',
+  gtmId: 'GTM-PT8N452R',
 
   // IMAGENS DO SITE.
   // Todas precisam estar dentro da pasta public/.

@@ -1,0 +1,31 @@
+CF CONTABILIDADE BRUSQUE — V25
+Google Tag Manager ligado no site
+==================================
+
+O QUE MUDOU
+- src/content/siteContent.js → gtmId: 'GTM-PT8N452R'
+  Só isso. O resto do site é igual à v24.
+
+COMO FUNCIONA
+- O site carrega o contêiner GTM-PT8N452R em todas as páginas
+  (https://www.googletagmanager.com/gtm.js?id=GTM-PT8N452R).
+- A política de segurança do vercel.json já permite o Google Tag Manager,
+  o Google Analytics e o Google Ads (feito na v18).
+- O site envia para o GTM (dataLayer):
+    whatsapp_click · phone_click · email_click · diagnostico_concluido
+  com link_location (área do botão) e page_path (página).
+
+TESTADO
+- Página de imobiliárias: o script do GTM carrega e o clique no WhatsApp
+  gera o evento whatsapp_click (link_location "topo-pagina",
+  page_path "/contabilidade-para-imobiliarias").
+
+FALTA FAZER DENTRO DO GTM (no tagmanager.google.com)
+1. Variáveis da camada de dados: link_location e page_path.
+2. Acionadores (Evento personalizado): whatsapp_click e phone_click,
+   com a condição Page Path contém "contabilidade-para-imobiliarias".
+3. Tag "Vinculador de conversões" em todas as páginas.
+4. Tags de conversão do Google Ads (ID e rótulo da conversão criada no
+   Google Ads) para cada acionador.
+5. Visualizar (Tag Assistant), testar o clique e PUBLICAR o contêiner.
+Passo a passo completo: Material 1, capítulo 7.
